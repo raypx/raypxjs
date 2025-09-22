@@ -1,7 +1,9 @@
 import type { ExecSyncOptions } from "node:child_process";
 import type { ListrTask } from "listr2";
 import type { Simplify } from "type-fest";
-import { safeExec } from "./utils";
+import { logger, safeExec } from "../utils";
+
+export type TaskCtx = Record<string, any>;
 
 /**
  * Creates a ListrTask - supports both task functions and shell commands
@@ -16,6 +18,7 @@ type TaskConfig = Simplify<{
   successTitle?: string;
   failureMessage?: string;
   options?: ExecSyncOptions;
+  retries?: number; // 0-2, simple retry
 }>;
 
 export function createTask(
@@ -31,25 +34,41 @@ export function createTask(
 
   const command = titleOrCommand;
   const config = typeof taskFnOrOpts === "string" ? { title: taskFnOrOpts } : taskFnOrOpts;
-  const { title = command, successTitle, failureMessage, options } = config ?? {};
+  const { title = command, successTitle, failureMessage, options, retries = 0 } = config ?? {};
 
   const autoSuccessTitle = successTitle || `${title} completed`;
   const autoFailureMessage = failureMessage || `${title} failed`;
 
   return {
     title,
-    task: async (_, task) => {
-      try {
-        const success = safeExec(command, options);
+    task: async (_ctx, task) => {
+      let attempts = 0;
+      const maxAttempts = retries + 1;
 
-        if (success) {
-          task.title = autoSuccessTitle;
-        } else {
-          task.skip(autoFailureMessage);
+      while (attempts < maxAttempts) {
+        try {
+          const success = safeExec(command, options);
+
+          if (!success) {
+            throw new Error(`Command execution failed: ${command}`);
+          } else {
+            task.title = autoSuccessTitle;
+            return;
+          }
+        } catch (error) {
+          attempts++;
+          const errorMessage = error instanceof Error ? error.message : "Unknown error";
+
+          if (attempts < maxAttempts) {
+            task.title = `${title} (retry ${attempts}/${retries})`;
+            // Reduce retry delay for better responsiveness
+            await new Promise((resolve) => setTimeout(resolve, Math.min(500 * attempts, 2000)));
+            continue;
+          }
+
+          logger.error(`Task failed: ${command}`, error);
+          throw new Error(`${autoFailureMessage}: ${errorMessage}`);
         }
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        task.skip(`${autoFailureMessage}: ${errorMessage}`);
       }
     },
   };

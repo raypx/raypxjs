@@ -1,6 +1,6 @@
 import type { ListrTask } from "listr2";
-import { createTask, definedCmd } from "./task";
-import { safeExec } from "./utils";
+import { createTask, definedCmd } from "../lib/task";
+import { safeExec } from "../utils";
 
 /**
  * Creates a task that formats code using Biome

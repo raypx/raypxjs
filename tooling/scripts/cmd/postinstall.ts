@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import deepmerge from "deepmerge";
 import fs from "fs-extra";
-import type { ListrTask, ListrTaskWrapper } from "listr2";
-import { createTask, definedCmd } from "./task";
+import type { ListrTaskWrapper } from "listr2";
+import { createTask, definedCmd } from "../lib/task";
 
 /**
  * Claude Code configuration constants
@@ -68,25 +68,14 @@ async function setupClaudeCode(task: ListrTaskWrapper<any, any, any>): Promise<v
 }
 
 /**
- * Creates a task for Claude Code setup
- */
-function createClaudeCodeTask(title: string): ListrTask {
-  return createTask(title, async (_, task) => {
-    await setupClaudeCode(task);
-  });
-}
-
-/**
  * Post-install tasks
  */
 const postinstall = definedCmd([
-  createTask("pnpm biome migrate --write", {
-    title: "Biome migration",
+  createTask("biome migrate --write", "Biome migration"),
+  createTask("pnpm --filter docs run fumadocs-mdx", "Fumadocs MDX"),
+  createTask("Claude Code setup", async (_, task) => {
+    await setupClaudeCode(task);
   }),
-  createTask("pnpm --filter docs run fumadocs-mdx", {
-    title: "Fumadocs MDX processing",
-  }),
-  createClaudeCodeTask("Claude Code setup"),
 ]);
 
 export default postinstall;

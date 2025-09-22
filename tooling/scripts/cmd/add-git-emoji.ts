@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { createTask, definedCmd } from "./task";
+import { createTask, definedCmd } from "../lib/task";
 
-const GITMOJI_MAP = {
+const GIT_EMOJI_MAP = {
   feat: "✨",
   fix: "🐛",
   docs: "📝",
@@ -16,7 +16,9 @@ const GITMOJI_MAP = {
   wip: "🚧",
 } as const;
 
-const EMOJI_REGEX = new RegExp(`^(${Object.values(GITMOJI_MAP).join("|")}|\\s)+`, "g");
+type GitEmojiMap = keyof typeof GIT_EMOJI_MAP;
+
+const EMOJI_REGEX = new RegExp(`^(${Object.values(GIT_EMOJI_MAP).join("|")}|\\s)+`, "g");
 const TYPE_REGEX = /^(\w+)(\(.+\))?:/;
 
 const extractType = (msg: string) => msg.replace(EMOJI_REGEX, "").match(TYPE_REGEX)?.[1] ?? "feat";
@@ -25,7 +27,7 @@ const processFile = (file: string) => {
   const msg = readFileSync(file, "utf8").trim();
   const clean = msg.replace(EMOJI_REGEX, "");
   const type = extractType(clean);
-  const emoji = GITMOJI_MAP[type as keyof typeof GITMOJI_MAP] ?? GITMOJI_MAP.feat;
+  const emoji = GIT_EMOJI_MAP[type as GitEmojiMap] ?? GIT_EMOJI_MAP.feat;
 
   writeFileSync(file, `${emoji} ${clean}`);
   return { emoji, type };

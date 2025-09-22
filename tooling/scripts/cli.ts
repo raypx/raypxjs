@@ -1,16 +1,42 @@
-import chalk from "chalk";
 import { Listr, PRESET_TIMER } from "listr2";
-import type { Cmd } from "./task";
-import { formatDuration } from "./utils";
+import { camelCase } from "lodash-es";
+import { formatDuration, logger } from "./utils";
+
+// Command cache to avoid repeated dynamic imports
+const cmdCache = new Map<string, any>();
+
+// Lazy load commands with caching
+async function loadCommand(name: string) {
+  if (cmdCache.has(name)) {
+    return cmdCache.get(name);
+  }
+
+  const cmdMap = {
+    clean: () => import("./cmd/clean").then((m) => m.default),
+    format: () => import("./cmd/format").then((m) => m.default),
+    setup: () => import("./cmd/setup").then((m) => m.default),
+    postinstall: () => import("./cmd/postinstall").then((m) => m.default),
+    addGitEmoji: () => import("./cmd/add-git-emoji").then((m) => m.default),
+  } as const;
+
+  const loader = cmdMap[camelCase(name) as keyof typeof cmdMap];
+  if (!loader) {
+    return null;
+  }
+
+  const cmd = await loader();
+  cmdCache.set(name, cmd);
+  return cmd;
+}
 
 /**
  * CLI entry point for raypx-scripts
  */
 async function cli(name: string) {
-  const cmd: Cmd = await import(`./${name}.ts`).then((m) => m.default);
+  const cmd = await loadCommand(name);
 
   if (!cmd) {
-    console.error(`raypx-scripts ${name} not found`);
+    logger.error(`Command ${name} not found`);
     process.exit(1);
   }
 
@@ -19,26 +45,24 @@ async function cli(name: string) {
     const { tasks, options = {} } = cmd;
 
     const listr = new Listr(tasks, {
-      concurrent: options.concurrent ?? false,
-      exitOnError: options.exitOnError ?? false,
-      renderer: (options.renderer as any) ?? "default",
+      concurrent: options.concurrent ?? true,
+      exitOnError: options.exitOnError ?? true,
+      renderer: process.env.CI ? "verbose" : "default",
       rendererOptions: {
-        timer: {
-          ...PRESET_TIMER,
-          format: (...args: number[]) => {
-            return () => chalk.gray(`[${formatDuration(args[0] ?? 0)}]`);
-          },
-        },
-        persistentOutput: true,
+        timer: PRESET_TIMER,
+        clearOutput: false,
+        removeEmptyLines: true,
       },
     });
 
     await listr.run();
-    console.log(`\nTasks completed in ${formatDuration(Date.now() - startTime)}`);
+
+    const totalDuration = Date.now() - startTime;
+    logger.success(`Tasks completed in ${formatDuration(totalDuration)}`);
   } catch (error: any) {
-    console.error(`raypx-scripts ${name} error:`, error.message);
+    logger.error(`Command ${name} failed:`, error.message);
     if (error.stack) {
-      console.error("Error stack:", error.stack);
+      logger.debug("Error stack:", error.stack);
     }
     process.exit(1);
   }

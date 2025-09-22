@@ -1,7 +1,7 @@
 import type { ListrTask } from "listr2";
 import * as rimraf from "rimraf";
-import { createTask, definedCmd } from "./task";
-import { PROJECT_ROOT } from "./utils";
+import { createTask, definedCmd } from "../lib/task";
+import { PROJECT_ROOT } from "../utils";
 
 /**
  * File patterns to clean during cleanup operations
@@ -48,8 +48,6 @@ function createFileCleanTask(): ListrTask {
 /**
  * Main clean function
  */
-const clean = definedCmd([createFileCleanTask(), createWorkspaceCleanTask()], {
-  concurrent: true,
-});
+const cleanCmd = definedCmd([createWorkspaceCleanTask(), createFileCleanTask()]);
 
-export default clean;
+export default cleanCmd;
