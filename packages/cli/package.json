@@ -1,0 +1,26 @@
+{
+  "name": "@raypx/cli",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./envs": "./src/envs.ts"
+  },
+  "scripts": {
+    "clean": "rimraf dist .turbo",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "@raypx/shared": "workspace:*",
+    "commander": "^14.0.1"
+  },
+  "devDependencies": {
+    "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

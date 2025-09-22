@@ -1,0 +1,26 @@
+{
+  "name": "@raypx/seo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "rimraf dist .turbo",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@raypx/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:react19",
+    "next": "catalog:",
+    "next-seo": "^6.8.0",
+    "schema-dts": "^1.1.5",
+    "typescript": "catalog:"
+  }
+}

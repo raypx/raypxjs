@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Automatically add gitmoji
+pnpm raypx-scripts add-gitmoji $1
+
+# Validate commit message format
+pnpm commitlint --edit $1

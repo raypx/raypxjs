@@ -1,0 +1,33 @@
+{
+  "name": "@raypx/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Build and release scripts for Raypx project",
+  "type": "module",
+  "bin": {
+    "raypx-scripts": "./bin/raypx-scripts.mjs",
+    "scripts": "./bin/raypx-scripts.mjs"
+  },
+  "scripts": {
+    "clean": "rimraf dist .turbo",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.29.7",
+    "chalk": "^5.6.2",
+    "dayjs": "^1.11.18",
+    "deepmerge": "^4.3.1",
+    "fs-extra": "^11.3.2",
+    "listr2": "^9.0.4",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@raypx/tsconfig": "workspace:*",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "catalog:",
+    "type-fest": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@raypx/server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./envs": "./src/envs.ts"
+  },
+  "scripts": {
+    "clean": "rimraf dist .turbo",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "test:watch": "vitest --watch"
+  },
+  "dependencies": {
+    "@raypx/auth": "workspace:*",
+    "@raypx/db": "workspace:*",
+    "@raypx/shared": "workspace:*",
+    "@scalar/hono-api-reference": "^0.9.19",
+    "date-fns": "^4.1.0",
+    "drizzle-orm": "^0.44.5",
+    "drizzle-zod": "^0.8.3",
+    "hono": "catalog:",
+    "zod": "catalog:",
+    "zod-openapi": "^5.4.1"
+  },
+  "devDependencies": {
+    "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

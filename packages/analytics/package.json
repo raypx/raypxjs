@@ -1,0 +1,40 @@
+{
+  "name": "@raypx/analytics",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./envs": "./src/envs.ts",
+    "./server": "./src/server/index.ts"
+  },
+  "scripts": {
+    "clean": "rimraf dist .turbo",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@raypx/shared": "workspace:*",
+    "@vercel/analytics": "^1.5.0",
+    "posthog-node": "^5.8.6"
+  },
+  "peerDependencies": {
+    "next": "catalog:",
+    "posthog-js": "^1.257.2",
+    "react": "catalog:react19"
+  },
+  "peerDependenciesMeta": {
+    "posthog-js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:react19",
+    "next": "catalog:",
+    "posthog-js": "^1.266.3",
+    "typescript": "catalog:"
+  }
+}
