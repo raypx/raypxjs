@@ -97,8 +97,8 @@ export function UserButtonMobile() {
             ))}
 
             <li key="logout" className="rounded-lg text-foreground hover:bg-muted">
-              <a
-                href="#"
+              <button
+                type="button"
                 onClick={async (event) => {
                   event.preventDefault();
                   closeDrawer();
@@ -108,7 +108,7 @@ export function UserButtonMobile() {
               >
                 <LogOutIcon className="size-4" />
                 <p className="text-sm">{t("common.logout")}</p>
-              </a>
+              </button>
             </li>
           </ul>
         </DrawerContent>

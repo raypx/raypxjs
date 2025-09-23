@@ -1,6 +1,7 @@
 import { createMetadata } from "@raypx/seo";
 import type { Metadata } from "next";
 import appConfig from "@/config/app.config";
+import CallToActionSection from "./_components/calltoaction";
 import { CTASection } from "./_components/cta-section";
 import { FeaturesSection } from "./_components/features-section";
 import { HeroSection } from "./_components/hero-section";
@@ -27,6 +28,7 @@ export default async function LandingPage() {
         <HeroSection />
         <FeaturesSection />
         <CTASection />
+        <CallToActionSection />
       </main>
     </div>
   );

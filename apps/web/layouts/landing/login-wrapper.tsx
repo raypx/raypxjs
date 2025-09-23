@@ -63,8 +63,12 @@ export const LoginWrapper = ({
   }
 
   return (
-    <span onClick={handleLogin} className="cursor-pointer">
+    <button
+      type="button"
+      onClick={handleLogin}
+      className="cursor-pointer bg-transparent border-none p-0"
+    >
       {children}
-    </span>
+    </button>
   );
 };

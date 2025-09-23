@@ -27,7 +27,7 @@
     "@raypx/supabase": "workspace:*",
     "@raypx/ui": "workspace:*",
     "@tanstack/react-form": "^1.23.0",
-    "@tanstack/react-query": "^5.90.1",
+    "@tanstack/react-query": "^5.90.2",
     "date-fns": "^4.1.0",
     "lucide-react": "catalog:",
     "next": "catalog:",

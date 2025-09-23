@@ -33,5 +33,11 @@
     "home": "Home",
     "about": "About",
     "contact": "Contact"
+  },
+  "calltoaction": {
+    "title": "Start Building",
+    "description": "Raypx lets you make AI SaaS in days, simply and effortlessly",
+    "primaryButton": "Get Started",
+    "secondaryButton": "See Demo"
   }
 }

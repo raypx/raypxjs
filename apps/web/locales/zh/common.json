@@ -33,5 +33,11 @@
     "home": "首页",
     "about": "关于",
     "contact": "联系我们"
+  },
+  "calltoaction": {
+    "title": "开始构建",
+    "description": "Raypx 可让您在几天内轻松构建您的 AI SaaS",
+    "primaryButton": "开始使用",
+    "secondaryButton": "查看演示"
   }
 }
