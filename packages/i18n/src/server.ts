@@ -65,6 +65,8 @@ export function createI18nServerConfig(options: I18nServerConfigOptions) {
       return {
         locale: lang,
         messages: messages,
+        timeZone: "UTC",
+        now: new Date(),
       };
     }),
     routing,

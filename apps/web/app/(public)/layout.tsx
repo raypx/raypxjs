@@ -1,10 +1,17 @@
 import type { ReactNode } from "react";
-import { LandingLayout } from "@/layouts/landing";
+import { Footer } from "@/layouts/landing/footer";
+import { Header } from "@/layouts/landing/header";
 
-export interface LandingLayoutProps {
+export interface PublicLayoutProps {
   children: ReactNode;
 }
 
-export default function LandingLayoutPage({ children }: LandingLayoutProps) {
-  return <LandingLayout>{children}</LandingLayout>;
+export default function PublicLayout({ children }: PublicLayoutProps) {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
+  );
 }
