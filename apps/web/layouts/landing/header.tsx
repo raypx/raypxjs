@@ -2,10 +2,12 @@
 
 import { useAuth } from "@raypx/auth/core";
 import { Button } from "@raypx/ui/components/button";
+import { ThemeSwitcher } from "@raypx/ui/components/theme-switcher";
 import { cn } from "@raypx/ui/lib/utils";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { LangSwitcher } from "@/components/lang-switcher";
 import { Logo } from "@/components/layout/logo";
 
 const menuItems = [
@@ -79,6 +81,8 @@ export const Header = ({ scroll = true }: HeaderProps) => {
             <Button asChild size="sm">
               <Link href={pages.SIGN_UP}>Sign Up</Link>
             </Button>
+            <ThemeSwitcher />
+            <LangSwitcher />
           </div>
         </nav>
 

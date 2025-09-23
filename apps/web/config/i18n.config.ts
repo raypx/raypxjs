@@ -3,6 +3,19 @@ import { createI18nServerConfig } from "@raypx/i18n/server";
 export const locales = ["en", "zh"] as const;
 export const defaultLocale = "en" as const;
 
+export const localeConfig = {
+  en: {
+    flag: "🇺🇸",
+    name: "en",
+    nativeName: "English",
+  },
+  zh: {
+    flag: "🇨🇳",
+    name: "zh",
+    nativeName: "中文",
+  },
+};
+
 export type Locale = (typeof locales)[number];
 
 const authMessages: Record<Locale, () => Promise<Record<string, unknown>>> = {
@@ -19,6 +32,7 @@ const config = createI18nServerConfig({
       auth: (await authMessages[locale as Locale]()).default,
       navigation: (await import(`../locales/${locale}/navigation.json`)).default,
       layout: (await import(`../locales/${locale}/layout.json`)).default,
+      dashboard: (await import(`../locales/${locale}/dashboard.json`)).default,
     };
 
     return messages;

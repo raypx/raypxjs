@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@raypx/ui/components/dropdown-menu";
 import { cn } from "@raypx/ui/lib/utils";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, Languages } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 
@@ -34,12 +34,13 @@ export const LangSwitcher = () => {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-9 px-3 gap-2">
-          {/* <Languages className="h-4 w-4" /> */}
-          <span className="hidden sm:inline-block text-sm font-medium">
-            {currentLocale?.nativeName}
-          </span>
-          <ChevronDown className="h-3 w-3 opacity-50" />
+        <Button
+          variant="ghost"
+          size="sm"
+          className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+        >
+          <Languages className="size-3" />
+          <span className="sr-only">{currentLocale?.name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">

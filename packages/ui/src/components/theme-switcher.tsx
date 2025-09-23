@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
-  const { setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -21,8 +21,12 @@ export function ThemeSwitcher() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon">
-        <Sun className="h-4 w-4" />
+      <Button
+        variant="outline"
+        size="sm"
+        className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+      >
+        <Sun className="size-4" />
       </Button>
     );
   }
@@ -32,25 +36,24 @@ export function ThemeSwitcher() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          size="icon"
+          size="sm"
           className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
         >
-          <Sun className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          {resolvedTheme === "light" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="mr-2 h-4 w-4" />
+          <Sun className="mr-2 size-4" />
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="mr-2 h-4 w-4" />
+          <Moon className="mr-2 size-4" />
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor className="mr-2 h-4 w-4" />
+          <Monitor className="mr-2 size-4" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

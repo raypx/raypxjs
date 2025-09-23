@@ -1,0 +1,245 @@
+{
+  "dashboard": {
+    "title": "仪表盘"
+  },
+  "admin": {
+    "title": "系统管理",
+    "users": {
+      "title": "用户管理",
+      "fakeData": "注：只为演示功能，数据为假数据，封禁功能不可用",
+      "error": "获取用户失败",
+      "search": "搜索用户...",
+      "columns": {
+        "columns": "显示列",
+        "name": "姓名",
+        "email": "邮箱",
+        "role": "角色",
+        "createdAt": "创建时间",
+        "customerId": "客户ID",
+        "status": "状态",
+        "banReason": "封禁原因",
+        "banExpires": "封禁到期时间"
+      },
+      "admin": "管理员",
+      "user": "用户",
+      "email": {
+        "verified": "邮箱已验证",
+        "unverified": "邮箱未验证"
+      },
+      "emailCopied": "邮箱已复制到剪贴板",
+      "banned": "账号被封禁",
+      "active": "账号正常",
+      "joined": "加入时间",
+      "updated": "更新时间",
+      "ban": {
+        "reason": "封禁原因",
+        "reasonPlaceholder": "请输入封禁该用户的原因",
+        "defaultReason": "垃圾信息",
+        "never": "永不解禁",
+        "expires": "封禁到期时间",
+        "selectDate": "选择日期",
+        "button": "封禁用户",
+        "success": "用户已被封禁",
+        "error": "封禁用户失败"
+      },
+      "unban": {
+        "button": "解除封禁",
+        "success": "用户已被解除封禁",
+        "error": "解除封禁失败"
+      },
+      "close": "关闭"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "profile": {
+      "title": "账户",
+      "description": "管理您的账户信息",
+      "avatar": {
+        "title": "头像",
+        "description": "点击上传按钮上传自定义头像",
+        "recommendation": "头像是可选的，但强烈推荐设置",
+        "uploading": "上传中...",
+        "uploadAvatar": "上传头像",
+        "success": "头像更新成功",
+        "fail": "更新头像失败"
+      },
+      "name": {
+        "title": "名字",
+        "description": "请输入您的名字",
+        "placeholder": "名字",
+        "minLength": "请至少使用 3 个字符",
+        "maxLength": "请最多使用 30 个字符",
+        "hint": "请使用 3-30 个字符",
+        "success": "名字更新成功",
+        "fail": "更新名字失败",
+        "saving": "保存中...",
+        "save": "保存"
+      }
+    },
+    "billing": {
+      "title": "账单",
+      "description": "管理您的订阅和账单信息",
+      "status": {
+        "active": "已激活",
+        "trial": "试用中",
+        "free": "免费版",
+        "lifetime": "终身版"
+      },
+      "interval": {
+        "month": "月",
+        "year": "年",
+        "oneTime": "一次性"
+      },
+      "currentPlan": {
+        "title": "当前方案",
+        "description": "您当前的方案详情",
+        "noPlan": "您没有激活的方案"
+      },
+      "CustomerPortalButton": {
+        "loading": "加载中...",
+        "createCustomerPortalFailed": "打开Stripe客户界面失败"
+      },
+      "price": "价格：",
+      "periodStartDate": "周期开始日期：",
+      "nextBillingDate": "下次账单日期：",
+      "trialEnds": "试用结束日期：",
+      "freePlanMessage": "您当前使用的是功能有限的免费方案",
+      "lifetimeMessage": "您拥有所有高级功能的终身使用权限",
+      "manageSubscription": "管理订阅和账单",
+      "manageBilling": "管理账单",
+      "upgradePlan": "升级方案",
+      "retry": "重试",
+      "errorMessage": "获取数据失败",
+      "paymentSuccess": "支付成功"
+    },
+    "credits": {
+      "title": "积分",
+      "description": "管理您的积分交易",
+      "tabs": {
+        "balance": "积分余额",
+        "transactions": "交易记录"
+      },
+      "balance": {
+        "title": "积分余额",
+        "description": "您的积分余额",
+        "credits": "积分",
+        "creditsDescription": "您有 {credits} 积分",
+        "creditsExpired": "积分已过期",
+        "creditsAdded": "积分已添加到您的账户",
+        "viewTransactions": "查看积分记录",
+        "retry": "重试",
+        "expiringCredits": "{credits} 积分将在 {days} 天内过期"
+      },
+      "packages": {
+        "title": "积分套餐",
+        "description": "购买积分以使用我们的更多服务",
+        "purchase": "购买",
+        "processing": "处理中...",
+        "popular": "热门",
+        "completePurchase": "请支付订单",
+        "failedToFetchCredits": "获取积分失败",
+        "failedToCreatePaymentIntent": "创建付款意向失败",
+        "failedToInitiatePayment": "发起付款失败",
+        "cancel": "取消",
+        "purchaseFailed": "购买积分失败",
+        "checkoutFailed": "创建支付会话失败",
+        "loading": "加载中...",
+        "pay": "支付"
+      },
+      "transactions": {
+        "title": "积分记录",
+        "error": "获取积分交易记录失败",
+        "search": "搜索积分交易记录...",
+        "paymentIdCopied": "支付ID已复制到剪贴板",
+        "columns": {
+          "columns": "列",
+          "id": "ID",
+          "type": "类型",
+          "description": "描述",
+          "amount": "金额",
+          "remainingAmount": "剩余金额",
+          "paymentId": "支付编号",
+          "expirationDate": "过期日期",
+          "expirationDateProcessedAt": "过期处理时间",
+          "createdAt": "创建时间",
+          "updatedAt": "更新时间"
+        },
+        "types": {
+          "MONTHLY_REFRESH": "每月赠送",
+          "REGISTER_GIFT": "注册赠送",
+          "PURCHASE": "购买积分",
+          "USAGE": "使用积分",
+          "EXPIRE": "过期积分",
+          "SUBSCRIPTION_RENEWAL": "订阅月度积分",
+          "LIFETIME_MONTHLY": "终身月度积分"
+        },
+        "detailViewer": {
+          "title": "积分交易详情",
+          "close": "关闭"
+        },
+        "expired": "已过期",
+        "never": "永不过期"
+      }
+    },
+    "notification": {
+      "title": "通知",
+      "description": "管理您的通知设置",
+      "newsletter": {
+        "title": "订阅",
+        "description": "管理您的邮件列表订阅偏好",
+        "label": "订阅邮件列表",
+        "hint": "您可以随时更改订阅偏好",
+        "emailRequired": "订阅邮件列表需要邮箱",
+        "subscribeSuccess": "成功订阅邮件列表",
+        "subscribeFail": "订阅邮件列表失败",
+        "unsubscribeSuccess": "成功取消订阅邮件列表",
+        "unsubscribeFail": "取消订阅邮件列表失败",
+        "error": "更新订阅时发生错误"
+      }
+    },
+    "security": {
+      "title": "安全",
+      "description": "管理您的安全设置",
+      "updatePassword": {
+        "title": "修改密码",
+        "description": "输入您的当前密码和新密码",
+        "currentPassword": "当前密码",
+        "currentRequired": "当前密码是必填项",
+        "newPassword": "新密码",
+        "newMinLength": "密码必须至少包含 8 个字符",
+        "hint": "请至少使用 8 个字符作为密码",
+        "showPassword": "显示密码",
+        "hidePassword": "隐藏密码",
+        "success": "密码更新成功",
+        "fail": "更新密码失败",
+        "saving": "保存中...",
+        "save": "保存"
+      },
+      "resetPassword": {
+        "title": "重置密码",
+        "description": "重置密码以启用邮箱登录",
+        "info": "重置密码将允许您除了社交登录方式外，还可以使用邮箱和密码登录，您将收到一封包含重置密码链接的电子邮件",
+        "button": "重置密码"
+      },
+      "deleteAccount": {
+        "title": "删除账号",
+        "description": "永久删除您的账号和所有内容",
+        "warning": "此操作是不可逆的，请谨慎操作",
+        "button": "删除账号",
+        "confirmTitle": "删除账号",
+        "confirmDescription": "您确定要删除您的账号吗？此操作无法撤销",
+        "confirm": "删除",
+        "cancel": "取消",
+        "deleting": "删除中...",
+        "success": "账号删除成功",
+        "fail": "删除账号失败"
+      }
+    }
+  },
+  "upgrade": {
+    "title": "升级",
+    "description": "升级到Pro以获取所有功能",
+    "button": "升级"
+  }
+}

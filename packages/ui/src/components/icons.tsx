@@ -11,6 +11,8 @@ export {
   IconQrcode as QrCode,
   IconSend as Send,
   IconTrash as Trash,
+  IconTrendingDown,
+  IconTrendingUp,
   IconUpload as Upload,
   IconUserX as UserX,
 } from "@tabler/icons-react";

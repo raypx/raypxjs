@@ -1,4 +1,5 @@
 import {
+  adminClient,
   anonymousClient,
   apiKeyClient,
   emailOTPClient,
@@ -14,6 +15,12 @@ import {
 } from "better-auth/client/plugins";
 import type { createAuthClient as createAuthClientType } from "better-auth/react";
 import { createAuthClient } from "better-auth/react";
+import {
+  ac,
+  admin as adminRole,
+  superadmin as superAdminRole,
+  user as userRole,
+} from "../permissions";
 
 export const authClient = createAuthClient({
   plugins: [
@@ -31,6 +38,14 @@ export const authClient = createAuthClient({
     twoFactorClient(),
     organizationClient(),
     lastLoginMethodClient(),
+    adminClient({
+      ac,
+      roles: {
+        user: userRole,
+        admin: adminRole,
+        superadmin: superAdminRole,
+      },
+    }),
   ],
 });
 
