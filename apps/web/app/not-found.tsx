@@ -1,27 +1,29 @@
-"use client";
-
 import { Button } from "@raypx/ui/components/button";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/layout/logo";
+import { LocaleLink } from "@/components/link";
 
+/**
+ * Note that `app/[locale]/[...rest]/page.tsx`
+ * is necessary for this page to render.
+ *
+ * https://next-intl.dev/docs/environments/error-files#not-foundjs
+ * https://next-intl.dev/docs/environments/error-files#catching-non-localized-requests
+ */
 export default function NotFound() {
-  const t = useTranslations("common.pages.404");
+  const t = useTranslations("common.notFound");
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="text-center max-w-md">
-        <h1 className="text-9xl font-bold text-gray-200 mb-4">404</h1>
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">{t("title")}</h2>
-        <p className="text-gray-600 mb-8">{t("description")}</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/">
-            <Button>{t("backToHome")}</Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button variant="outline">{t("goToDashboard")}</Button>
-          </Link>
-        </div>
-      </div>
+    <div className="flex min-h-screen flex-col items-center justify-center gap-8">
+      <Logo className="size-12" />
+
+      <h1 className="text-4xl font-bold">{t("title")}</h1>
+
+      <p className="text-balance text-center text-xl font-medium px-4">{t("message")}</p>
+
+      <Button asChild size="lg" variant="default" className="cursor-pointer">
+        <LocaleLink href="/">{t("backToHome")}</LocaleLink>
+      </Button>
     </div>
   );
 }
