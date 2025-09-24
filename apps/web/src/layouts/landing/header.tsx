@@ -16,7 +16,7 @@ const menuItems = [
   { name: "Features", href: "#features" },
   { name: "Pricing", href: "#pricing" },
   { name: "About", href: "#about" },
-  { name: "Docs", href: "https://docs.raypx.com", external: true },
+  { name: "Docs", href: "https://raypx.link/docs", external: true },
 ];
 
 interface HeaderProps {

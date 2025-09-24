@@ -37,7 +37,7 @@ export default function HomePage() {
                 Health Check
               </a>
               <a
-                href="https://docs.raypx.com/api"
+                href="https://raypx.link/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors"

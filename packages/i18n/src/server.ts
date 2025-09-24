@@ -52,7 +52,7 @@ export function createI18nServerConfig(options: I18nServerConfigOptions) {
     // The prefix to use for the locale in the URL
     // Use "always" for better SEO and clearer URLs
     // https://next-intl.dev/docs/routing#locale-prefix
-    localePrefix: "as-needed",
+    localePrefix: "never",
   });
 
   return {

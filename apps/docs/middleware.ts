@@ -1,9 +1,12 @@
+import type { NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/config/i18n.config";
 
 const intlMiddleware = createMiddleware(routing);
 
-export default intlMiddleware;
+export default async function middleware(req: NextRequest) {
+  return intlMiddleware(req);
+}
 
 export const config = {
   // Match all pathnames except for
