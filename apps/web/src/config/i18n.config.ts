@@ -28,11 +28,11 @@ const config = createI18nServerConfig({
   defaultLocale,
   importMessages: async (locale) => {
     const messages = {
-      common: (await import(`../locales/${locale}/common.json`)).default,
+      common: (await import(`../../locales/${locale}/common.json`)).default,
       auth: (await authMessages[locale as Locale]()).default,
-      navigation: (await import(`../locales/${locale}/navigation.json`)).default,
-      layout: (await import(`../locales/${locale}/layout.json`)).default,
-      dashboard: (await import(`../locales/${locale}/dashboard.json`)).default,
+      navigation: (await import(`../../locales/${locale}/navigation.json`)).default,
+      layout: (await import(`../../locales/${locale}/layout.json`)).default,
+      dashboard: (await import(`../../locales/${locale}/dashboard.json`)).default,
     };
 
     return messages;

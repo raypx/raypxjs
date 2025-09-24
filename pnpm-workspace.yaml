@@ -7,7 +7,7 @@ catalog:
   '@types/node': ^24.5.2
   hono: ^4.9.8
   lucide-react: ^0.544.0
-  next: ^15.5.3
+  next: ^15.5.4
   next-intl: ^4.3.9
   type-fest: ^5.0.1
   typescript: ^5.9.2

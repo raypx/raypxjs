@@ -10,7 +10,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@raypx/ui/components/sidebar";
-import { useTranslations } from "next-intl";
 import type * as React from "react";
 import { useEffect, useState } from "react";
 import { SidebarMain } from "@/components/dashboard/sidebar-main";
@@ -23,7 +22,6 @@ import { Logo } from "../layout/logo";
  * Dashboard sidebar
  */
 export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const t = useTranslations();
   const {
     hooks: { useSession },
   } = useAuth();
@@ -51,7 +49,7 @@ export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sideb
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <LocaleLink href="/dashboard">
                 <Logo className="size-5" />
-                <span className="truncate font-semibold text-base">{t("Metadata.name")}</span>
+                <span className="truncate font-semibold text-base">Raypx</span>
               </LocaleLink>
             </SidebarMenuButton>
           </SidebarMenuItem>

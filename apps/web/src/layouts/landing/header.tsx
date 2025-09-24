@@ -1,11 +1,13 @@
 "use client";
 
-import { useAuth } from "@raypx/auth/core";
+import { SignedIn, SignedOut, useAuth } from "@raypx/auth/core";
+import { OrganizationSwitcher } from "@raypx/auth/organization";
 import { Button } from "@raypx/ui/components/button";
 import { ThemeSwitcher } from "@raypx/ui/components/theme-switcher";
 import { cn } from "@raypx/ui/lib/utils";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { LangSwitcher } from "@/components/lang-switcher";
 import { Logo } from "@/components/layout/logo";
@@ -25,6 +27,7 @@ export const Header = ({ scroll = true }: HeaderProps) => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { viewPaths: pages } = useAuth();
+  const t = useTranslations("common");
 
   React.useEffect(() => {
     if (!scroll) return;
@@ -75,12 +78,17 @@ export const Header = ({ scroll = true }: HeaderProps) => {
 
           {/* Auth buttons */}
           <div className="flex items-center gap-4">
-            <Button asChild variant="outline" size="sm" className="cursor-pointer">
-              <Link href={pages.SIGN_IN}>Login</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={pages.SIGN_UP}>Sign Up</Link>
-            </Button>
+            <SignedOut>
+              <Button asChild variant="outline" size="sm" className="cursor-pointer">
+                <Link href={pages.SIGN_IN}>{t("login")}</Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href={pages.SIGN_UP}>{t("signUp")}</Link>
+              </Button>
+            </SignedOut>
+            <SignedIn>
+              <OrganizationSwitcher size="icon" />
+            </SignedIn>
             <ThemeSwitcher />
             <LangSwitcher />
           </div>
@@ -129,10 +137,10 @@ export const Header = ({ scroll = true }: HeaderProps) => {
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t">
                 <Button asChild variant="outline" size="sm" className="w-full">
-                  <Link href={pages.SIGN_IN}>Login</Link>
+                  <Link href={pages.SIGN_IN}>{t("login")}</Link>
                 </Button>
                 <Button asChild size="sm" className="w-full">
-                  <Link href={pages.SIGN_UP}>Sign Up</Link>
+                  <Link href={pages.SIGN_UP}>{t("signUp")}</Link>
                 </Button>
               </div>
             </div>
