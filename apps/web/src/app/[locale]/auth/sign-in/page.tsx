@@ -26,7 +26,7 @@ export default function SignInPage() {
           </div>
           Raypx
         </Link>
-        <AuthView view="SIGN_IN" />
+        <AuthView view="SIGN_IN" socialLayout="grid" />
       </div>
     </div>
   );

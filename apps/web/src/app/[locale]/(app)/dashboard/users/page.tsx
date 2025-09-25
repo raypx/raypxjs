@@ -20,7 +20,7 @@ export default function UsersPage() {
       role: "Admin",
       status: "active",
       lastActive: "2 hours ago",
-      avatar: "/api/avatars/1",
+      avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`,
       department: "Engineering",
     },
     {
@@ -30,7 +30,7 @@ export default function UsersPage() {
       role: "User",
       status: "active",
       lastActive: "1 day ago",
-      avatar: "/api/avatars/2",
+      avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`,
       department: "Marketing",
     },
     {
@@ -40,7 +40,7 @@ export default function UsersPage() {
       role: "Manager",
       status: "inactive",
       lastActive: "1 week ago",
-      avatar: "/api/avatars/3",
+      avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`,
       department: "Sales",
     },
     {
@@ -50,7 +50,7 @@ export default function UsersPage() {
       role: "User",
       status: "active",
       lastActive: "3 hours ago",
-      avatar: "/api/avatars/4",
+      avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`,
       department: "Design",
     },
     {
@@ -60,7 +60,7 @@ export default function UsersPage() {
       role: "Admin",
       status: "active",
       lastActive: "30 minutes ago",
-      avatar: "/api/avatars/5",
+      avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`,
       department: "Engineering",
     },
   ];

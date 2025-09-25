@@ -26,7 +26,7 @@ export default function SignUpPage() {
           </div>
           Raypx
         </Link>
-        <AuthView view="SIGN_UP" />
+        <AuthView view="SIGN_UP" socialLayout="grid" />
       </div>
     </div>
   );

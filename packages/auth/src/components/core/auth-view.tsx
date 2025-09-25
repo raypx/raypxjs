@@ -10,14 +10,11 @@ import {
   CardTitle,
 } from "@raypx/ui/components/card";
 import { ArrowLeft } from "@raypx/ui/components/icons";
-import { Link } from "@raypx/ui/components/link";
 import { Separator } from "@raypx/ui/components/separator";
 import { cn } from "@raypx/ui/lib/utils";
 import { type ReactNode, useEffect, useState } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
-import { useIsHydrated } from "../../core/hooks/use-hydrated";
 import { socialProviders } from "../../core/lib/providers/social-providers";
-import { buildAuthUrl } from "../../core/lib/url-utils";
 import { getViewByPath } from "../../core/lib/utils";
 import type { AuthViewPaths } from "../../core/lib/view-paths";
 import { SignOut } from "../account/sign-out";
@@ -25,6 +22,7 @@ import { ProviderButton } from "../core/provider-button";
 import { AcceptInvitationCard } from "../organization/accept-invitation-card";
 import { AuthCallback } from "./auth-callback";
 import { AuthForm, type AuthFormClassNames } from "./auth-form";
+import { AuthLink } from "./auth-link";
 import { EmailOTPButton } from "./email-otp-button";
 import { MagicLinkButton } from "./magic-link-button";
 import { OneTap } from "./one-tap";
@@ -66,9 +64,7 @@ export function AuthView({
   path?: string;
   otpSeparators?: 0 | 1 | 2;
 }) {
-  const isHydrated = useIsHydrated();
   const {
-    basePath,
     credentials,
     t,
     magicLink,
@@ -264,17 +260,13 @@ export function AuthView({
           view === "MAGIC_LINK" ||
           view === "EMAIL_OTP" ||
           view === "SIGN_UP" ? (
-            <Link
+            <AuthLink
               className={cn("text-foreground underline", classNames?.footerLink)}
-              href={buildAuthUrl(
-                basePath,
-                viewPaths[
-                  view === "SIGN_IN" || view === "MAGIC_LINK" || view === "EMAIL_OTP"
-                    ? "SIGN_UP"
-                    : "SIGN_IN"
-                ],
-                isHydrated,
-              )}
+              pathName={
+                view === "SIGN_IN" || view === "MAGIC_LINK" || view === "EMAIL_OTP"
+                  ? "SIGN_UP"
+                  : "SIGN_IN"
+              }
             >
               <Button
                 variant="link"
@@ -285,7 +277,7 @@ export function AuthView({
                   ? t("SIGN_UP")
                   : t("SIGN_IN")}
               </Button>
-            </Link>
+            </AuthLink>
           ) : (
             <Button
               variant="link"

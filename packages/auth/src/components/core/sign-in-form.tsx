@@ -15,7 +15,6 @@ import {
 } from "@raypx/ui/components/form";
 import { Loader2 } from "@raypx/ui/components/icons";
 import { Input } from "@raypx/ui/components/input";
-import { Link } from "@raypx/ui/components/link";
 import { PasswordField } from "@raypx/ui/components/password-field";
 import { useTranslations } from "next-intl";
 import { type RefObject, useEffect } from "react";
@@ -26,10 +25,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { useCaptcha } from "../../core/hooks/use-captcha";
 import { useIsHydrated } from "../../core/hooks/use-hydrated";
 import { useOnSuccessTransition } from "../../core/hooks/use-success-transition";
-import { buildAuthUrl } from "../../core/lib/url-utils";
 import { cn, getLocalizedError, getPasswordSchema, isValidEmail } from "../../core/lib/utils";
 import type { PasswordValidation } from "../../types";
 import type { AuthFormClassNames } from "./auth-form";
+import { AuthLink } from "./auth-link";
 import { Captcha } from "./captcha";
 
 export interface SignInFormProps {
@@ -202,12 +201,12 @@ export function SignInForm({
                 <FormLabel className={classNames?.label}>{t("PASSWORD")}</FormLabel>
 
                 {credentials?.forgotPassword && (
-                  <Link
+                  <AuthLink
                     className={cn("text-sm hover:underline", classNames?.forgotPasswordLink)}
-                    href={buildAuthUrl(basePath, viewPaths.FORGOT_PASSWORD, isHydrated)}
+                    pathName="FORGOT_PASSWORD"
                   >
                     {t("FORGOT_PASSWORD_LINK")}
-                  </Link>
+                  </AuthLink>
                 )}
               </div>
 
@@ -239,7 +238,6 @@ export function SignInForm({
                     disabled={isSubmitting}
                   />
                 </FormControl>
-
                 <FormLabel>{t("REMEMBER_ME")}</FormLabel>
               </FormItem>
             )}

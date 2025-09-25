@@ -3,6 +3,7 @@
 import { useAuth } from "@raypx/auth/core";
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -22,7 +23,7 @@ import {
 import { toast } from "@raypx/ui/components/toast";
 import { ChevronsUpDown, Languages, LaptopIcon, LogOut, MoonIcon, SunIcon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { type Locale, useTranslations } from "next-intl";
+import { type Locale, useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useTransition } from "react";
 import { useLocalePathname, useLocaleRouter } from "@/components/link";
@@ -38,7 +39,7 @@ interface SidebarUserProps {
  * User navigation for the dashboard sidebar
  */
 export function SidebarUser({ user }: SidebarUserProps) {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const router = useLocaleRouter();
   const { isMobile } = useSidebar();
   const pathname = useLocalePathname();
@@ -46,6 +47,13 @@ export function SidebarUser({ user }: SidebarUserProps) {
   const [, startTransition] = useTransition();
   const t = useTranslations();
   const { authClient } = useAuth();
+  const currentLocale = useLocale();
+
+  const themeOptions = [
+    { value: "light", icon: SunIcon, label: t("common.mode.light") },
+    { value: "dark", icon: MoonIcon, label: t("common.mode.dark") },
+    { value: "system", icon: LaptopIcon, label: t("common.mode.system") },
+  ] as const;
 
   const setLocale = (nextLocale: Locale) => {
     // setCurrentLocale(nextLocale);
@@ -121,18 +129,21 @@ export function SidebarUser({ user }: SidebarUserProps) {
                   <span>{t("common.mode.label")}</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => setTheme("light")}>
-                    <SunIcon className="mr-2 size-4" />
-                    <span>{t("common.mode.light")}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => setTheme("dark")}>
-                    <MoonIcon className="mr-2 size-4" />
-                    <span>{t("common.mode.dark")}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => setTheme("system")}>
-                    <LaptopIcon className="mr-2 size-4" />
-                    <span>{t("common.mode.system")}</span>
-                  </DropdownMenuItem>
+                  {themeOptions.map((option) => {
+                    const IconComponent = option.icon;
+                    const isSelected = theme === option.value;
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={option.value}
+                        checked={isSelected}
+                        onCheckedChange={() => !isSelected && setTheme(option.value)}
+                        className="cursor-pointer"
+                      >
+                        <IconComponent className="mr-2 size-4" />
+                        <span>{option.label}</span>
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
             </DropdownMenuGroup>
@@ -144,18 +155,22 @@ export function SidebarUser({ user }: SidebarUserProps) {
                   <span>{t("common.language")}</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                  {locales.map((localeOption) => (
-                    <DropdownMenuItem
-                      key={localeOption}
-                      onClick={() => setLocale(localeOption)}
-                      className="cursor-pointer"
-                    >
-                      {localeConfig[localeOption].flag && (
-                        <span className="mr-2 text-md">{localeConfig[localeOption].flag}</span>
-                      )}
-                      <span className="text-sm">{localeConfig[localeOption].name}</span>
-                    </DropdownMenuItem>
-                  ))}
+                  {locales.map((localeOption) => {
+                    const isSelected = currentLocale === localeOption;
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={localeOption}
+                        checked={isSelected}
+                        onCheckedChange={() => !isSelected && setLocale(localeOption)}
+                        className="cursor-pointer"
+                      >
+                        {localeConfig[localeOption].flag && (
+                          <span className="mr-2 text-md">{localeConfig[localeOption].flag}</span>
+                        )}
+                        <span className="text-sm">{localeConfig[localeOption].nativeName}</span>
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
             </DropdownMenuGroup>

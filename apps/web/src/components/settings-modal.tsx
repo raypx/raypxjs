@@ -113,7 +113,10 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
             <div className="flex items-center gap-6">
               <div className="text-center">
                 <Avatar className="h-24 w-24 mx-auto mb-4">
-                  <AvatarImage src="/api/avatars/1" alt="Profile" />
+                  <AvatarImage
+                    src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`}
+                    alt="Profile"
+                  />
                   <AvatarFallback className="text-2xl">JD</AvatarFallback>
                 </Avatar>
                 <Button variant="outline" size="sm">
