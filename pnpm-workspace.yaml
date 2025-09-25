@@ -24,3 +24,6 @@ catalogs:
 
 publicHoistPattern:
   - '*prettier*'
+
+overrides:
+  esbuild: ^0.25.10
