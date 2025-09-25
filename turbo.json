@@ -15,7 +15,9 @@
       ],
       "outputs": ["dist/**", ".output/**", ".vercel/*", ".next/**"]
     },
-    "typecheck": {},
+    "typecheck": {
+      "cache": true
+    },
     "dev": {
       "cache": false,
       "inputs": ["$TURBO_DEFAULT$", ".env", "**/*.env.*"],
