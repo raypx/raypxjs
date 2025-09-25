@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import BackButtonSmall from "@/components/shared/back-button-small";
-import { AuthLayout as Layout } from "../../layouts/auth";
+import { AuthLayout as Layout } from "@/layouts/auth";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (

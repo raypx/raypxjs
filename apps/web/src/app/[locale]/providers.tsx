@@ -6,7 +6,7 @@ import { client } from "@raypx/auth/client";
 import { Provider } from "@raypx/ui/components/provider";
 import { useRouter } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { authPages } from "../config/auth.config";
+import { authPages } from "@/config/auth.config";
 
 interface ProvidersProps {
   children: React.ReactNode;
