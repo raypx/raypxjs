@@ -4,12 +4,12 @@ import pathsConfig from "../src/paths.config";
 describe("paths config", () => {
   it("should have all required auth paths", () => {
     expect(pathsConfig.auth).toBeDefined();
-    expect(pathsConfig.auth.signIn).toBe("/sign-in");
-    expect(pathsConfig.auth.signUp).toBe("/sign-up");
+    expect(pathsConfig.auth.signIn).toBe("/auth/sign-in");
+    expect(pathsConfig.auth.signUp).toBe("/auth/sign-up");
     expect(pathsConfig.auth.callback).toBe("/auth/callback");
-    expect(pathsConfig.auth.passwordReset).toBe("/password-reset");
-    expect(pathsConfig.auth.passwordUpdate).toBe("/update-password");
-    expect(pathsConfig.auth.verifyMfa).toBe("/verify-mfa");
+    expect(pathsConfig.auth.passwordReset).toBe("/auth/password-reset");
+    expect(pathsConfig.auth.passwordUpdate).toBe("/auth/update-password");
+    expect(pathsConfig.auth.verifyMfa).toBe("/auth/verify-mfa");
   });
 
   it("should have all required app paths", () => {

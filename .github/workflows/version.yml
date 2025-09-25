@@ -2,8 +2,8 @@ name: Version
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
