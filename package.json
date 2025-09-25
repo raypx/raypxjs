@@ -1,15 +1,15 @@
 {
   "name": "raypx",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "description": "A modern web application built with Next.js and TypeScript",
   "homepage": "https://raypx.com",
   "bugs": {
-    "url": "https://github.com/raypx/raypxjs/issues"
+    "url": "https://github.com/raypx/raypx/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/raypx/raypxjs.git"
+    "url": "https://github.com/raypx/raypx.git"
   },
   "license": "Apache-2.0",
   "author": {
