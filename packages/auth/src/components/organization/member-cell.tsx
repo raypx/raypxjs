@@ -20,12 +20,12 @@ import { LeaveOrganizationDialog } from "./leave-organization-dialog";
 import { RemoveMemberDialog } from "./remove-member-dialog";
 import { UpdateMemberRoleDialog } from "./update-member-role-dialog";
 
-export interface MemberCellProps {
+export type MemberCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   member: Member & { user?: Partial<User> | null };
   hideActions?: boolean;
-}
+};
 
 export function MemberCell({ className, classNames, member, hideActions }: MemberCellProps) {
   const {
@@ -68,7 +68,7 @@ export function MemberCell({ className, classNames, member, hideActions }: Membe
   return (
     <>
       <Card className={cn("flex-row items-center p-4", className, classNames?.cell)}>
-        <UserView user={member.user} className="flex-1" />
+        <UserView className="flex-1" user={member.user} />
 
         <span className="text-xs opacity-70">{role?.label}</span>
 
@@ -106,26 +106,26 @@ export function MemberCell({ className, classNames, member, hideActions }: Membe
       </Card>
 
       <RemoveMemberDialog
-        open={removeDialogOpen}
-        onOpenChange={setRemoveDialogOpen}
-        member={member}
         classNames={classNames}
+        member={member}
+        onOpenChange={setRemoveDialogOpen}
+        open={removeDialogOpen}
       />
 
       {organization && (
         <LeaveOrganizationDialog
-          open={leaveDialogOpen}
-          onOpenChange={setLeaveDialogOpen}
-          organization={organization}
           classNames={classNames}
+          onOpenChange={setLeaveDialogOpen}
+          open={leaveDialogOpen}
+          organization={organization}
         />
       )}
 
       <UpdateMemberRoleDialog
-        open={updateRoleDialogOpen}
-        onOpenChange={setUpdateRoleDialogOpen}
-        member={member}
         classNames={classNames}
+        member={member}
+        onOpenChange={setUpdateRoleDialogOpen}
+        open={updateRoleDialogOpen}
       />
     </>
   );

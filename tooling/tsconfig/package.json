@@ -8,6 +8,6 @@
     "base.json"
   ],
   "devDependencies": {
-    "typescript": "catalog:"
+    "typescript": "catalog:dev"
   }
 }

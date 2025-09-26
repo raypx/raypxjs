@@ -34,14 +34,14 @@ export function UpdateUsernameCard({ className, classNames, ...props }: Settings
     <UpdateFieldCard
       className={className}
       classNames={classNames}
-      value={value}
       description={t("USERNAME_DESCRIPTION")}
-      name="username"
       instructions={t("USERNAME_INSTRUCTIONS")}
       label={t("USERNAME")}
+      name="username"
       placeholder={t("USERNAME_PLACEHOLDER")}
       required
       validationSchema={validationSchema}
+      value={value}
       {...props}
     />
   );

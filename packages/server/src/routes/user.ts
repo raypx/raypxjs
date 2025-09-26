@@ -99,7 +99,7 @@ userRoutes.post("/:id/ban", async (c) => {
     const updatedUser = await userService.banUser(
       id,
       banReason,
-      banExpires ? new Date(banExpires) : undefined,
+      banExpires ? new Date(banExpires) : undefined
     );
 
     return c.json({

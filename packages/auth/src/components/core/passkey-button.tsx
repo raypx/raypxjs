@@ -6,12 +6,12 @@ import { useOnSuccessTransition } from "../../core/hooks/use-success-transition"
 import { getLocalizedError } from "../../core/lib/utils";
 import type { AuthViewClassNames } from "./auth-view";
 
-interface PasskeyButtonProps {
+type PasskeyButtonProps = {
   classNames?: AuthViewClassNames;
   isSubmitting?: boolean;
   redirectTo?: string;
   setIsSubmitting?: (isSubmitting: boolean) => void;
-}
+};
 
 export function PasskeyButton({
   classNames,
@@ -60,9 +60,9 @@ export function PasskeyButton({
       disabled={isSubmitting}
       formNoValidate
       name="passkey"
+      onClick={signInPassKey}
       value="true"
       variant="secondary"
-      onClick={signInPassKey}
     >
       <FingerprintIcon />
       {t("SIGN_IN_WITH")} {t("PASSKEY")}

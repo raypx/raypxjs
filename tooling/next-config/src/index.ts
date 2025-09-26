@@ -4,7 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 type I18nConfig = boolean | Parameters<typeof createNextIntlPlugin>[0];
 
-export interface CreateConfigOptions {
+export type CreateConfigOptions = {
   /** Internal packages to be transpiled */
   transpilePackages?: string[];
   /** Enable MDX support */
@@ -17,7 +17,7 @@ export interface CreateConfigOptions {
   i18n?: I18nConfig;
   /** Output mode for deployment (standalone for Docker, undefined for Vercel) */
   output?: "standalone" | "export" | undefined;
-}
+};
 
 const INTERNAL_PACKAGES = [
   "@raypx/ui",

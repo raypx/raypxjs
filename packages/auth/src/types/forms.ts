@@ -2,7 +2,7 @@ import type { ComponentType, ReactNode } from "react";
 
 export type FieldType = "string" | "number" | "boolean";
 
-export interface AdditionalField {
+export type AdditionalField = {
   description?: ReactNode;
   instructions?: ReactNode;
   label: string;
@@ -11,11 +11,11 @@ export interface AdditionalField {
   type: FieldType;
   multiline?: boolean;
   validate?: (value: string) => Promise<boolean>;
-}
+};
 
-export interface AdditionalFields {
+export type AdditionalFields = {
   [key: string]: AdditionalField;
-}
+};
 
 export type Link = ComponentType<{
   href: string;

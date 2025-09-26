@@ -24,7 +24,7 @@ export const DashboardLayout = dynamic(
           {/* Stats Grid Skeleton */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="space-y-3 p-6 border rounded-lg">
+              <div className="space-y-3 rounded-lg border p-6" key={i}>
                 <div className="flex items-center justify-between">
                   <Skeleton className="h-4 w-20" />
                   <Skeleton className="h-4 w-4" />
@@ -42,14 +42,14 @@ export const DashboardLayout = dynamic(
           {/* Content Grid Skeleton */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="space-y-4 p-6 border rounded-lg">
+              <div className="space-y-4 rounded-lg border p-6" key={i}>
                 <div className="space-y-2">
                   <Skeleton className="h-5 w-32" />
                   <Skeleton className="h-4 w-48" />
                 </div>
                 <div className="space-y-3">
                   {Array.from({ length: 3 }).map((_, j) => (
-                    <Skeleton key={j} className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" key={j} />
                   ))}
                 </div>
               </div>
@@ -58,5 +58,5 @@ export const DashboardLayout = dynamic(
         </div>
       </div>
     ),
-  },
+  }
 );

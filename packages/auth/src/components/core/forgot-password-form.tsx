@@ -25,12 +25,12 @@ import { getLocalizedError } from "../../core/lib/utils";
 import type { AuthFormClassNames } from "./auth-form";
 import { Captcha } from "./captcha";
 
-export interface ForgotPasswordFormProps {
+export type ForgotPasswordFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   isSubmitting?: boolean;
   setIsSubmitting?: (value: boolean) => void;
-}
+};
 
 export function ForgotPasswordForm({
   className,
@@ -97,9 +97,9 @@ export function ForgotPasswordForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(forgotPassword)}
-        noValidate={isHydrated}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        noValidate={isHydrated}
+        onSubmit={form.handleSubmit(forgotPassword)}
       >
         <FormField
           control={form.control}
@@ -111,9 +111,9 @@ export function ForgotPasswordForm({
               <FormControl>
                 <Input
                   className={classNames?.input}
-                  type="email"
-                  placeholder={t("EMAIL_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("EMAIL_PLACEHOLDER")}
+                  type="email"
                   {...field}
                 />
               </FormControl>
@@ -123,12 +123,12 @@ export function ForgotPasswordForm({
           )}
         />
 
-        <Captcha ref={captchaRef as RefObject<ReCAPTCHA>} action="/forget-password" />
+        <Captcha action="/forget-password" ref={captchaRef as RefObject<ReCAPTCHA>} />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn("w-full", classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("FORGOT_PASSWORD_ACTION")}
         </Button>

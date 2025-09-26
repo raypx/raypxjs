@@ -38,14 +38,16 @@ export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvat
   const [loading, setLoading] = useState(false);
 
   const handleAvatarChange = async (file: File) => {
-    if (!sessionData || !avatar) return;
+    if (!(sessionData && avatar)) {
+      return;
+    }
 
     setLoading(true);
     const resizedFile = await resizeAndCropImage(
       file,
       crypto.randomUUID(),
       avatar.size,
-      avatar.extension,
+      avatar.extension
     );
 
     let image: string | undefined | null;
@@ -61,7 +63,9 @@ export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvat
       return;
     }
 
-    if (optimistic && !avatar.upload) setLoading(false);
+    if (optimistic && !avatar.upload) {
+      setLoading(false);
+    }
 
     try {
       await updateUser({ image });
@@ -77,7 +81,9 @@ export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvat
   };
 
   const handleDeleteAvatar = async () => {
-    if (!sessionData) return;
+    if (!sessionData) {
+      return;
+    }
 
     setLoading(true);
 
@@ -104,50 +110,52 @@ export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvat
   return (
     <Card className={cn("w-full pb-0 text-start", className, classNames?.base)} {...props}>
       <input
-        ref={fileInputRef}
         accept="image/*"
         disabled={loading}
         hidden
-        type="file"
         onChange={(e) => {
           const file = e.target.files?.item(0);
-          if (file) handleAvatarChange(file);
+          if (file) {
+            handleAvatarChange(file);
+          }
 
           e.target.value = "";
         }}
+        ref={fileInputRef}
+        type="file"
       />
 
       <div className="flex justify-between">
         <SettingsCardHeader
           className="grow self-start"
-          title={t("AVATAR")}
+          classNames={classNames}
           description={t("AVATAR_DESCRIPTION")}
           isPending={isPending}
-          classNames={classNames}
+          title={t("AVATAR")}
         />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="me-6 size-fit rounded-full" size="icon" variant="ghost">
               <UserAvatar
-                isPending={isPending || loading}
-                key={sessionData?.user.image}
                 className="size-20 text-2xl"
                 classNames={classNames?.avatar}
+                isPending={isPending || loading}
+                key={sessionData?.user.image}
                 user={sessionData?.user}
               />
             </Button>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
-            <DropdownMenuItem onClick={openFileDialog} disabled={loading}>
+            <DropdownMenuItem disabled={loading} onClick={openFileDialog}>
               <UploadCloud />
               {t("UPLOAD_AVATAR")}
             </DropdownMenuItem>
             {sessionData?.user.image && (
               <DropdownMenuItem
-                onClick={handleDeleteAvatar}
                 disabled={loading}
+                onClick={handleDeleteAvatar}
                 variant="destructive"
               >
                 <Trash />
@@ -160,8 +168,8 @@ export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvat
 
       <SettingsCardFooter
         className="!py-5"
-        instructions={t("AVATAR_INSTRUCTIONS")}
         classNames={classNames}
+        instructions={t("AVATAR_INSTRUCTIONS")}
         isPending={isPending}
         isSubmitting={loading}
       />

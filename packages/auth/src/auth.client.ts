@@ -27,6 +27,7 @@ const env = envs();
 
 // Build plugins array based on enabled features
 const buildClientPlugins = () => {
+  // biome-ignore lint/suspicious/noEvolvingTypes: auto type inference
   const plugins = [];
 
   // Always include basic plugins
@@ -50,7 +51,7 @@ const buildClientPlugins = () => {
           admin: adminRole,
           superadmin: superAdminRole,
         },
-      }),
+      })
     );
   }
 
@@ -79,7 +80,7 @@ const buildClientPlugins = () => {
     plugins.push(
       oneTapClient({
         clientId: env.NEXT_PUBLIC_AUTH_GOOGLE_ID,
-      }),
+      })
     );
   }
 

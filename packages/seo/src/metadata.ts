@@ -2,7 +2,7 @@ import { merge } from "@raypx/shared";
 import type { Metadata } from "next";
 import type { NextSeoProps } from "next-seo";
 
-export interface SEOConfig {
+export type SEOConfig = {
   title?: string;
   description?: string;
   image?: string;
@@ -27,7 +27,7 @@ export interface SEOConfig {
     site?: string;
     cardType?: "summary" | "summary_large_image" | "app" | "player";
   };
-}
+};
 
 type MetadataGenerator = Omit<Metadata, "description" | "title"> & SEOConfig;
 

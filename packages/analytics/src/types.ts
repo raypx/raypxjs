@@ -1,36 +1,36 @@
 // Google Analytics types
-export interface GtagConfig {
+export type GtagConfig = {
   page_path?: string;
   page_title?: string;
   user_id?: string;
   custom_map?: Record<string, string>;
   [key: string]: unknown;
-}
+};
 
-export interface GtagEventParams {
+export type GtagEventParams = {
   event_category?: string;
   event_label?: string;
   value?: number;
   [key: string]: unknown;
-}
+};
 
-export interface Gtag {
+export type Gtag = {
   (command: "config", targetId: string, config?: GtagConfig): void;
   (command: "event", eventName: string, eventParams?: GtagEventParams): void;
   (command: string, ...args: unknown[]): void;
-}
+};
 
 // PostHog types
-export interface PostHogConfig {
+export type PostHogConfig = {
   api_host?: string;
   ui_host?: string;
   autocapture?: boolean;
   capture_pageview?: boolean;
   disable_session_recording?: boolean;
   [key: string]: unknown;
-}
+};
 
-export interface PostHogInstance {
+export type PostHogInstance = {
   init(apiKey: string, config?: PostHogConfig): void;
   capture(eventName: string, properties?: Record<string, unknown>): void;
   identify(userId: string, properties?: Record<string, unknown>): void;
@@ -38,43 +38,40 @@ export interface PostHogInstance {
   setPersonProperties(properties: Record<string, unknown>): void;
   group(groupType: string, groupKey: string, properties?: Record<string, unknown>): void;
   __loaded?: boolean;
-}
+};
 
 export type PostHogReactHook = () => PostHogInstance | undefined;
 
-export interface PostHogProviderProps {
+export type PostHogProviderProps = {
   children: React.ReactNode;
   client?: PostHogInstance;
-}
+};
 
 export type PostHogProvider = (props: PostHogProviderProps) => React.ReactElement | null;
 
-// Window interface extensions
 declare global {
-  interface Window {
-    gtag?: Gtag;
-    posthog?: PostHogInstance;
-  }
+  var gtag: (...args: any[]) => Gtag | Promise<Gtag>;
+  var posthog: PostHogInstance | null;
 }
 
 // Analytics tracking types
-export interface TrackEventParams {
+export type TrackEventParams = {
   event: string;
   properties?: Record<string, unknown>;
-}
+};
 
-export interface IdentifyParams {
+export type IdentifyParams = {
   userId: string;
   properties?: Record<string, unknown>;
-}
+};
 
-export interface PageViewParams {
+export type PageViewParams = {
   url?: string;
   title?: string;
-}
+};
 
-export interface GroupParams {
+export type GroupParams = {
   groupType: string;
   groupKey: string;
   properties?: Record<string, unknown>;
-}
+};

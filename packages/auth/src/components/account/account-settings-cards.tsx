@@ -46,10 +46,16 @@ export function AccountSettingsCards({
       {changeEmail && <ChangeEmailCard classNames={classNames?.card} />}
 
       {accountOptions?.fields?.map((field) => {
-        if (field === "image") return null;
-        if (field === "name") return null;
+        if (field === "image") {
+          return null;
+        }
+        if (field === "name") {
+          return null;
+        }
         const additionalField = additionalFields?.[field];
-        if (!additionalField) return null;
+        if (!additionalField) {
+          return null;
+        }
 
         const {
           label,
@@ -66,18 +72,18 @@ export function AccountSettingsCards({
 
         return (
           <UpdateFieldCard
-            key={field}
             classNames={classNames?.card}
-            value={defaultValue}
             description={description}
-            name={field}
             instructions={instructions}
+            key={field}
             label={label}
+            multiline={multiline}
+            name={field}
             placeholder={placeholder}
             required={required}
             type={type}
-            multiline={multiline}
             validate={validate}
+            value={defaultValue}
           />
         );
       })}

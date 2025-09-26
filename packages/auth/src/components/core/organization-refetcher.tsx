@@ -28,16 +28,26 @@ export const OrganizationRefetcher = () => {
   const { data: organizations } = useListOrganizations();
 
   useEffect(() => {
-    if (!sessionData?.user.id) return;
+    if (!sessionData?.user.id) {
+      return;
+    }
 
     if (organization || organizations) {
       refetchOrganization?.();
       refetchListOrganizations?.();
     }
-  }, [sessionData?.user.id]);
+  }, [
+    sessionData?.user.id,
+    organization,
+    organizations,
+    refetchListOrganizations,
+    refetchOrganization,
+  ]);
 
   useEffect(() => {
-    if (organizationRefetching || organizationPending) return;
+    if (organizationRefetching || organizationPending) {
+      return;
+    }
 
     if (slug && pathMode === "slug" && !organization) {
       navigate(personalPath || redirectTo);

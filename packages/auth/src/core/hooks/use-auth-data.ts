@@ -32,7 +32,7 @@ export function useAuthData<T>({
   const cacheEntry = useSyncExternalStore(
     useCallback((callback) => authDataCache.subscribe(stableCacheKey, callback), [stableCacheKey]),
     useCallback(() => authDataCache.get<T>(stableCacheKey), [stableCacheKey]),
-    useCallback(() => authDataCache.get<T>(stableCacheKey), [stableCacheKey]),
+    useCallback(() => authDataCache.get<T>(stableCacheKey), [stableCacheKey])
   );
 
   const initialized = useRef(false);
@@ -126,12 +126,12 @@ export function useAuthData<T>({
     // Check if data is stale
     const isStale = !cacheEntry || Date.now() - cacheEntry.timestamp > staleTime;
 
-    if (!initialized.current || !hasCachedData || userIdChanged || (hasCachedData && isStale)) {
-      // Only fetch if we don't have data or if the data is stale
-      if (!hasCachedData || isStale) {
-        initialized.current = true;
-        refetch();
-      }
+    const shouldFetch =
+      (!(initialized.current && hasCachedData) || userIdChanged || (hasCachedData && isStale)) &&
+      (!hasCachedData || isStale);
+    if (shouldFetch) {
+      initialized.current = true;
+      refetch();
     }
 
     // Update the previous user ID

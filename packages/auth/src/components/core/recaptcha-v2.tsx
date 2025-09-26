@@ -8,12 +8,10 @@ import { useLang } from "../../core/hooks/use-lang";
 import { useTheme } from "../../core/hooks/use-theme";
 
 declare global {
-  interface Window {
-    recaptchaOptions: {
-      useRecaptchaNet?: boolean;
-      enterprise?: boolean;
-    };
-  }
+  var recaptchaOptions: {
+    useRecaptchaNet?: boolean;
+    enterprise?: boolean;
+  };
 }
 
 export function RecaptchaV2({ ref }: { ref: RefObject<ReCAPTCHA | null> }) {
@@ -28,7 +26,9 @@ export function RecaptchaV2({ ref }: { ref: RefObject<ReCAPTCHA | null> }) {
     };
   }, [captcha]);
 
-  if (!captcha) return null;
+  if (!captcha) {
+    return null;
+  }
 
   return (
     <>
@@ -47,17 +47,17 @@ export function RecaptchaV2({ ref }: { ref: RefObject<ReCAPTCHA | null> }) {
             `}</style>
 
       <ReCAPTCHA
-        ref={ref}
-        key={`${resolvedTheme}-${lang}-${captcha.provider}`}
-        sitekey={captcha.siteKey}
-        theme={resolvedTheme}
-        hl={lang}
-        size={captcha.provider === "google-recaptcha-v2-invisible" ? "invisible" : "normal"}
         className={cn(
           captcha.provider === "google-recaptcha-v2-invisible"
             ? "absolute"
-            : "mx-auto h-[76px] w-[302px] overflow-hidden rounded bg-muted",
+            : "mx-auto h-[76px] w-[302px] overflow-hidden rounded bg-muted"
         )}
+        hl={lang}
+        key={`${resolvedTheme}-${lang}-${captcha.provider}`}
+        ref={ref}
+        sitekey={captcha.siteKey}
+        size={captcha.provider === "google-recaptcha-v2-invisible" ? "invisible" : "normal"}
+        theme={resolvedTheme}
       />
     </>
   );

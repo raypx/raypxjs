@@ -49,31 +49,28 @@ export function UserButtonMobile() {
   };
 
   return (
-    <Drawer open={open} onClose={closeDrawer}>
+    <Drawer onClose={closeDrawer} open={open}>
       <DrawerTrigger onClick={() => setOpen(true)}>
         {session?.user && (
           <UserAvatar
-            name={session?.user.name}
+            className="size-8 cursor-pointer border"
             image={session?.user.image}
-            className="size-8 border cursor-pointer"
+            name={session?.user.name}
           />
         )}
       </DrawerTrigger>
       <DrawerPortal>
         <DrawerOverlay className="fixed inset-0 z-40 bg-background/50" />
-        <DrawerContent
-          className="fixed inset-x-0 bottom-0 z-50 mt-24
-            overflow-hidden rounded-t-[10px] border bg-background px-3 text-sm"
-        >
+        <DrawerContent className="fixed inset-x-0 bottom-0 z-50 mt-24 overflow-hidden rounded-t-[10px] border bg-background px-3 text-sm">
           <DrawerHeader>
             <DrawerTitle />
           </DrawerHeader>
           <div className="flex items-center justify-start gap-4 p-2">
             {session?.user && (
               <UserAvatar
-                name={session?.user.name}
+                className="size-8 cursor-pointer border"
                 image={session?.user.image}
-                className="size-8 border cursor-pointer"
+                name={session?.user.name}
               />
             )}
             <div className="flex flex-col">
@@ -82,13 +79,13 @@ export function UserButtonMobile() {
             </div>
           </div>
 
-          <ul className="mb-14 mt-1 w-full text-muted-foreground">
+          <ul className="mt-1 mb-14 w-full text-muted-foreground">
             {avatarLinks?.map((item) => (
-              <li key={item.title} className="rounded-lg text-foreground hover:bg-muted">
+              <li className="rounded-lg text-foreground hover:bg-muted" key={item.title}>
                 <LocaleLink
+                  className="flex w-full items-center gap-3 px-2.5 py-2"
                   href={item.href || "#"}
                   onClick={closeDrawer}
-                  className="flex w-full items-center gap-3 px-2.5 py-2"
                 >
                   {item.icon ? item.icon : null}
                   <p className="text-sm">{item.title}</p>
@@ -96,15 +93,15 @@ export function UserButtonMobile() {
               </li>
             ))}
 
-            <li key="logout" className="rounded-lg text-foreground hover:bg-muted">
+            <li className="rounded-lg text-foreground hover:bg-muted" key="logout">
               <button
-                type="button"
+                className="flex w-full items-center gap-3 px-2.5 py-2"
                 onClick={async (event) => {
                   event.preventDefault();
                   closeDrawer();
-                  handleSignOut();
+                  await handleSignOut();
                 }}
-                className="flex w-full items-center gap-3 px-2.5 py-2"
+                type="button"
               >
                 <LogOutIcon className="size-4" />
                 <p className="text-sm">{t("common.logout")}</p>

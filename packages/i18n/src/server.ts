@@ -10,13 +10,13 @@ export * from "./config";
 
 export const DEFAULT_LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 
-export interface I18nServerConfigOptions {
+export type I18nServerConfigOptions = {
   getLocale?: () => Promise<string> | string;
   locales: readonly string[];
   defaultLocale: string;
   localeCookieName?: string;
   importMessages: (locale: string) => Promisable<Record<string, unknown>>;
-}
+};
 
 export function createI18nServerConfig(options: I18nServerConfigOptions) {
   const {
@@ -64,7 +64,7 @@ export function createI18nServerConfig(options: I18nServerConfigOptions) {
       const messages = await importMessages(lang);
       return {
         locale: lang,
-        messages: messages,
+        messages,
         timeZone: "UTC",
         now: new Date(),
       };

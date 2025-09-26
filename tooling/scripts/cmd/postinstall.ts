@@ -40,12 +40,7 @@ async function setupClaudeCode(task: ListrTaskWrapper<any, any, any>): Promise<v
       return;
     }
 
-    if (!(await fs.pathExists(localSettingsPath))) {
-      // Create local settings from base template
-      await fs.ensureDir(CLAUDE_DIR);
-      await fs.writeJson(localSettingsPath, baseSettings, { spaces: 2 });
-      task.title = "Created local settings file";
-    } else {
+    if (await fs.pathExists(localSettingsPath)) {
       const localSettings = await fs.readJson(localSettingsPath);
 
       // Validate local settings structure
@@ -60,6 +55,11 @@ async function setupClaudeCode(task: ListrTaskWrapper<any, any, any>): Promise<v
       const merged = deepmerge(baseSettings, localSettings, mergeOptions);
       await fs.writeJson(localSettingsPath, merged, { spaces: 2 });
       task.title = "Merged settings with local configuration";
+    } else {
+      // Create local settings from base template
+      await fs.ensureDir(CLAUDE_DIR);
+      await fs.writeJson(localSettingsPath, baseSettings, { spaces: 2 });
+      task.title = "Created local settings file";
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -73,6 +73,7 @@ async function setupClaudeCode(task: ListrTaskWrapper<any, any, any>): Promise<v
 const postinstall = definedCmd([
   createTask("biome migrate --write", "Biome migration"),
   createTask("pnpm --filter docs run fumadocs-mdx", "Fumadocs MDX"),
+  createTask("pnpm exec lefthook install", "Lefthook"),
   createTask("Claude Code setup", async (_, task) => {
     await setupClaudeCode(task);
   }),

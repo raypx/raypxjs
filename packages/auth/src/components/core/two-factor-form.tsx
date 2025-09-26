@@ -17,7 +17,7 @@ import { InputOTP } from "@raypx/ui/components/input-otp";
 import { Label } from "@raypx/ui/components/label";
 import { Link } from "@raypx/ui/components/link";
 import { cn } from "@raypx/ui/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import QRCode from "react-qr-code";
 import { z } from "zod/v4";
@@ -30,14 +30,14 @@ import type { User } from "../../types";
 import type { AuthFormClassNames } from "./auth-form";
 import { OTPInputGroup } from "./otp-input-group";
 
-export interface TwoFactorFormProps {
+export type TwoFactorFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   isSubmitting?: boolean;
   otpSeparators?: 0 | 1 | 2;
   redirectTo?: string;
   setIsSubmitting?: (value: boolean) => void;
-}
+};
 
 export function TwoFactorForm({
   className,
@@ -69,7 +69,7 @@ export function TwoFactorForm({
   const isTwoFactorEnabled = (sessionData?.user as User)?.twoFactorEnabled;
 
   const [method, setMethod] = useState<"totp" | "otp" | null>(
-    twoFactor?.length === 1 ? twoFactor[0] : null,
+    twoFactor?.length === 1 ? twoFactor[0] : null
   );
 
   const [isSendingOtp, setIsSendingOtp] = useState(false);
@@ -96,28 +96,10 @@ export function TwoFactorForm({
 
   isSubmitting = isSubmitting || form.formState.isSubmitting || transitionPending;
 
-  useEffect(() => {
-    setIsSubmitting?.(form.formState.isSubmitting || transitionPending);
-  }, [form.formState.isSubmitting, transitionPending, setIsSubmitting]);
-
-  useEffect(() => {
-    if (method === "otp" && cooldownSeconds <= 0 && !initialSendRef.current) {
-      initialSendRef.current = true;
-      sendOtp();
+  const sendOtp = useCallback(async () => {
+    if (isSendingOtp || cooldownSeconds > 0) {
+      return;
     }
-  }, [method]);
-
-  useEffect(() => {
-    if (cooldownSeconds <= 0) return;
-
-    const timer = setTimeout(() => {
-      setCooldownSeconds((prev) => prev - 1);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [cooldownSeconds]);
-
-  const sendOtp = async () => {
-    if (isSendingOtp || cooldownSeconds > 0) return;
 
     try {
       setIsSendingOtp(true);
@@ -138,7 +120,29 @@ export function TwoFactorForm({
 
     initialSendRef.current = false;
     setIsSendingOtp(false);
-  };
+  }, [authClient, toast, t, cooldownSeconds, isSendingOtp]);
+
+  useEffect(() => {
+    setIsSubmitting?.(form.formState.isSubmitting || transitionPending);
+  }, [form.formState.isSubmitting, transitionPending, setIsSubmitting]);
+
+  useEffect(() => {
+    if (method === "otp" && cooldownSeconds <= 0 && !initialSendRef.current) {
+      initialSendRef.current = true;
+      sendOtp();
+    }
+  }, [method, cooldownSeconds, sendOtp]);
+
+  useEffect(() => {
+    if (cooldownSeconds <= 0) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setCooldownSeconds((prev) => prev - 1);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [cooldownSeconds]);
 
   async function verifyCode({ code, trustDevice }: z.infer<typeof formSchema>) {
     try {
@@ -172,8 +176,8 @@ export function TwoFactorForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(verifyCode)}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        onSubmit={form.handleSubmit(verifyCode)}
       >
         {twoFactor?.includes("totp") && totpURI && method === "totp" && (
           <div className="space-y-3">
@@ -204,6 +208,9 @@ export function TwoFactorForm({
                   <FormControl>
                     <InputOTP
                       {...field}
+                      className={classNames?.otpInput}
+                      containerClassName={classNames?.otpInputContainer}
+                      disabled={isSubmitting}
                       maxLength={6}
                       onChange={(value) => {
                         field.onChange(value);
@@ -212,9 +219,6 @@ export function TwoFactorForm({
                           form.handleSubmit(verifyCode)();
                         }
                       }}
-                      containerClassName={classNames?.otpInputContainer}
-                      className={classNames?.otpInput}
-                      disabled={isSubmitting}
                     >
                       <OTPInputGroup otpSeparators={otpSeparators} />
                     </InputOTP>
@@ -233,9 +237,9 @@ export function TwoFactorForm({
                   <FormControl>
                     <Checkbox
                       checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={isSubmitting}
                       className={classNames?.checkbox}
+                      disabled={isSubmitting}
+                      onCheckedChange={field.onChange}
                     />
                   </FormControl>
 
@@ -249,9 +253,9 @@ export function TwoFactorForm({
         <div className="grid gap-4">
           {method !== null && (
             <Button
-              type="submit"
-              disabled={isSubmitting}
               className={cn(classNames?.button, classNames?.primaryButton)}
+              disabled={isSubmitting}
+              type="submit"
             >
               {isSubmitting && <Loader2 className="animate-spin" />}
               {t("TWO_FACTOR_ACTION")}
@@ -260,11 +264,11 @@ export function TwoFactorForm({
 
           {method === "otp" && twoFactor?.includes("otp") && (
             <Button
+              className={cn(classNames?.button, classNames?.outlineButton)}
+              disabled={cooldownSeconds > 0 || isSendingOtp || isSubmitting}
+              onClick={sendOtp}
               type="button"
               variant="outline"
-              onClick={sendOtp}
-              disabled={cooldownSeconds > 0 || isSendingOtp || isSubmitting}
-              className={cn(classNames?.button, classNames?.outlineButton)}
             >
               {isSendingOtp ? (
                 <Loader2 className="animate-spin" />
@@ -279,11 +283,11 @@ export function TwoFactorForm({
 
           {method !== "otp" && twoFactor?.includes("otp") && (
             <Button
+              className={cn(classNames?.button, classNames?.secondaryButton)}
+              disabled={isSubmitting}
+              onClick={() => setMethod("otp")}
               type="button"
               variant="secondary"
-              className={cn(classNames?.button, classNames?.secondaryButton)}
-              onClick={() => setMethod("otp")}
-              disabled={isSubmitting}
             >
               <Send className={classNames?.icon} />
               {t("SEND_VERIFICATION_CODE")}
@@ -292,11 +296,11 @@ export function TwoFactorForm({
 
           {method !== "totp" && twoFactor?.includes("totp") && (
             <Button
+              className={cn(classNames?.button, classNames?.secondaryButton)}
+              disabled={isSubmitting}
+              onClick={() => setMethod("totp")}
               type="button"
               variant="secondary"
-              className={cn(classNames?.button, classNames?.secondaryButton)}
-              onClick={() => setMethod("totp")}
-              disabled={isSubmitting}
             >
               <QrCode className={classNames?.icon} />
               {t("CONTINUE_WITH_AUTHENTICATOR")}

@@ -20,13 +20,13 @@ export const createApp = (options: ServerOptions) => {
   app.use("*", authMiddleware);
 
   // Health endpoints
-  app.get("/health", (c) => {
-    return c.json({
+  app.get("/health", (c) =>
+    c.json({
       status: "ok",
-    });
-  });
+    })
+  );
 
-  app.get("/info", async (c) => {
+  app.get("/info", (c) => {
     const session = c.get("session");
     const user = c.get("user");
 
@@ -43,14 +43,14 @@ export const createApp = (options: ServerOptions) => {
   app.route("/users", userRoutes);
 
   // Error handling
-  app.notFound((c) => {
-    return c.json(
+  app.notFound((c) =>
+    c.json(
       {
         message: "Not Found",
       },
-      404,
-    );
-  });
+      404
+    )
+  );
 
   app.onError((err, c) => {
     console.error(err);
@@ -58,7 +58,7 @@ export const createApp = (options: ServerOptions) => {
       {
         message: "Internal Server Error",
       },
-      500,
+      500
     );
   });
 

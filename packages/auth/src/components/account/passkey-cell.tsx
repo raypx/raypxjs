@@ -11,11 +11,11 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { SessionFreshnessDialog } from "../core/session-freshness-dialog";
 
-export interface PasskeyCellProps {
+export type PasskeyCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   passkey: { id: string; createdAt: Date };
-}
+};
 
 export function PasskeyCell({ className, classNames, passkey }: PasskeyCellProps) {
   const {
@@ -63,9 +63,9 @@ export function PasskeyCell({ className, classNames, passkey }: PasskeyCellProps
   return (
     <>
       <SessionFreshnessDialog
-        open={showFreshnessDialog}
-        onOpenChange={setShowFreshnessDialog}
         classNames={classNames}
+        onOpenChange={setShowFreshnessDialog}
+        open={showFreshnessDialog}
       />
 
       <Card className={cn("flex-row items-center p-4", className, classNames?.cell)}>
@@ -77,9 +77,9 @@ export function PasskeyCell({ className, classNames, passkey }: PasskeyCellProps
         <Button
           className={cn("relative ms-auto", classNames?.button, classNames?.outlineButton)}
           disabled={isLoading}
+          onClick={handleDeletePasskey}
           size="sm"
           variant="outline"
-          onClick={handleDeletePasskey}
         >
           {isLoading && <Loader2 className="animate-spin" />}
 

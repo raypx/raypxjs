@@ -12,12 +12,12 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import type { Refetch } from "../../types";
 
-export interface SessionCellProps {
+export type SessionCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   session: Session;
   refetch?: Refetch;
-}
+};
 
 export function SessionCell({ className, classNames, session, refetch }: SessionCellProps) {
   const {
@@ -80,9 +80,9 @@ export function SessionCell({ className, classNames, session, refetch }: Session
       <Button
         className={cn("relative ms-auto", classNames?.button, classNames?.outlineButton)}
         disabled={isLoading}
+        onClick={handleRevoke}
         size="sm"
         variant="outline"
-        onClick={handleRevoke}
       >
         {isLoading && <Loader2 className="animate-spin" />}
         {isCurrentSession ? t("SIGN_OUT") : t("REVOKE")}

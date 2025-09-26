@@ -27,14 +27,14 @@ export function OrganizationsCard({ className, classNames, ...props }: SettingsC
   return (
     <>
       <SettingsCard
+        action={() => setCreateDialogOpen(true)}
+        actionLabel={t("CREATE_ORGANIZATION")}
         className={className}
         classNames={classNames}
-        title={t("ORGANIZATIONS")}
         description={t("ORGANIZATIONS_DESCRIPTION")}
         instructions={t("ORGANIZATIONS_INSTRUCTIONS")}
-        actionLabel={t("CREATE_ORGANIZATION")}
-        action={() => setCreateDialogOpen(true)}
         isPending={isPending}
+        title={t("ORGANIZATIONS")}
         {...props}
       >
         {organizations && organizations?.length > 0 && (
@@ -42,8 +42,8 @@ export function OrganizationsCard({ className, classNames, ...props }: SettingsC
             {isPending && <SettingsCellSkeleton />}
             {organizations?.map((organization) => (
               <OrganizationCell
-                key={organization.id}
                 classNames={classNames}
+                key={organization.id}
                 organization={organization}
               />
             ))}
@@ -53,8 +53,8 @@ export function OrganizationsCard({ className, classNames, ...props }: SettingsC
 
       <CreateOrganizationDialog
         classNames={classNames}
-        open={createDialogOpen}
         onOpenChange={setCreateDialogOpen}
+        open={createDialogOpen}
       />
     </>
   );

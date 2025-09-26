@@ -24,13 +24,13 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { SettingsModal } from "@/components/settings-modal";
 
-export interface ConsolePageProps {
+export type ConsolePageProps = {
   children: ReactNode;
   title: string;
   description?: string;
   className?: string;
   maxWidth?: "4xl" | "6xl" | "full";
-}
+};
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
@@ -67,12 +67,12 @@ export function ConsolePage({
   return (
     <div className="min-h-screen bg-background">
       {/* Mobile sidebar */}
-      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-        <SheetContent side="left" className="w-80 p-0">
+      <Sheet onOpenChange={setSidebarOpen} open={sidebarOpen}>
+        <SheetContent className="w-80 p-0" side="left">
           <div className="flex h-full flex-col">
-            <div className="flex h-16 items-center justify-between px-6 border-b">
-              <h1 className="text-xl font-semibold">Raypx</h1>
-              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
+            <div className="flex h-16 items-center justify-between border-b px-6">
+              <h1 className="font-semibold text-xl">Raypx</h1>
+              <Button onClick={() => setSidebarOpen(false)} size="icon" variant="ghost">
                 <X className="h-4 w-4" />
               </Button>
             </div>
@@ -81,15 +81,15 @@ export function ConsolePage({
                 const isActive = pathname === item.href;
                 return (
                   <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setSidebarOpen(false)}
                     className={cn(
-                      "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "flex items-center rounded-md px-3 py-2 font-medium text-sm transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     )}
+                    href={item.href}
+                    key={item.name}
+                    onClick={() => setSidebarOpen(false)}
                   >
                     <item.icon className="mr-3 h-4 w-4" />
                     {item.name}
@@ -105,7 +105,7 @@ export function ConsolePage({
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-card px-6 pb-4">
           <div className="flex h-16 shrink-0 items-center">
-            <h1 className="text-xl font-semibold">Raypx</h1>
+            <h1 className="font-semibold text-xl">Raypx</h1>
           </div>
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
@@ -116,13 +116,13 @@ export function ConsolePage({
                     return (
                       <li key={item.name}>
                         <Link
-                          href={item.href}
                           className={cn(
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-medium transition-colors",
+                            "group flex gap-x-3 rounded-md p-2 font-medium text-sm leading-6 transition-colors",
                             isActive
                               ? "bg-primary text-primary-foreground"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
                           )}
+                          href={item.href}
                         >
                           <item.icon className="h-5 w-5 shrink-0" />
                           {item.name}
@@ -142,10 +142,10 @@ export function ConsolePage({
         {/* Top navigation bar */}
         <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           <Button
-            variant="ghost"
-            size="icon"
             className="lg:hidden"
             onClick={() => setSidebarOpen(true)}
+            size="icon"
+            variant="ghost"
           >
             <Menu className="h-5 w-5" />
           </Button>
@@ -156,32 +156,32 @@ export function ConsolePage({
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex flex-1">
               <div className="flex items-center">
-                <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+                <h1 className="font-semibold text-foreground text-lg">{title}</h1>
                 {description && (
-                  <span className="ml-2 text-sm text-muted-foreground">{description}</span>
+                  <span className="ml-2 text-muted-foreground text-sm">{description}</span>
                 )}
               </div>
             </div>
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               {/* Notifications */}
-              <Button variant="ghost" size="icon" className="relative">
+              <Button className="relative" size="icon" variant="ghost">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500" />
+                <span className="-top-1 -right-1 absolute h-3 w-3 rounded-full bg-red-500" />
               </Button>
 
               {/* User menu */}
               <div className="flex items-center gap-x-2">
                 <SettingsModal
                   trigger={
-                    <Button variant="ghost" size="icon">
+                    <Button size="icon" variant="ghost">
                       <Settings className="h-4 w-4" />
                     </Button>
                   }
                 />
-                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
                   <User className="h-4 w-4 text-primary-foreground" />
                 </div>
-                <span className="hidden text-sm font-medium text-foreground lg:block">
+                <span className="hidden font-medium text-foreground text-sm lg:block">
                   {session.user.name || session.user.email}
                 </span>
               </div>

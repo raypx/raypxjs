@@ -3,10 +3,10 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { baseOptions } from "@/app/layout.shared";
 
-interface HomeLayoutProps {
+type HomeLayoutProps = {
   children: ReactNode;
   params: Promise<{ lang: string }>;
-}
+};
 
 export default async function Layout({ children, params }: HomeLayoutProps) {
   const { lang } = await params;

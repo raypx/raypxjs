@@ -4,7 +4,7 @@ import { routing } from "./config/i18n.config";
 
 const intlMiddleware = createMiddleware(routing);
 
-export default async function middleware(req: NextRequest) {
+export default function middleware(req: NextRequest) {
   const { nextUrl } = req;
   console.log(">> middleware start, pathname", nextUrl.pathname);
 

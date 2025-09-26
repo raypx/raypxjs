@@ -30,56 +30,47 @@ const closeToasts = (ids: (string | number)[]): void => {
  * Gets the count of currently displayed toasts
  * @returns number of active toasts
  */
-const getToastCount = (): number => {
-  return toast.getToasts().length;
-};
+const getToastCount = (): number => toast.getToasts().length;
 
 /**
  * Checks if there are any active toasts
  * @returns true if there are active toasts, false otherwise
  */
-const hasActiveToasts = (): boolean => {
-  return getToastCount() > 0;
-};
+const hasActiveToasts = (): boolean => getToastCount() > 0;
 
 /**
  * Toast helper functions with consistent styling
  */
 const toastHelpers = {
-  success: (message: string, options?: Parameters<typeof toast.success>[1]) => {
-    return toast.success(message, {
+  success: (message: string, options?: Parameters<typeof toast.success>[1]) =>
+    toast.success(message, {
       duration: 4000,
       ...options,
-    });
-  },
+    }),
 
-  error: (message: string, options?: Parameters<typeof toast.error>[1]) => {
-    return toast.error(message, {
+  error: (message: string, options?: Parameters<typeof toast.error>[1]) =>
+    toast.error(message, {
       duration: 6000,
       ...options,
-    });
-  },
+    }),
 
-  warning: (message: string, options?: Parameters<typeof toast.warning>[1]) => {
-    return toast.warning(message, {
+  warning: (message: string, options?: Parameters<typeof toast.warning>[1]) =>
+    toast.warning(message, {
       duration: 5000,
       ...options,
-    });
-  },
+    }),
 
-  info: (message: string, options?: Parameters<typeof toast.info>[1]) => {
-    return toast.info(message, {
+  info: (message: string, options?: Parameters<typeof toast.info>[1]) =>
+    toast.info(message, {
       duration: 4000,
       ...options,
-    });
-  },
+    }),
 
-  loading: (message: string, options?: Parameters<typeof toast.loading>[1]) => {
-    return toast.loading(message, {
-      duration: Infinity,
+  loading: (message: string, options?: Parameters<typeof toast.loading>[1]) =>
+    toast.loading(message, {
+      duration: Number.POSITIVE_INFINITY,
       ...options,
-    });
-  },
+    }),
 };
 
 export {

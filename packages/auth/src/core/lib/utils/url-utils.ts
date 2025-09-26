@@ -5,7 +5,7 @@
 /**
  * Path builder options
  */
-interface PathBuilderOptions {
+type PathBuilderOptions = {
   /** Whether to preserve current query parameters */
   preserveSearch?: boolean;
   /** Additional query parameters */
@@ -14,7 +14,7 @@ interface PathBuilderOptions {
   pathMode?: "slug" | "id" | "default";
   /** Middleware path segment (e.g., organization slug) */
   middleware?: string;
-}
+};
 
 /**
  * Core path builder - uses native URL API to handle path concatenation
@@ -25,14 +25,16 @@ interface PathBuilderOptions {
 const buildPath = (
   basePath: string,
   segments: (string | undefined)[],
-  options: PathBuilderOptions = {},
+  options: PathBuilderOptions = {}
 ): string => {
   const { preserveSearch = false, searchParams, pathMode, middleware } = options;
 
   // Filter valid path segments
   const validSegments = segments.filter(Boolean) as string[];
 
-  if (!basePath && validSegments.length === 0) return "";
+  if (!basePath && validSegments.length === 0) {
+    return "";
+  }
 
   // Build path array
   const pathParts = [basePath];
@@ -83,13 +85,8 @@ const buildPath = (
  * @param viewPath - View path
  * @param preserveSearch - Whether to preserve current query parameters
  */
-export const buildAuthUrl = (
-  basePath: string,
-  viewPath: string,
-  preserveSearch = false,
-): string => {
-  return buildPath(basePath, [viewPath], { preserveSearch });
-};
+export const buildAuthUrl = (basePath: string, viewPath: string, preserveSearch = false): string =>
+  buildPath(basePath, [viewPath], { preserveSearch });
 
 /**
  * Build account settings URL
@@ -98,9 +95,11 @@ export const buildAuthUrl = (
  */
 export const buildAccountUrl = (
   basePath: string | undefined,
-  viewPath: string | undefined,
+  viewPath: string | undefined
 ): string => {
-  if (!basePath || !viewPath) return "";
+  if (!(basePath && viewPath)) {
+    return "";
+  }
   return buildPath(basePath, [viewPath]);
 };
 
@@ -115,9 +114,11 @@ export const buildOrganizationUrl = (
   basePath: string | undefined,
   viewPath: string | undefined,
   slug?: string | undefined,
-  pathMode?: "slug" | "id" | "default",
+  pathMode?: "slug" | "id" | "default"
 ): string => {
-  if (!basePath || !viewPath) return "";
+  if (!(basePath && viewPath)) {
+    return "";
+  }
   return buildPath(basePath, [viewPath], {
     middleware: slug,
     pathMode,
@@ -133,11 +134,13 @@ export const buildOrganizationUrl = (
 export const buildUrl = (
   segments: (string | undefined)[],
   preserveSearch = false,
-  searchParams?: Record<string, string>,
+  searchParams?: Record<string, string>
 ): string => {
   const validSegments = segments.filter(Boolean) as string[];
 
-  if (validSegments.length === 0) return "";
+  if (validSegments.length === 0) {
+    return "";
+  }
 
   const [basePath, ...restSegments] = validSegments;
 
@@ -158,10 +161,9 @@ export const buildUrlWithParams = (
   basePath: string,
   viewPath: string,
   searchParams: Record<string, string>,
-  preserveSearch = false,
-): string => {
-  return buildPath(basePath, [viewPath], {
+  preserveSearch = false
+): string =>
+  buildPath(basePath, [viewPath], {
     searchParams,
     preserveSearch,
   });
-};

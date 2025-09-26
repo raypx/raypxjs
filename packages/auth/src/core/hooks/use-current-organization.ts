@@ -50,6 +50,6 @@ export function useCurrentOrganization({ slug: slugProp }: { slug?: string } = {
       isRefetching,
       refetch,
     }),
-    [data, isPending, isRefetching, refetch],
+    [data, isPending, isRefetching, refetch]
   );
 }

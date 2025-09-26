@@ -114,7 +114,7 @@ export function DeleteOrganizationDialog({
         </Card>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(deleteOrganization)} className="grid gap-6">
+          <form className="grid gap-6" onSubmit={form.handleSubmit(deleteOrganization)}>
             <FormField
               control={form.control}
               name="slug"
@@ -128,9 +128,9 @@ export function DeleteOrganizationDialog({
 
                   <FormControl>
                     <Input
-                      placeholder={organization.slug}
-                      className={classNames?.input}
                       autoComplete="off"
+                      className={classNames?.input}
+                      placeholder={organization.slug}
                       {...field}
                     />
                   </FormControl>
@@ -142,10 +142,10 @@ export function DeleteOrganizationDialog({
 
             <DialogFooter className={classNames?.dialog?.footer}>
               <Button
-                type="button"
-                variant="secondary"
                 className={cn(classNames?.button, classNames?.secondaryButton)}
                 onClick={() => onOpenChange?.(false)}
+                type="button"
+                variant="secondary"
               >
                 {t("CANCEL")}
               </Button>
@@ -153,8 +153,8 @@ export function DeleteOrganizationDialog({
               <Button
                 className={cn(classNames?.button, classNames?.destructiveButton)}
                 disabled={isSubmitting}
-                variant="destructive"
                 type="submit"
+                variant="destructive"
               >
                 {isSubmitting && <Loader2 className="animate-spin" />}
 

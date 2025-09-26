@@ -22,9 +22,9 @@ export function ThemeSwitcher() {
   if (!mounted) {
     return (
       <Button
-        variant="outline"
+        className="size-8 cursor-pointer rounded-full border border-border p-0.5"
         size="sm"
-        className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+        variant="outline"
       >
         <Sun className="size-4" />
       </Button>
@@ -35,9 +35,9 @@ export function ThemeSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          className="size-8 cursor-pointer rounded-full border border-border p-0.5"
           size="sm"
-          className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+          variant="ghost"
         >
           {resolvedTheme === "light" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           <span className="sr-only">Toggle theme</span>

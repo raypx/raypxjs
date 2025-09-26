@@ -5,11 +5,11 @@ import { useAuth } from "../../core/hooks/use-auth";
 import type { AuthViewPath } from "../../core/lib/view-paths";
 import type { AuthViewClassNames } from "./auth-view";
 
-interface MagicLinkButtonProps {
+type MagicLinkButtonProps = {
   classNames?: AuthViewClassNames;
   isSubmitting?: boolean;
   view: AuthViewPath;
-}
+};
 
 export function MagicLinkButton({ classNames, isSubmitting, view }: MagicLinkButtonProps) {
   const { viewPaths, navigate, basePath, credentials, t } = useAuth();
@@ -18,13 +18,13 @@ export function MagicLinkButton({ classNames, isSubmitting, view }: MagicLinkBut
     <Button
       className={cn("w-full", classNames?.form?.button, classNames?.form?.secondaryButton)}
       disabled={isSubmitting}
-      type="button"
-      variant="secondary"
       onClick={() =>
         navigate(
-          `${basePath}/${view === "MAGIC_LINK" || !credentials ? viewPaths.SIGN_IN : viewPaths.MAGIC_LINK}${window.location.search}`,
+          `${basePath}/${view === "MAGIC_LINK" || !credentials ? viewPaths.SIGN_IN : viewPaths.MAGIC_LINK}${window.location.search}`
         )
       }
+      type="button"
+      variant="secondary"
     >
       {view === "MAGIC_LINK" ? (
         <LockIcon className={classNames?.form?.icon} />

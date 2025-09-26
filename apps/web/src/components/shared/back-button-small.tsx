@@ -5,14 +5,14 @@ import { cn } from "@raypx/ui/lib/utils";
 import { ArrowLeftIcon } from "lucide-react";
 import { LocaleLink } from "@/components/link";
 
-interface BackButtonSmallProps {
+type BackButtonSmallProps = {
   href?: string;
   className?: string;
-}
+};
 
 export default function BackButtonSmall({ href, className }: BackButtonSmallProps) {
   return (
-    <Button size="sm" variant="outline" className={cn("size-8 px-0", className)} asChild>
+    <Button asChild className={cn("size-8 px-0", className)} size="sm" variant="outline">
       <LocaleLink href={href || "/"}>
         <ArrowLeftIcon className="size-4" />
       </LocaleLink>

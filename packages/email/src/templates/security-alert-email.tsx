@@ -10,7 +10,7 @@ export type SecurityAlertType =
   | "api_key_created"
   | "api_key_deleted";
 
-export interface SecurityAlertEmailProps {
+export type SecurityAlertEmailProps = {
   username: string;
   alertType: SecurityAlertType;
   details: {
@@ -22,7 +22,7 @@ export interface SecurityAlertEmailProps {
   };
   actionUrl?: string;
   actionText?: string;
-}
+};
 
 const getAlertContent = (alertType: SecurityAlertType) => {
   const alertConfig = {
@@ -86,62 +86,62 @@ const SecurityAlertEmail = ({
         🔒 Security Alert
       </Text>
 
-      <Text className="font-semibold text-xl text-gray-800 mt-4">{alert.title}</Text>
+      <Text className="mt-4 font-semibold text-gray-800 text-xl">{alert.title}</Text>
 
       <Text className="text-gray-600">Hi {username},</Text>
 
       <Text className="text-gray-600">{alert.message}</Text>
 
-      <div className="bg-gray-50 p-4 rounded-lg my-4">
-        <Text className="font-semibold text-gray-800 mb-2">Activity Details:</Text>
-        <Text className="text-sm text-gray-600 my-1">
+      <div className="my-4 rounded-lg bg-gray-50 p-4">
+        <Text className="mb-2 font-semibold text-gray-800">Activity Details:</Text>
+        <Text className="my-1 text-gray-600 text-sm">
           <strong>Time:</strong> {details.timestamp}
         </Text>
         {details.location && (
-          <Text className="text-sm text-gray-600 my-1">
+          <Text className="my-1 text-gray-600 text-sm">
             <strong>Location:</strong> {details.location}
           </Text>
         )}
         {details.ipAddress && (
-          <Text className="text-sm text-gray-600 my-1">
+          <Text className="my-1 text-gray-600 text-sm">
             <strong>IP Address:</strong> {details.ipAddress}
           </Text>
         )}
         {details.userAgent && (
-          <Text className="text-sm text-gray-600 my-1">
+          <Text className="my-1 text-gray-600 text-sm">
             <strong>Device:</strong> {details.deviceInfo || details.userAgent}
           </Text>
         )}
       </div>
 
       {alert.severity === "high" && (
-        <Text className="text-red-600 font-medium">
+        <Text className="font-medium text-red-600">
           ⚠️ If this wasn't you, please secure your account immediately.
         </Text>
       )}
 
       {actionUrl && actionText && (
         <>
-          <Text className="text-gray-600 mt-4">
+          <Text className="mt-4 text-gray-600">
             {alert.severity === "high"
               ? "If you didn't perform this action, please review your account security:"
               : "You can review this activity in your account security settings:"}
           </Text>
 
           <Button
-            href={actionUrl}
-            className={`px-6 py-3 rounded-lg font-medium text-white ${
+            className={`rounded-lg px-6 py-3 font-medium text-white ${
               alert.severity === "high"
                 ? "bg-red-600 hover:bg-red-700"
                 : "bg-blue-600 hover:bg-blue-700"
             }`}
+            href={actionUrl}
           >
             {actionText}
           </Button>
         </>
       )}
 
-      <Text className="text-gray-500 text-sm mt-6">
+      <Text className="mt-6 text-gray-500 text-sm">
         This is an automated security notification. If you have any concerns about your account
         security, please contact our support team immediately.
       </Text>

@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 import { baseOptions } from "@/app/layout.shared";
 import { source } from "@/lib/source";
 
-interface DocsLayoutProps {
+type DocsLayoutProps = {
   children: ReactNode;
   params: Promise<{ lang: string }>;
-}
+};
 
 export default async function Layout({ children, params }: DocsLayoutProps) {
   const { lang } = await params;

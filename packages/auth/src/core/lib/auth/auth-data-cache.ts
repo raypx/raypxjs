@@ -13,9 +13,9 @@ type CacheOptions = {
 };
 
 class AuthDataCache {
-  private cache = new Map<string, CacheEntry<unknown>>();
-  private listeners = new Map<string, Set<() => void>>();
-  private inFlightRequests = new Map<string, Promise<unknown>>();
+  private readonly cache = new Map<string, CacheEntry<unknown>>();
+  private readonly listeners = new Map<string, Set<() => void>>();
+  private readonly inFlightRequests = new Map<string, Promise<unknown>>();
   private readonly options: CacheOptions;
   private cleanupInterval?: NodeJS.Timeout;
 
@@ -29,7 +29,7 @@ class AuthDataCache {
     if (typeof window !== "undefined") {
       this.cleanupInterval = setInterval(() => {
         this.cleanupExpiredEntries();
-      }, 60000); // Clean up every minute
+      }, 60_000); // Clean up every minute
     }
   }
 
@@ -41,7 +41,7 @@ class AuthDataCache {
       if (now - entry.timestamp > this.options.defaultTTL) {
         this.cache.delete(key);
         this.inFlightRequests.delete(key);
-        return undefined;
+        return;
       }
       // Update last accessed time for LRU
       entry.lastAccessed = now;

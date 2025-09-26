@@ -31,7 +31,7 @@ export const user = pgTable(
   (table) => [
     index("idx_user_email").on(table.email),
     index("idx_user_username").on(table.username),
-  ],
+  ]
 );
 
 export const passkey = pgTable("passkey", {
@@ -85,7 +85,7 @@ export const session = pgTable(
     index("idx_session_token").on(table.token),
     index("idx_session_user_id").on(table.userId),
     index("idx_session_expires_at").on(table.expiresAt),
-  ],
+  ]
 );
 
 export const account = pgTable("account", {
@@ -145,7 +145,7 @@ export const apikey = pgTable(
     lastRefillAt: timestamp("last_refill_at"),
     enabled: boolean("enabled").default(true),
     rateLimitEnabled: boolean("rate_limit_enabled").default(true),
-    rateLimitTimeWindow: integer("rate_limit_time_window").default(86400000),
+    rateLimitTimeWindow: integer("rate_limit_time_window").default(86_400_000),
     rateLimitMax: integer("rate_limit_max").default(10),
     requestCount: integer("request_count"),
     remaining: integer("remaining"),
@@ -160,7 +160,7 @@ export const apikey = pgTable(
     permissions: text("permissions"),
     metadata: text("metadata"),
   },
-  (table) => [index("idx_apikey_user_id").on(table.userId), index("idx_apikey_key").on(table.key)],
+  (table) => [index("idx_apikey_user_id").on(table.userId), index("idx_apikey_key").on(table.key)]
 );
 
 export const organization = pgTable("organization", {

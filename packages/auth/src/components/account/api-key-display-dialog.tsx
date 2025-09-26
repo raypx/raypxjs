@@ -39,8 +39,8 @@ export function ApiKeyDisplayDialog({
   return (
     <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent
-        onOpenAutoFocus={(e) => e.preventDefault()}
         className={classNames?.dialog?.content}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className={classNames?.dialog?.header}>
           <DialogTitle className={cn("text-lg md:text-xl", classNames?.title)}>
@@ -56,11 +56,11 @@ export function ApiKeyDisplayDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
+            className={cn(classNames?.button, classNames?.outlineButton)}
+            disabled={copied}
+            onClick={handleCopy}
             type="button"
             variant="outline"
-            onClick={handleCopy}
-            disabled={copied}
-            className={cn(classNames?.button, classNames?.outlineButton)}
           >
             {copied ? (
               <>
@@ -76,10 +76,10 @@ export function ApiKeyDisplayDialog({
           </Button>
 
           <Button
+            className={cn(classNames?.button, classNames?.primaryButton)}
+            onClick={() => onOpenChange?.(false)}
             type="button"
             variant="default"
-            onClick={() => onOpenChange?.(false)}
-            className={cn(classNames?.button, classNames?.primaryButton)}
           >
             {t("DONE")}
           </Button>

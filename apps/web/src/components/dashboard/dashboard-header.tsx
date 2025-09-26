@@ -16,15 +16,15 @@ import { LangSwitcher } from "../lang-switcher";
 // import { ModeSwitcher } from '../layout/mode-switcher';
 // import { ThemeSelector } from '../layout/theme-selector';
 
-interface DashboardBreadcrumbItem {
+type DashboardBreadcrumbItem = {
   label: string;
   isCurrentPage?: boolean;
-}
+};
 
-interface DashboardHeaderProps {
+type DashboardHeaderProps = {
   breadcrumbs: DashboardBreadcrumbItem[];
   actions?: ReactNode;
-}
+};
 
 /**
  * Dashboard header
@@ -34,18 +34,18 @@ export function DashboardHeader({ breadcrumbs, actions }: DashboardHeaderProps) 
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         <SidebarTrigger className="-ml-1 cursor-pointer" />
-        <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
+        <Separator className="mx-2 data-[orientation=vertical]:h-4" orientation="vertical" />
 
         <Breadcrumb>
-          <BreadcrumbList className="text-base font-medium">
+          <BreadcrumbList className="font-medium text-base">
             {breadcrumbs.map((item, index) => (
               <React.Fragment key={`breadcrumb-${index}`}>
                 {index > 0 && (
-                  <BreadcrumbSeparator key={`sep-${index}`} className="hidden md:block" />
+                  <BreadcrumbSeparator className="hidden md:block" key={`sep-${index}`} />
                 )}
                 <BreadcrumbItem
-                  key={`item-${index}`}
                   className={index < breadcrumbs.length - 1 ? "hidden md:block" : ""}
+                  key={`item-${index}`}
                 >
                   {item.isCurrentPage ? <BreadcrumbPage>{item.label}</BreadcrumbPage> : item.label}
                 </BreadcrumbItem>

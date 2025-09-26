@@ -31,9 +31,9 @@ export function OrganizationNameCard({
   if (!organization) {
     return (
       <SettingsCard
+        actionLabel={t("SAVE")}
         className={className}
         classNames={classNames}
-        actionLabel={t("SAVE")}
         description={t("ORGANIZATION_NAME_DESCRIPTION")}
         instructions={t("ORGANIZATION_NAME_INSTRUCTIONS")}
         isPending
@@ -131,15 +131,15 @@ function OrganizationNameForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(updateOrganizationName)}>
         <SettingsCard
+          actionLabel={t("SAVE")}
           className={className}
           classNames={classNames}
           description={t("ORGANIZATION_NAME_DESCRIPTION")}
+          disabled={!hasPermission?.success}
           instructions={t("ORGANIZATION_NAME_INSTRUCTIONS")}
           isPending={isPending}
-          title={t("ORGANIZATION_NAME")}
-          actionLabel={t("SAVE")}
           optimistic={optimistic}
-          disabled={!hasPermission?.success}
+          title={t("ORGANIZATION_NAME")}
           {...props}
         >
           <CardContent className={classNames?.content}>
@@ -154,8 +154,8 @@ function OrganizationNameForm({
                     <FormControl>
                       <Input
                         className={classNames?.input}
-                        placeholder={t("ORGANIZATION_NAME_PLACEHOLDER")}
                         disabled={isSubmitting || !hasPermission?.success}
+                        placeholder={t("ORGANIZATION_NAME_PLACEHOLDER")}
                         {...field}
                       />
                     </FormControl>

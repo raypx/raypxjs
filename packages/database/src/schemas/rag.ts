@@ -36,7 +36,7 @@ export const knowledges = pgTable(
   (table) => [
     index("idx_knowledges_user_id").on(table.userId),
     index("idx_knowledges_status").on(table.status),
-  ],
+  ]
 );
 
 export const documents = pgTable(
@@ -66,7 +66,7 @@ export const documents = pgTable(
     index("idx_documents_knowledge_base_id").on(table.knowledgeBaseId),
     index("idx_documents_user_id").on(table.userId),
     index("idx_documents_status").on(table.status),
-  ],
+  ]
 );
 
 export const chunks = pgTable(
@@ -98,7 +98,7 @@ export const chunks = pgTable(
     index("idx_chunks_knowledge_base_id").on(t.knowledgeBaseId),
     index("idx_chunks_user_id").on(t.userId),
     index("idx_chunks_knowledge_base_id_user_id").on(t.knowledgeBaseId, t.userId),
-  ],
+  ]
 );
 
 export const embeddings = pgTable(
@@ -123,5 +123,5 @@ export const embeddings = pgTable(
     unique("embeddings_client_id_user_id_unique").on(t.clientId, t.userId),
     index("idx_embeddings_chunk_id").on(t.chunkId),
     index("idx_embeddings_user_id").on(t.userId),
-  ],
+  ]
 );

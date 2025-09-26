@@ -21,7 +21,9 @@ export function OrganizationInvitationsCard({
 
   const { data: organization } = useCurrentOrganization({ slug });
 
-  if (!organization) return null;
+  if (!organization) {
+    return null;
+  }
 
   return (
     <OrganizationInvitationsContent
@@ -49,22 +51,24 @@ function OrganizationInvitationsContent({
   });
 
   const pendingInvitations = invitations?.filter((invitation) => invitation.status === "pending");
-  if (!pendingInvitations?.length) return null;
+  if (!pendingInvitations?.length) {
+    return null;
+  }
 
   return (
     <SettingsCard
       className={className}
       classNames={classNames}
-      title={t("PENDING_INVITATIONS")}
       description={t("PENDING_INVITATIONS_DESCRIPTION")}
+      title={t("PENDING_INVITATIONS")}
       {...props}
     >
       <CardContent className={cn("grid gap-4", classNames?.content)}>
         {pendingInvitations.map((invitation) => (
           <InvitationCell
-            key={invitation.id}
             classNames={classNames}
             invitation={invitation}
+            key={invitation.id}
             organization={organization}
           />
         ))}

@@ -5,16 +5,16 @@ const PREFIX = "@raypx/";
 const NPM_REGISTRY_URL = "https://registry.npmjs.org";
 const LOCATIONS = ["packages", "packages/auth", "packages/features"] as const;
 
-interface PackageAnswers {
+type PackageAnswers = {
   name: string;
   location: (typeof LOCATIONS)[number];
   deps: string;
-}
+};
 
-interface NpmPackageInfo {
+type NpmPackageInfo = {
   latest: string;
   [key: string]: string;
-}
+};
 
 /**
  * Sanitizes the package name by removing the prefix if present
@@ -33,7 +33,7 @@ async function fetchPackageVersion(packageName: string): Promise<string> {
   try {
     const response = await fetch(
       `${NPM_REGISTRY_URL}/-/package/${encodeURIComponent(packageName)}/dist-tags`,
-      { signal: controller.signal },
+      { signal: controller.signal }
     );
 
     clearTimeout(timeoutId);
@@ -101,7 +101,7 @@ function runCommand(command: string, description: string): void {
     execSync(command, {
       stdio: "inherit",
       cwd: process.cwd(),
-      timeout: 300000, // 5 minute timeout
+      timeout: 300_000, // 5 minute timeout
     });
     console.log(`✓ Successfully completed: ${description}`);
   } catch (error) {
@@ -159,7 +159,9 @@ export function createPackageGenerator(plop: PlopTypes.NodePlopAPI) {
         message: "Enter dependencies to install (space-separated, optional):",
         default: "",
         validate: (input: string) => {
-          if (!input.trim()) return true;
+          if (!input.trim()) {
+            return true;
+          }
 
           const deps = input
             .split(" ")
@@ -223,7 +225,7 @@ export function createPackageGenerator(plop: PlopTypes.NodePlopAPI) {
         },
       },
       // Install dependencies and format
-      async (answers) => {
+      (answers) => {
         try {
           const packageName =
             "name" in answers && typeof answers.name === "string" ? answers.name : "unknown";

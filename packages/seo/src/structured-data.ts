@@ -80,7 +80,7 @@ export const createArticleStructuredData = ({
 });
 
 export const createBreadcrumbStructuredData = (
-  breadcrumbs: Array<{ name: string; url: string }>,
+  breadcrumbs: Array<{ name: string; url: string }>
 ): WithContext<BreadcrumbList> => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",

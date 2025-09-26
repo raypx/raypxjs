@@ -2,7 +2,7 @@ export async function resizeAndCropImage(
   file: File,
   name: string,
   size: number,
-  extension: string,
+  extension: string
 ): Promise<File> {
   const image = await loadImage(file);
 
@@ -21,7 +21,7 @@ export async function resizeAndCropImage(
   ctx?.drawImage(image, sx, sy, sWidth, sHeight, 0, 0, size, size);
 
   const resizedImageBlob = await new Promise<Blob | null>((resolve) =>
-    canvas.toBlob(resolve, `image/${extension}`),
+    canvas.toBlob(resolve, `image/${extension}`)
   );
 
   return new File([resizedImageBlob as BlobPart], `${name}.${extension}`, {
@@ -29,7 +29,7 @@ export async function resizeAndCropImage(
   });
 }
 
-async function loadImage(file: File): Promise<HTMLImageElement> {
+function loadImage(file: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image();
     const reader = new FileReader();
@@ -45,7 +45,7 @@ async function loadImage(file: File): Promise<HTMLImageElement> {
   });
 }
 
-export async function fileToBase64(file: File): Promise<string> {
+export function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => resolve(reader.result as string);

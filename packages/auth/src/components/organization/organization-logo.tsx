@@ -8,20 +8,20 @@ import type { Organization } from "better-auth/plugins/organization";
 import type { ComponentProps } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
 
-export interface OrganizationLogoClassNames {
+export type OrganizationLogoClassNames = {
   base?: string;
   image?: string;
   fallback?: string;
   fallbackIcon?: string;
   skeleton?: string;
-}
+};
 
-export interface OrganizationLogoProps {
+export type OrganizationLogoProps = {
   classNames?: OrganizationLogoClassNames;
   isPending?: boolean;
   size?: "sm" | "default" | "lg" | "xl" | null;
   organization?: Partial<Organization> | null;
-}
+};
 
 /**
  * Displays an organization logo with image and fallback support
@@ -57,7 +57,7 @@ export function OrganizationLogo({
                 : "size-8",
           className,
           classNames?.base,
-          classNames?.skeleton,
+          classNames?.skeleton
         )}
       />
     );
@@ -69,7 +69,7 @@ export function OrganizationLogo({
         "bg-muted",
         size === "sm" ? "size-6" : size === "lg" ? "size-10" : size === "xl" ? "size-12" : "size-8",
         className,
-        classNames?.base,
+        classNames?.base
       )}
       {...props}
     >

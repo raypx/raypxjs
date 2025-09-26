@@ -7,15 +7,19 @@ import type { SocialOptions } from "../../types";
  * @returns Processed social configuration
  */
 export const processSocialConfig = (
-  config: SocialOptions | undefined,
+  config: SocialOptions | undefined
 ): SocialOptions | undefined => {
-  if (!config) return undefined;
+  if (!config) {
+    return;
+  }
 
   const enabledProviders = Object.entries(authFeatures.social)
     .filter(([_, enabled]) => enabled)
     .map(([provider]) => provider);
 
-  if (enabledProviders.length === 0) return undefined;
+  if (enabledProviders.length === 0) {
+    return;
+  }
 
   return {
     ...config,

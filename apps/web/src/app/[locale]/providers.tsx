@@ -8,11 +8,11 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { authPages } from "@/config/auth.config";
 
-interface ProvidersProps {
+type ProvidersProps = {
   children: React.ReactNode;
   locale: string;
   messages: Record<string, unknown>;
-}
+};
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
   const router = useRouter();
@@ -23,28 +23,28 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
         <AnalyticsProvider>
           <AuthProvider
             authClient={client}
-            locale={locale}
-            social={{
-              providers: ["google", "github"],
-            }}
             basePath="/auth"
-            navigate={router.push}
-            replace={router.replace}
-            viewPaths={authPages}
             credentials={{
               username: true,
               rememberMe: true,
             }}
-            signUp={true}
+            locale={locale}
+            navigate={router.push}
+            onSessionChange={() => {
+              router.refresh();
+            }}
             organization={{
               pathMode: "slug",
               basePath: "/orgs",
               apiKey: true,
               logo: true,
             }}
-            onSessionChange={() => {
-              router.refresh();
+            replace={router.replace}
+            signUp={true}
+            social={{
+              providers: ["google", "github"],
             }}
+            viewPaths={authPages}
           >
             {children}
           </AuthProvider>

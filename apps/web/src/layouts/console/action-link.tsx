@@ -4,7 +4,7 @@ import { Badge } from "@raypx/ui/components/badge";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 
-export interface DashboardActionLinkProps {
+export type DashboardActionLinkProps = {
   href: string;
   icon: LucideIcon;
   title: string;
@@ -13,7 +13,7 @@ export interface DashboardActionLinkProps {
     variant?: "default" | "secondary" | "destructive" | "outline";
   };
   disabled?: boolean;
-}
+};
 
 export function DashboardActionLink({
   href,
@@ -41,7 +41,7 @@ export function DashboardActionLink({
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link className={className} href={href}>
       {content}
     </Link>
   );

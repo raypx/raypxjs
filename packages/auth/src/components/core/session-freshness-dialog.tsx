@@ -47,18 +47,18 @@ export function SessionFreshnessDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
-            type="button"
-            variant="secondary"
             className={cn(classNames?.button, classNames?.secondaryButton)}
             onClick={() => onOpenChange?.(false)}
+            type="button"
+            variant="secondary"
           >
             {t("CANCEL")}
           </Button>
 
           <Button
             className={cn(classNames?.button, classNames?.primaryButton)}
-            variant="default"
             onClick={handleSignOut}
+            variant="default"
           >
             {t("SIGN_OUT")}
           </Button>

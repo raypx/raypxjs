@@ -6,9 +6,9 @@ import { changelogSource } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 import { ChangelogCard } from "./_components/card";
 
-interface ChangelogPageProps {
+type ChangelogPageProps = {
   params: Promise<{ lang: string }>;
-}
+};
 
 export async function generateMetadata({ params }: ChangelogPageProps): Promise<Metadata> {
   const { lang } = await params;
@@ -46,23 +46,23 @@ export default async function ChangelogPage({ params }: ChangelogPageProps) {
   return (
     <div className="container max-w-4xl py-12">
       <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold">{title}</h1>
-        <p className="text-xl text-muted-foreground">{description}</p>
+        <h1 className="mb-4 font-bold text-4xl">{title}</h1>
+        <p className="text-muted-foreground text-xl">{description}</p>
       </div>
 
       <div className="space-y-12">
         {entries.map((entry, index) => (
-          <div className="relative">
+          <div className="relative" key={entry.url}>
             {index !== entries.length - 1 && (
-              <div className="absolute left-6 top-16 h-full w-0.5 bg-border" />
+              <div className="absolute top-16 left-6 h-full w-0.5 bg-border" />
             )}
             <ChangelogCard
-              key={entry.url}
-              date={entry.data.date}
-              version={entry.data.version}
-              title={entry.data.title}
-              description={entry.data.description}
               body={<entry.data.body components={getMDXComponents()} />}
+              date={entry.data.date}
+              description={entry.data.description}
+              key={entry.url}
+              title={entry.data.title}
+              version={entry.data.version}
             />
           </div>
         ))}

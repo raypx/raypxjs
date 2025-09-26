@@ -34,13 +34,13 @@ export function SettingsActionButton({
         "md:ms-auto",
         classNames?.button,
         variant === "default" && classNames?.primaryButton,
-        variant === "destructive" && classNames?.destructiveButton,
+        variant === "destructive" && classNames?.destructiveButton
       )}
       disabled={isSubmitting || disabled}
+      onClick={onClick}
       size="sm"
       type={onClick ? "button" : "submit"}
       variant={variant}
-      onClick={onClick}
       {...props}
     >
       {isSubmitting && <Loader2 className="animate-spin" />}

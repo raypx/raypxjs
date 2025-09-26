@@ -6,18 +6,20 @@ import { cn } from "@raypx/ui/lib/utils";
 import { useFormState } from "react-hook-form";
 import type { AuthFormClassNames } from "./auth-form";
 
-export interface FormErrorProps {
+export type FormErrorProps = {
   title?: string;
   classNames?: AuthFormClassNames;
-}
+};
 
 export function FormError({ title, classNames }: FormErrorProps) {
   const { errors } = useFormState();
 
-  if (!errors.root?.message) return null;
+  if (!errors.root?.message) {
+    return null;
+  }
 
   return (
-    <Alert variant="destructive" className={cn(classNames?.error)}>
+    <Alert className={cn(classNames?.error)} variant="destructive">
       <AlertCircle className="self-center" />
       <AlertTitle>{title || "Error"}</AlertTitle>
       <AlertDescription>{errors.root.message}</AlertDescription>

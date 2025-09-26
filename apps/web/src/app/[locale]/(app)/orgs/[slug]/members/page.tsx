@@ -2,19 +2,18 @@ import { OrganizationView } from "@raypx/auth/organization";
 import { createMetadata } from "@raypx/seo";
 import type { Metadata } from "next";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     title: "Members",
   });
-};
 
-interface MembersPageProps {
+type MembersPageProps = {
   params: Promise<{
     slug: string;
   }>;
-}
+};
 
 export default async function MembersPage({ params }: MembersPageProps) {
   const { slug } = await params;
-  return <OrganizationView view="MEMBERS" slug={slug} />;
+  return <OrganizationView slug={slug} view="MEMBERS" />;
 }

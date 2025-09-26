@@ -1,9 +1,10 @@
 import { Listr, PRESET_TIMER } from "listr2";
 import { camelCase } from "lodash-es";
+import type { Cmd } from "./lib/task";
 import { formatDuration, logger } from "./utils";
 
 // Command cache to avoid repeated dynamic imports
-const cmdCache = new Map<string, any>();
+const cmdCache = new Map<string, Cmd>();
 
 // Lazy load commands with caching
 async function loadCommand(name: string) {
@@ -16,7 +17,6 @@ async function loadCommand(name: string) {
     format: () => import("./cmd/format").then((m) => m.default),
     setup: () => import("./cmd/setup").then((m) => m.default),
     postinstall: () => import("./cmd/postinstall").then((m) => m.default),
-    addGitEmoji: () => import("./cmd/add-git-emoji").then((m) => m.default),
   } as const;
 
   const loader = cmdMap[camelCase(name) as keyof typeof cmdMap];

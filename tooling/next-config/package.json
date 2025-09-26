@@ -11,15 +11,14 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^15.5.4",
-    "next-intl": "catalog:"
+    "@next/bundle-analyzer": "^15.5.4"
   },
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "next-intl": "catalog:",
     "type-fest": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:dev"
   },
   "peerDependencies": {
     "next": "catalog:",

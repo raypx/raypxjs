@@ -9,7 +9,7 @@ export function useOnSuccessTransition({ redirectTo: redirectToProp }: { redirec
 
   const getRedirectTo = useCallback(
     () => redirectToProp || getSearchParam("redirectTo") || contextRedirectTo,
-    [redirectToProp, contextRedirectTo],
+    [redirectToProp, contextRedirectTo]
   );
 
   const [isPending, startTransition] = useTransition();
@@ -24,7 +24,9 @@ export function useOnSuccessTransition({ redirectTo: redirectToProp }: { redirec
   const { refetch: refetchSession } = useSession();
 
   useEffect(() => {
-    if (!success || isPending) return;
+    if (!success || isPending) {
+      return;
+    }
 
     startTransition(() => {
       navigate(getRedirectTo());
@@ -35,7 +37,9 @@ export function useOnSuccessTransition({ redirectTo: redirectToProp }: { redirec
     await refetchSession?.();
     setSuccess(true);
 
-    if (onSessionChange) startTransition(onSessionChange);
+    if (onSessionChange) {
+      startTransition(onSessionChange);
+    }
   }, [refetchSession, onSessionChange]);
 
   return { onSuccess, isPending };

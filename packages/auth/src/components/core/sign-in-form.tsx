@@ -31,14 +31,14 @@ import type { AuthFormClassNames } from "./auth-form";
 import { AuthLink } from "./auth-link";
 import { Captcha } from "./captcha";
 
-export interface SignInFormProps {
+export type SignInFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   isSubmitting?: boolean;
   redirectTo?: string;
   setIsSubmitting?: (isSubmitting: boolean) => void;
   passwordValidation?: PasswordValidation;
-}
+};
 
 export function SignInForm({
   className,
@@ -161,9 +161,9 @@ export function SignInForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(signIn)}
-        noValidate={isHydrated}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        noValidate={isHydrated}
+        onSubmit={form.handleSubmit(signIn)}
       >
         <FormField
           control={form.control}
@@ -178,11 +178,11 @@ export function SignInForm({
                 <Input
                   autoComplete={usernameEnabled ? "username" : "email"}
                   className={classNames?.input}
-                  type={usernameEnabled ? "text" : "email"}
+                  disabled={isSubmitting}
                   placeholder={
                     usernameEnabled ? t("SIGN_IN_USERNAME_PLACEHOLDER") : t("EMAIL_PLACEHOLDER")
                   }
-                  disabled={isSubmitting}
+                  type={usernameEnabled ? "text" : "email"}
                   {...field}
                 />
               </FormControl>
@@ -214,8 +214,8 @@ export function SignInForm({
                 <PasswordField
                   autoComplete="current-password"
                   className={classNames?.input}
-                  placeholder={t("PASSWORD_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("PASSWORD_PLACEHOLDER")}
                   {...field}
                 />
               </FormControl>
@@ -234,8 +234,8 @@ export function SignInForm({
                 <FormControl>
                   <Checkbox
                     checked={field.value}
-                    onCheckedChange={field.onChange}
                     disabled={isSubmitting}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
                 <FormLabel>{t("REMEMBER_ME")}</FormLabel>
@@ -244,23 +244,23 @@ export function SignInForm({
           />
         )}
 
-        <Captcha ref={captchaRef as RefObject<ReCAPTCHA>} action="/sign-in/email" />
+        <Captcha action="/sign-in/email" ref={captchaRef as RefObject<ReCAPTCHA>} />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn(
             "w-full",
             classNames?.button,
             classNames?.primaryButton,
-            isLastUsed && "relative",
+            isLastUsed && "relative"
           )}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("SIGN_IN_ACTION")}
           {isLastUsed && (
             <Badge
+              className="-top-2 -right-2 absolute border-blue-200 bg-blue-100 text-blue-800 text-xs"
               variant="secondary"
-              className="absolute -top-2 -right-2 text-xs bg-blue-100 text-blue-800 border-blue-200"
             >
               Last Used
             </Badge>

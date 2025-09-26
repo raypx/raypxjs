@@ -115,7 +115,7 @@ export default function ConsolePage() {
     {
       name: "Settings",
       component: (
-        <SettingsButton variant="outline" size="sm">
+        <SettingsButton size="sm" variant="outline">
           Settings
         </SettingsButton>
       ),
@@ -127,37 +127,37 @@ export default function ConsolePage() {
       {/* Welcome Section */}
       <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Welcome back!</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <h1 className="font-bold text-2xl tracking-tight sm:text-3xl">Welcome back!</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">
             Here's what's happening with your projects today.
           </p>
         </div>
         <div className="flex items-center gap-2 self-start md:self-center">
-          <Badge variant="secondary" className="text-xs sm:text-sm">
+          <Badge className="text-xs sm:text-sm" variant="secondary">
             <TrendingUp className="mr-1 h-3 w-3" />
-            <span className="hidden xs:inline">+12.5% from last month</span>
+            <span className="xs:inline hidden">+12.5% from last month</span>
             <span className="xs:hidden">+12.5%</span>
           </Badge>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.title} className="transition-all hover:shadow-md">
+          <Card className="transition-all hover:shadow-md" key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs sm:text-sm font-medium leading-none">
+              <CardTitle className="font-medium text-xs leading-none sm:text-sm">
                 {stat.title}
               </CardTitle>
-              <stat.icon className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground flex-shrink-0" />
+              <stat.icon className="h-3 w-3 flex-shrink-0 text-muted-foreground sm:h-4 sm:w-4" />
             </CardHeader>
             <CardContent className="space-y-2">
-              <div className="text-lg sm:text-2xl font-bold">{stat.value}</div>
+              <div className="font-bold text-lg sm:text-2xl">{stat.value}</div>
               <div className="flex items-center space-x-1 sm:space-x-2">
                 {stat.changeType === "positive" ? (
-                  <ArrowUpRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-green-600 flex-shrink-0" />
+                  <ArrowUpRight className="h-2.5 w-2.5 flex-shrink-0 text-green-600 sm:h-3 sm:w-3" />
                 ) : (
-                  <ArrowDownRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-red-600 flex-shrink-0" />
+                  <ArrowDownRight className="h-2.5 w-2.5 flex-shrink-0 text-red-600 sm:h-3 sm:w-3" />
                 )}
                 <span
                   className={`text-xs ${
@@ -166,11 +166,11 @@ export default function ConsolePage() {
                 >
                   {stat.change}
                 </span>
-                <span className="text-xs text-muted-foreground hidden sm:inline">
+                <span className="hidden text-muted-foreground text-xs sm:inline">
                   from last month
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed hidden sm:block">
+              <p className="hidden text-muted-foreground text-xs leading-relaxed sm:block">
                 {stat.description}
               </p>
             </CardContent>
@@ -191,10 +191,10 @@ export default function ConsolePage() {
           <CardContent className="space-y-2 sm:space-y-3">
             {quickActions.map((action) => (
               <Button
+                asChild
+                className="h-9 w-full justify-start text-xs sm:h-10 sm:text-sm"
                 key={action.name}
                 variant={action.variant}
-                className="w-full justify-start h-9 sm:h-10 text-xs sm:text-sm"
-                asChild
               >
                 <a href={action.href}>
                   <action.icon className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
@@ -203,7 +203,7 @@ export default function ConsolePage() {
               </Button>
             ))}
             {customActions.map((action) => (
-              <div key={action.name} className="w-full">
+              <div className="w-full" key={action.name}>
                 {action.component}
               </div>
             ))}
@@ -221,17 +221,17 @@ export default function ConsolePage() {
           <CardContent>
             <div className="space-y-3 sm:space-y-4">
               {recentActivity.map((activity) => (
-                <div key={activity.id} className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 mt-1.5">
-                    <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-primary" />
+                <div className="flex items-start space-x-3" key={activity.id}>
+                  <div className="mt-1.5 flex-shrink-0">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary sm:h-2 sm:w-2" />
                   </div>
-                  <div className="flex-1 min-w-0 space-y-1">
-                    <p className="text-xs sm:text-sm font-medium text-foreground line-clamp-2">
+                  <div className="min-w-0 flex-1 space-y-1">
+                    <p className="line-clamp-2 font-medium text-foreground text-xs sm:text-sm">
                       {activity.action}
                     </p>
-                    <p className="text-xs text-muted-foreground">{activity.time}</p>
+                    <p className="text-muted-foreground text-xs">{activity.time}</p>
                   </div>
-                  <Badge variant="outline" className="text-xs flex-shrink-0">
+                  <Badge className="flex-shrink-0 text-xs" variant="outline">
                     {activity.type}
                   </Badge>
                 </div>
@@ -252,12 +252,12 @@ export default function ConsolePage() {
             <div className="space-y-4 sm:space-y-5">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-sm text-muted-foreground">User Growth</span>
-                  <span className="text-xs sm:text-sm font-medium">+12.5%</span>
+                  <span className="text-muted-foreground text-xs sm:text-sm">User Growth</span>
+                  <span className="font-medium text-xs sm:text-sm">+12.5%</span>
                 </div>
-                <div className="w-full bg-muted rounded-full h-1.5 sm:h-2">
+                <div className="h-1.5 w-full rounded-full bg-muted sm:h-2">
                   <div
-                    className="bg-primary h-1.5 sm:h-2 rounded-full transition-all duration-300"
+                    className="h-1.5 rounded-full bg-primary transition-all duration-300 sm:h-2"
                     style={{ width: "75%" }}
                   />
                 </div>
@@ -265,14 +265,14 @@ export default function ConsolePage() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-sm text-muted-foreground">
+                  <span className="text-muted-foreground text-xs sm:text-sm">
                     Content Engagement
                   </span>
-                  <span className="text-xs sm:text-sm font-medium">+8.2%</span>
+                  <span className="font-medium text-xs sm:text-sm">+8.2%</span>
                 </div>
-                <div className="w-full bg-muted rounded-full h-1.5 sm:h-2">
+                <div className="h-1.5 w-full rounded-full bg-muted sm:h-2">
                   <div
-                    className="bg-primary h-1.5 sm:h-2 rounded-full transition-all duration-300"
+                    className="h-1.5 rounded-full bg-primary transition-all duration-300 sm:h-2"
                     style={{ width: "60%" }}
                   />
                 </div>
@@ -280,12 +280,12 @@ export default function ConsolePage() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs sm:text-sm text-muted-foreground">API Performance</span>
-                  <span className="text-xs sm:text-sm font-medium">+23.1%</span>
+                  <span className="text-muted-foreground text-xs sm:text-sm">API Performance</span>
+                  <span className="font-medium text-xs sm:text-sm">+23.1%</span>
                 </div>
-                <div className="w-full bg-muted rounded-full h-1.5 sm:h-2">
+                <div className="h-1.5 w-full rounded-full bg-muted sm:h-2">
                   <div
-                    className="bg-primary h-1.5 sm:h-2 rounded-full transition-all duration-300"
+                    className="h-1.5 rounded-full bg-primary transition-all duration-300 sm:h-2"
                     style={{ width: "90%" }}
                   />
                 </div>
@@ -304,14 +304,14 @@ export default function ConsolePage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-48 sm:h-64 lg:h-80 flex items-center justify-center bg-gradient-to-br from-muted/30 to-muted/60 rounded-lg border border-dashed border-muted-foreground/20">
-            <div className="text-center space-y-3">
-              <BarChart3 className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 text-muted-foreground mx-auto" />
+          <div className="flex h-48 items-center justify-center rounded-lg border border-muted-foreground/20 border-dashed bg-gradient-to-br from-muted/30 to-muted/60 sm:h-64 lg:h-80">
+            <div className="space-y-3 text-center">
+              <BarChart3 className="mx-auto h-8 w-8 text-muted-foreground sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
               <div className="space-y-1">
-                <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+                <p className="font-medium text-muted-foreground text-xs sm:text-sm">
                   Chart component will be integrated here
                 </p>
-                <p className="text-xs text-muted-foreground/80 hidden sm:block">
+                <p className="hidden text-muted-foreground/80 text-xs sm:block">
                   Showing data visualization for better insights
                 </p>
               </div>

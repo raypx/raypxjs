@@ -18,10 +18,10 @@ import { useAuthenticate } from "../../core/hooks/use-authenticate";
 import { getLocalizedError, getSearchParam } from "../../core/lib/utils";
 import { OrganizationCellView } from "./organization-cell-view";
 
-export interface AcceptInvitationCardProps {
+export type AcceptInvitationCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function AcceptInvitationCard({ className, classNames }: AcceptInvitationCardProps) {
   const { t, redirectTo, replace, toast } = useAuth();
@@ -43,9 +43,9 @@ export function AcceptInvitationCard({ className, classNames }: AcceptInvitation
     }
 
     setInvitationId(invitationIdParam);
-  }, [t("INVITATION_NOT_FOUND"), toast, replace, redirectTo]);
+  }, [toast, replace, redirectTo, t]);
 
-  if (!sessionData || !invitationId) {
+  if (!(sessionData && invitationId)) {
     return <AcceptInvitationSkeleton className={className} classNames={classNames} />;
   }
 
@@ -86,7 +86,9 @@ function AcceptInvitationContent({
   const getRedirectTo = useCallback(() => getSearchParam("redirectTo") || redirectTo, [redirectTo]);
 
   useEffect(() => {
-    if (isPending || !invitationId) return;
+    if (isPending || !invitationId) {
+      return;
+    }
 
     if (!invitation) {
       toast({
@@ -116,7 +118,7 @@ function AcceptInvitationContent({
 
     try {
       await authClient.organization.acceptInvitation({
-        invitationId: invitationId,
+        invitationId,
         fetchOptions: { throw: true },
       });
 
@@ -141,7 +143,7 @@ function AcceptInvitationContent({
 
     try {
       await authClient.organization.rejectInvitation({
-        invitationId: invitationId,
+        invitationId,
         fetchOptions: { throw: true },
       });
 
@@ -170,8 +172,9 @@ function AcceptInvitationContent({
   const roles = [...builtInRoles, ...(organization?.customRoles || [])];
   const roleLabel = roles.find((r) => r.role === invitation?.role)?.label || invitation?.role;
 
-  if (!invitation)
+  if (!invitation) {
     return <AcceptInvitationSkeleton className={className} classNames={classNames} />;
+  }
 
   return (
     <Card className={cn("w-full max-w-sm", className, classNames?.base)}>
@@ -202,10 +205,10 @@ function AcceptInvitationContent({
 
         <div className="grid grid-cols-2 gap-3">
           <Button
-            variant="outline"
             className={cn(classNames?.button, classNames?.outlineButton)}
-            onClick={rejectInvitation}
             disabled={isProcessing}
+            onClick={rejectInvitation}
+            variant="outline"
           >
             {isRejecting ? <Loader2 className="animate-spin" /> : <X />}
 
@@ -214,8 +217,8 @@ function AcceptInvitationContent({
 
           <Button
             className={cn(classNames?.button, classNames?.primaryButton)}
-            onClick={acceptInvitation}
             disabled={isProcessing}
+            onClick={acceptInvitation}
           >
             {isAccepting ? <Loader2 className="animate-spin" /> : <Check />}
 
@@ -227,32 +230,28 @@ function AcceptInvitationContent({
   );
 }
 
-const AcceptInvitationSkeleton = ({ className, classNames }: AcceptInvitationCardProps) => {
-  return (
-    <Card className={cn("w-full max-w-sm", className, classNames?.base)}>
-      <CardHeader className={cn("justify-items-center", classNames?.header)}>
-        <Skeleton
-          className={cn("my-1 h-5 w-full max-w-32 md:h-5.5 md:w-40", classNames?.skeleton)}
-        />
+const AcceptInvitationSkeleton = ({ className, classNames }: AcceptInvitationCardProps) => (
+  <Card className={cn("w-full max-w-sm", className, classNames?.base)}>
+    <CardHeader className={cn("justify-items-center", classNames?.header)}>
+      <Skeleton className={cn("my-1 h-5 w-full max-w-32 md:h-5.5 md:w-40", classNames?.skeleton)} />
 
-        <Skeleton
-          className={cn("my-0.5 h-3 w-full max-w-56 md:h-3.5 md:w-64", classNames?.skeleton)}
-        />
-      </CardHeader>
+      <Skeleton
+        className={cn("my-0.5 h-3 w-full max-w-56 md:h-3.5 md:w-64", classNames?.skeleton)}
+      />
+    </CardHeader>
 
-      <CardContent className={cn("flex flex-col gap-6 truncate", classNames?.content)}>
-        <Card className={cn("flex-row items-center p-4")}>
-          <OrganizationCellView isPending />
+    <CardContent className={cn("flex flex-col gap-6 truncate", classNames?.content)}>
+      <Card className={cn("flex-row items-center p-4")}>
+        <OrganizationCellView isPending />
 
-          <Skeleton className="mt-0.5 ml-auto h-4 w-full max-w-14 shrink-2" />
-        </Card>
+        <Skeleton className="mt-0.5 ml-auto h-4 w-full max-w-14 shrink-2" />
+      </Card>
 
-        <div className="grid grid-cols-2 gap-3">
-          <Skeleton className="h-9 w-full" />
+      <div className="grid grid-cols-2 gap-3">
+        <Skeleton className="h-9 w-full" />
 
-          <Skeleton className="h-9 w-full" />
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+        <Skeleton className="h-9 w-full" />
+      </div>
+    </CardContent>
+  </Card>
+);

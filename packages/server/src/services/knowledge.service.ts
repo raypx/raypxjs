@@ -18,39 +18,39 @@ import type { InferSelectModel } from "drizzle-orm";
 export type Knowledge = InferSelectModel<typeof schemas.knowledges>;
 export type Document = InferSelectModel<typeof schemas.documents>;
 
-export interface CreateKnowledgeBaseData {
+export type CreateKnowledgeBaseData = {
   name: string;
   description?: string;
   settings?: Record<string, unknown>;
-}
+};
 
-export interface UpdateKnowledgeBaseData {
+export type UpdateKnowledgeBaseData = {
   name?: string;
   description?: string;
   status?: "active" | "inactive" | "archived";
   settings?: Record<string, unknown>;
-}
+};
 
-export interface KnowledgeBaseListOptions {
+export type KnowledgeBaseListOptions = {
   limit?: number;
   offset?: number;
   search?: string;
   sortBy?: "name" | "createdAt" | "updatedAt";
   sortOrder?: "asc" | "desc";
-}
+};
 
-export interface CreateDocumentData {
+export type CreateDocumentData = {
   name: string;
   originalName: string;
   mimeType: string;
   size: number;
   content?: string;
   metadata?: Record<string, unknown>;
-}
+};
 
-export interface ProcessDocumentOptions {
+export type ProcessDocumentOptions = {
   chunkSize?: number;
-}
+};
 
 export class KnowledgeService {
   /**
@@ -112,7 +112,7 @@ export class KnowledgeService {
     options?: {
       limit?: number;
       offset?: number;
-    },
+    }
   ) {
     // First verify the user owns this knowledge base
     await this.getKnowledgeBase(knowledgeBaseId, userId);
@@ -145,7 +145,7 @@ export class KnowledgeService {
     options?: {
       limit?: number;
       offset?: number;
-    },
+    }
   ) {
     // First verify the user owns this knowledge base
     await this.getKnowledgeBase(knowledgeBaseId, userId);
@@ -182,7 +182,7 @@ export class KnowledgeService {
     documentId: string,
     userId: string,
     content: string,
-    options?: ProcessDocumentOptions,
+    options?: ProcessDocumentOptions
   ) {
     const { chunkSize = 1000 } = options || {};
 

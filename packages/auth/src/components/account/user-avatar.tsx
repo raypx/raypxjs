@@ -9,20 +9,20 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getGravatarUrl } from "../../core/lib/gravatar-utils";
 import type { Profile } from "../../types";
 
-export interface UserAvatarClassNames {
+export type UserAvatarClassNames = {
   base?: string;
   image?: string;
   fallback?: string;
   fallbackIcon?: string;
   skeleton?: string;
-}
+};
 
-export interface UserAvatarProps {
+export type UserAvatarProps = {
   classNames?: UserAvatarClassNames;
   isPending?: boolean;
   size?: "sm" | "default" | "lg" | "xl" | null;
   user?: Profile | null;
-}
+};
 
 /**
  * Displays a user avatar with image and fallback support
@@ -74,7 +74,7 @@ export function UserAvatar({
                 : "size-8",
           className,
           classNames?.base,
-          classNames?.skeleton,
+          classNames?.skeleton
         )}
       />
     );
@@ -86,7 +86,7 @@ export function UserAvatar({
         "bg-muted",
         size === "sm" ? "size-6" : size === "lg" ? "size-10" : size === "xl" ? "size-12" : "size-8",
         className,
-        classNames?.base,
+        classNames?.base
       )}
       {...props}
     >

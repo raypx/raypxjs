@@ -13,11 +13,12 @@ async function loadPostHog(): Promise<{
   posthog: PostHogInstance | null;
   PostHogProvider: PostHogProvider | null;
 }> {
-  if (posthogInstance)
+  if (posthogInstance) {
     return {
       posthog: posthogInstance,
       PostHogProvider: PostHogProviderComponent,
     };
+  }
 
   try {
     const [posthogModule, reactModule] = await Promise.all([
@@ -25,7 +26,7 @@ async function loadPostHog(): Promise<{
       import("posthog-js/react").catch(() => null),
     ]);
 
-    if (!posthogModule || !reactModule) {
+    if (!(posthogModule && reactModule)) {
       return { posthog: null, PostHogProvider: null };
     }
 
@@ -92,7 +93,7 @@ export const PostHogAnalyticsProvider: FC<{ children: ReactNode }> = ({ children
               },
             },
             autocapture: true,
-            debug: envs.NEXT_PUBLIC_ANALYTICS_DEBUG || false,
+            debug: envs.NEXT_PUBLIC_ANALYTICS_DEBUG,
             loaded: (posthog: PostHogInstance) => {
               if (envs.NEXT_PUBLIC_ANALYTICS_DEBUG) {
                 console.log("PostHog loaded successfully", posthog);
@@ -112,7 +113,7 @@ export const PostHogAnalyticsProvider: FC<{ children: ReactNode }> = ({ children
     return <>{children}</>;
   }
 
-  if (!Provider || !posthogInstance) {
+  if (!(Provider && posthogInstance)) {
     return <>{children}</>;
   }
 

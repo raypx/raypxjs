@@ -3,7 +3,7 @@ import { UAParser } from "@raypx/shared";
 import { format } from "date-fns";
 import type { Variables } from "../types";
 
-export interface SessionData {
+export type SessionData = {
   id: string;
   deviceType: string;
   current: boolean;
@@ -19,7 +19,7 @@ export interface SessionData {
   createdAt: Date;
   userId: string;
   expiresAt: Date;
-}
+};
 
 export class AuthService {
   /**

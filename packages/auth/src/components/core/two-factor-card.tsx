@@ -7,10 +7,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import type { User } from "../../types";
 import { TwoFactorPasswordDialog } from "./two-factor-password-dialog";
 
-export interface TwoFactorCardProps {
+export type TwoFactorCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function TwoFactorCard({ className, classNames }: TwoFactorCardProps) {
   const {
@@ -26,9 +26,10 @@ export function TwoFactorCard({ className, classNames }: TwoFactorCardProps) {
   return (
     <div>
       <SettingsCard
+        action={() => setShowPasswordDialog(true)}
+        actionLabel={isTwoFactorEnabled ? t("DISABLE_TWO_FACTOR") : t("ENABLE_TWO_FACTOR")}
         className={className}
         classNames={classNames}
-        actionLabel={isTwoFactorEnabled ? t("DISABLE_TWO_FACTOR") : t("ENABLE_TWO_FACTOR")}
         description={t("TWO_FACTOR_CARD_DESCRIPTION")}
         instructions={
           isTwoFactorEnabled
@@ -37,14 +38,13 @@ export function TwoFactorCard({ className, classNames }: TwoFactorCardProps) {
         }
         isPending={isPending}
         title={t("TWO_FACTOR")}
-        action={() => setShowPasswordDialog(true)}
       />
 
       <TwoFactorPasswordDialog
         classNames={classNames}
-        open={showPasswordDialog}
-        onOpenChange={setShowPasswordDialog}
         isTwoFactorEnabled={!!isTwoFactorEnabled}
+        onOpenChange={setShowPasswordDialog}
+        open={showPasswordDialog}
       />
     </div>
   );

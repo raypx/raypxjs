@@ -136,8 +136,8 @@ export function CreateApiKeyDialog({
   return (
     <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent
-        onOpenAutoFocus={(e) => e.preventDefault()}
         className={classNames?.dialog?.content}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className={classNames?.dialog?.header}>
           <DialogTitle className={cn("text-lg md:text-xl", classNames?.title)}>
@@ -150,7 +150,7 @@ export function CreateApiKeyDialog({
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             {showOrganizationSelect && (
               <FormField
                 control={form.control}
@@ -160,9 +160,9 @@ export function CreateApiKeyDialog({
                     <FormLabel className={classNames?.label}>{t("ORGANIZATION")}</FormLabel>
 
                     <Select
+                      disabled={isSubmitting}
                       onValueChange={field.onChange}
                       value={field.value}
-                      disabled={isSubmitting}
                     >
                       <FormControl>
                         <SelectTrigger className={cn("w-full p-2", classNames?.input)}>
@@ -171,12 +171,12 @@ export function CreateApiKeyDialog({
                       </FormControl>
 
                       <SelectContent className="w-[--radix-select-trigger-width]">
-                        <SelectItem value="personal" className="p-2">
-                          <PersonalAccountView user={user} size="sm" />
+                        <SelectItem className="p-2" value="personal">
+                          <PersonalAccountView size="sm" user={user} />
                         </SelectItem>
 
                         {organizations?.map((org) => (
-                          <SelectItem key={org.id} value={org.id} className="p-2">
+                          <SelectItem className="p-2" key={org.id} value={org.id}>
                             <OrganizationCellView organization={org} size="sm" />
                           </SelectItem>
                         ))}
@@ -199,10 +199,10 @@ export function CreateApiKeyDialog({
 
                     <FormControl>
                       <Input
-                        className={classNames?.input}
-                        placeholder={t("API_KEY_NAME_PLACEHOLDER")}
                         autoFocus
+                        className={classNames?.input}
                         disabled={isSubmitting}
+                        placeholder={t("API_KEY_NAME_PLACEHOLDER")}
                         {...field}
                       />
                     </FormControl>
@@ -220,9 +220,9 @@ export function CreateApiKeyDialog({
                     <FormLabel className={classNames?.label}>{t("EXPIRES")}</FormLabel>
 
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
                       disabled={isSubmitting}
+                      onValueChange={field.onChange}
                     >
                       <FormControl>
                         <SelectTrigger className={classNames?.input}>
@@ -249,20 +249,20 @@ export function CreateApiKeyDialog({
 
             <DialogFooter className={classNames?.dialog?.footer}>
               <Button
-                type="button"
-                variant="outline"
-                onClick={() => onOpenChange?.(false)}
                 className={cn(classNames?.button, classNames?.outlineButton)}
                 disabled={isSubmitting}
+                onClick={() => onOpenChange?.(false)}
+                type="button"
+                variant="outline"
               >
                 {t("CANCEL")}
               </Button>
 
               <Button
-                type="submit"
-                variant="default"
                 className={cn(classNames?.button, classNames?.primaryButton)}
                 disabled={isSubmitting}
+                type="submit"
+                variant="default"
               >
                 {isSubmitting && <Loader2 className="animate-spin" />}
 

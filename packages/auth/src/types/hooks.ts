@@ -23,7 +23,7 @@ export type AuthHooks = {
   useActiveOrganization: () => Partial<ReturnType<AuthClient["useActiveOrganization"]>>;
   useListOrganizations: () => Partial<ReturnType<AuthClient["useListOrganizations"]>>;
   useHasPermission: (
-    params: Parameters<AuthClient["organization"]["hasPermission"]>[0],
+    params: Parameters<AuthClient["organization"]["hasPermission"]>[0]
   ) => AuthHook<{
     error: null;
     success: boolean;
@@ -36,7 +36,7 @@ export type AuthHooks = {
     }
   >;
   useListInvitations: (
-    params: Parameters<AuthClient["organization"]["listInvitations"]>[0],
+    params: Parameters<AuthClient["organization"]["listInvitations"]>[0]
   ) => AuthHook<Invitation[]>;
   useListUserInvitations: () => AuthHook<Invitation[]>;
   useListMembers: (params: Parameters<AuthClient["organization"]["listMembers"]>[0]) => AuthHook<{
@@ -53,7 +53,7 @@ export type AuthHooks = {
 
 type MutateFn<T = Record<string, unknown>> = (params: T) => Promise<unknown> | Promise<void>;
 
-export interface AuthMutators {
+export type AuthMutators = {
   deleteApiKey: MutateFn<{ keyId: string }>;
   deletePasskey: MutateFn<{ id: string }>;
   revokeDeviceSession: MutateFn<{ sessionToken: string }>;
@@ -65,4 +65,4 @@ export interface AuthMutators {
   }>;
   updateUser: MutateFn;
   unlinkAccount: MutateFn<{ providerId: string; accountId?: string }>;
-}
+};

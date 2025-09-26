@@ -6,18 +6,17 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Header } from "@/layouts/console/header";
 
-interface OrganizationLayoutProps {
+type OrganizationLayoutProps = {
   children: ReactNode;
   params: Promise<{
     slug: string;
   }>;
-}
+};
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     title: "Organization",
   });
-};
 
 export default async function OrganizationLayout({ children, params }: OrganizationLayoutProps) {
   const { slug } = await params;
@@ -29,18 +28,18 @@ export default async function OrganizationLayout({ children, params }: Organizat
         <div className="border-b bg-muted/50">
           <div className="container mx-auto px-6 py-2">
             <nav
-              className="flex items-center space-x-1 text-sm text-muted-foreground"
               aria-label="Breadcrumb"
+              className="flex items-center space-x-1 text-muted-foreground text-sm"
             >
               <Link
-                href="/"
-                className="flex items-center hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
                 aria-label="Go to home page"
+                className="flex items-center rounded transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                href="/"
               >
                 <Home className="h-4 w-4" />
               </Link>
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-              <span className="text-foreground" aria-current="location">
+              <ChevronRight aria-hidden="true" className="h-4 w-4" />
+              <span aria-current="location" className="text-foreground">
                 Organization
               </span>
             </nav>

@@ -8,14 +8,14 @@ import appConfig from "@/config/app.config";
 import { blogSource } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
-interface BlogPostPageProps {
+type BlogPostPageProps = {
   params: Promise<{
     lang: string;
     slug: string[];
   }>;
-}
+};
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return blogSource.generateParams();
 }
 
@@ -66,8 +66,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Navigation */}
       <div className="mb-8">
         <Link
+          className="inline-flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground"
           href={getPathname({ href: "/blog", locale: lang })}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
           {backText}
@@ -76,9 +76,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Article Header */}
       <header className="mb-8">
-        <h1 className="mb-4 text-4xl font-bold">{page.data.title}</h1>
+        <h1 className="mb-4 font-bold text-4xl">{page.data.title}</h1>
 
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-4 text-muted-foreground text-sm">
           <div className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
             <time dateTime={page.data.date.toISOString()}>{formattedDate}</time>
@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </header>
 
       {/* Article Content */}
-      <article className="prose prose-neutral max-w-none dark:prose-invert">
+      <article className="prose prose-neutral dark:prose-invert max-w-none">
         <page.data.body components={getMDXComponents()} />
       </article>
 
@@ -99,13 +99,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <footer className="mt-12 border-t pt-8">
         <div className="flex justify-between">
           <Link
+            className="text-muted-foreground text-sm hover:text-foreground"
             href={getPathname({ href: "/blog", locale: lang })}
-            className="text-sm text-muted-foreground hover:text-foreground"
           >
             ← {backText}
           </Link>
 
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             {lang === "zh" ? "更新于 " : "Updated on "}
             <time dateTime={page.data.date.toISOString()}>{formattedDate}</time>
           </div>

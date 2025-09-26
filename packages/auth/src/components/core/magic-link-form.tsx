@@ -25,14 +25,14 @@ import { getLocalizedError, getSearchParam } from "../../core/lib/utils";
 import type { AuthFormClassNames } from "./auth-form";
 import { Captcha } from "./captcha";
 
-export interface MagicLinkFormProps {
+export type MagicLinkFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   callbackURL?: string;
   isSubmitting?: boolean;
   redirectTo?: string;
   setIsSubmitting?: (value: boolean) => void;
-}
+};
 
 export function MagicLinkForm({
   className,
@@ -58,7 +58,7 @@ export function MagicLinkForm({
 
   const getRedirectTo = useCallback(
     () => redirectToProp || getSearchParam("redirectTo") || contextRedirectTo,
-    [redirectToProp, contextRedirectTo],
+    [redirectToProp, contextRedirectTo]
   );
 
   const getCallbackURL = useCallback(
@@ -69,7 +69,7 @@ export function MagicLinkForm({
           ? `${basePath}/${viewPaths.CALLBACK}?redirectTo=${getRedirectTo()}`
           : getRedirectTo())
       }`,
-    [callbackURLProp, persistClient, basePath, viewPaths, baseURL, getRedirectTo],
+    [callbackURLProp, persistClient, basePath, viewPaths, baseURL, getRedirectTo]
   );
 
   const formSchema = z.object({
@@ -126,9 +126,9 @@ export function MagicLinkForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(sendMagicLink)}
-        noValidate={isHydrated}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        noValidate={isHydrated}
+        onSubmit={form.handleSubmit(sendMagicLink)}
       >
         <FormField
           control={form.control}
@@ -140,9 +140,9 @@ export function MagicLinkForm({
               <FormControl>
                 <Input
                   className={classNames?.input}
-                  type="email"
-                  placeholder={t("EMAIL_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("EMAIL_PLACEHOLDER")}
+                  type="email"
                   {...field}
                 />
               </FormControl>
@@ -152,12 +152,12 @@ export function MagicLinkForm({
           )}
         />
 
-        <Captcha ref={captchaRef as RefObject<ReCAPTCHA>} action="/sign-in/magic-link" />
+        <Captcha action="/sign-in/magic-link" ref={captchaRef as RefObject<ReCAPTCHA>} />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn("w-full", classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("MAGIC_LINK_ACTION")}
         </Button>

@@ -8,10 +8,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { SessionCell } from "./session-cell";
 import { SettingsCellSkeleton } from "./settings-cell-skeleton";
 
-export interface SessionsCardProps {
+export type SessionsCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function SessionsCard({ className, classNames }: SessionsCardProps) {
   const {
@@ -35,10 +35,10 @@ export function SessionsCard({ className, classNames }: SessionsCardProps) {
         ) : (
           sessions?.map((session) => (
             <SessionCell
-              key={session.id}
               classNames={classNames}
-              session={session}
+              key={session.id}
               refetch={refetch}
+              session={session}
             />
           ))
         )}

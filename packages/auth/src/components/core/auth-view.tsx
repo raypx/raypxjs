@@ -79,11 +79,11 @@ export function AuthView({
 
   let socialLayout = socialLayoutProp;
   if (socialLayout === "auto") {
-    socialLayout = !credentials
-      ? "vertical"
-      : social?.providers && social.providers.length > 2
+    socialLayout = credentials
+      ? social?.providers && social.providers.length > 2
         ? "horizontal"
-        : "vertical";
+        : "vertical"
+      : "vertical";
   }
 
   const path = pathProp ?? pathname?.split("/").pop();
@@ -101,14 +101,20 @@ export function AuthView({
     };
   }, []);
 
-  if (view === "CALLBACK") return <AuthCallback redirectTo={redirectTo} />;
-  if (view === "SIGN_OUT") return <SignOut />;
-  if (view === "ACCEPT_INVITATION") return <AcceptInvitationCard />;
+  if (view === "CALLBACK") {
+    return <AuthCallback redirectTo={redirectTo} />;
+  }
+  if (view === "SIGN_OUT") {
+    return <SignOut />;
+  }
+  if (view === "ACCEPT_INVITATION") {
+    return <AcceptInvitationCard />;
+  }
 
   const description =
-    !credentials && !magicLink && !emailOTP
-      ? t("DISABLED_CREDENTIALS_DESCRIPTION")
-      : t(`${view}_DESCRIPTION`);
+    credentials || magicLink || emailOTP
+      ? t(`${view}_DESCRIPTION`)
+      : t("DISABLED_CREDENTIALS_DESCRIPTION");
 
   return (
     <Card className={cn("w-full max-w-sm", className, classNames?.base)}>
@@ -135,8 +141,8 @@ export function AuthView({
         {(credentials || magicLink || emailOTP) && (
           <div className="grid gap-4">
             <AuthForm
-              classNames={classNames?.form}
               callbackURL={callbackURL}
+              classNames={classNames?.form}
               isSubmitting={isSubmitting}
               otpSeparators={otpSeparators}
               redirectTo={redirectTo}
@@ -147,19 +153,19 @@ export function AuthView({
             {magicLink &&
               ((credentials &&
                 ["FORGOT_PASSWORD", "SIGN_UP", "SIGN_IN", "MAGIC_LINK", "EMAIL_OTP"].includes(
-                  view as string,
+                  view as string
                 )) ||
                 (emailOTP && view === "EMAIL_OTP")) && (
-                <MagicLinkButton classNames={classNames} view={view} isSubmitting={isSubmitting} />
+                <MagicLinkButton classNames={classNames} isSubmitting={isSubmitting} view={view} />
               )}
 
             {emailOTP &&
               ((credentials &&
                 ["FORGOT_PASSWORD", "SIGN_UP", "SIGN_IN", "MAGIC_LINK", "EMAIL_OTP"].includes(
-                  view as string,
+                  view as string
                 )) ||
                 (magicLink && ["SIGN_IN", "MAGIC_LINK"].includes(view))) && (
-                <EmailOTPButton classNames={classNames} view={view} isSubmitting={isSubmitting} />
+                <EmailOTPButton classNames={classNames} isSubmitting={isSubmitting} view={view} />
               )}
           </div>
         )}
@@ -186,20 +192,22 @@ export function AuthView({
                       "flex w-full items-center justify-between gap-4",
                       socialLayout === "horizontal" && "flex-wrap",
                       socialLayout === "vertical" && "flex-col",
-                      socialLayout === "grid" && "grid grid-cols-2",
+                      socialLayout === "grid" && "grid grid-cols-2"
                     )}
                   >
                     {social?.providers?.map((provider) => {
                       const socialProvider = socialProviders.find(
-                        (socialProvider) => socialProvider.provider === provider,
+                        (socialProvider) => socialProvider.provider === provider
                       );
-                      if (!socialProvider) return null;
+                      if (!socialProvider) {
+                        return null;
+                      }
                       return (
                         <ProviderButton
-                          key={provider}
-                          classNames={classNames}
                           callbackURL={callbackURL}
+                          classNames={classNames}
                           isSubmitting={isSubmitting}
+                          key={provider}
                           provider={socialProvider}
                           redirectTo={redirectTo}
                           setIsSubmitting={setIsSubmitting}
@@ -209,15 +217,15 @@ export function AuthView({
                     })}
                     {genericOAuth?.providers?.map((provider) => (
                       <ProviderButton
-                        key={provider.provider}
-                        classNames={classNames}
                         callbackURL={callbackURL}
+                        classNames={classNames}
                         isSubmitting={isSubmitting}
+                        key={provider.provider}
+                        other
                         provider={provider}
                         redirectTo={redirectTo}
                         setIsSubmitting={setIsSubmitting}
                         socialLayout={socialLayout}
-                        other
                       />
                     ))}
                   </div>
@@ -269,9 +277,9 @@ export function AuthView({
               }
             >
               <Button
-                variant="link"
-                size="sm"
                 className={cn("px-0 text-foreground underline", classNames?.footerLink)}
+                size="sm"
+                variant="link"
               >
                 {view === "SIGN_IN" || view === "MAGIC_LINK" || view === "EMAIL_OTP"
                   ? t("SIGN_UP")
@@ -280,10 +288,10 @@ export function AuthView({
             </AuthLink>
           ) : (
             <Button
-              variant="link"
-              size="sm"
               className={cn("px-0 text-foreground underline", classNames?.footerLink)}
               onClick={() => window.history.back()}
+              size="sm"
+              variant="link"
             >
               {t("GO_BACK")}
             </Button>

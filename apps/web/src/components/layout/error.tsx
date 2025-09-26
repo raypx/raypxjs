@@ -23,17 +23,15 @@ export default function PageError({ reset }: { reset: () => void }) {
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Logo className="size-12" />
 
-      <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold">Something went wrong</h1>
-        <p className="text-muted-foreground max-w-md">
+      <div className="space-y-4 text-center">
+        <h1 className="font-bold text-2xl">Something went wrong</h1>
+        <p className="max-w-md text-muted-foreground">
           We encountered an unexpected error. Please try again or return to the home page.
         </p>
       </div>
 
       <div className="flex items-center gap-4">
         <Button
-          type="submit"
-          variant="default"
           className="cursor-pointer"
           disabled={isPending}
           onClick={() => {
@@ -42,16 +40,18 @@ export default function PageError({ reset }: { reset: () => void }) {
               reset();
             });
           }}
+          type="submit"
+          variant="default"
         >
           {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
           Try Again
         </Button>
 
         <Button
-          type="submit"
-          variant="outline"
           className="cursor-pointer"
           onClick={() => router.push("/")}
+          type="submit"
+          variant="outline"
         >
           Back to Home
         </Button>

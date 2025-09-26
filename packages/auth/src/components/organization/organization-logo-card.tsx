@@ -42,31 +42,31 @@ export function OrganizationLogoCard({
         <div className="flex justify-between">
           <SettingsCardHeader
             className="grow self-start"
-            title={t("LOGO")}
+            classNames={classNames}
             description={t("LOGO_DESCRIPTION")}
             isPending
-            classNames={classNames}
+            title={t("LOGO")}
           />
 
           <Button
-            type="button"
             className="me-6 size-fit rounded-full"
-            size="icon"
-            variant="ghost"
             disabled
+            size="icon"
+            type="button"
+            variant="ghost"
           >
             <OrganizationLogo
-              isPending
               className="size-20 text-2xl"
               classNames={classNames?.avatar}
+              isPending
             />
           </Button>
         </div>
 
         <SettingsCardFooter
           className="!py-5"
-          instructions={t("LOGO_INSTRUCTIONS")}
           classNames={classNames}
+          instructions={t("LOGO_INSTRUCTIONS")}
           isPending
         />
       </Card>
@@ -114,7 +114,9 @@ function OrganizationLogoForm({
   const [loading, setLoading] = useState(false);
 
   const handleLogoChange = async (file: File) => {
-    if (!organizationOptions?.logo || !hasPermission?.success) return;
+    if (!(organizationOptions?.logo && hasPermission?.success)) {
+      return;
+    }
 
     setLoading(true);
 
@@ -122,7 +124,7 @@ function OrganizationLogoForm({
       file,
       crypto.randomUUID(),
       organizationOptions.logo.size,
-      organizationOptions.logo.extension,
+      organizationOptions.logo.extension
     );
 
     let image: string | undefined | null;
@@ -156,7 +158,9 @@ function OrganizationLogoForm({
   };
 
   const handleDeleteLogo = async () => {
-    if (!hasPermission?.success) return;
+    if (!hasPermission?.success) {
+      return;
+    }
 
     setLoading(true);
 
@@ -188,42 +192,44 @@ function OrganizationLogoForm({
   return (
     <Card className={cn("w-full pb-0 text-start", className, classNames?.base)} {...props}>
       <input
-        ref={fileInputRef}
         accept="image/*"
         disabled={loading || !hasPermission?.success}
         hidden
-        type="file"
         onChange={(e) => {
           const file = e.target.files?.item(0);
-          if (file) handleLogoChange(file);
+          if (file) {
+            handleLogoChange(file);
+          }
 
           e.target.value = "";
         }}
+        ref={fileInputRef}
+        type="file"
       />
 
       <div className="flex justify-between">
         <SettingsCardHeader
           className="grow self-start"
-          title={t("LOGO")}
+          classNames={classNames}
           description={t("LOGO_DESCRIPTION")}
           isPending={isPending}
-          classNames={classNames}
+          title={t("LOGO")}
         />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              type="button"
               className="me-6 size-fit rounded-full"
-              size="icon"
-              variant="ghost"
               disabled={!hasPermission?.success}
+              size="icon"
+              type="button"
+              variant="ghost"
             >
               <OrganizationLogo
-                isPending={isPending || loading}
-                key={organization.logo}
                 className="size-20 text-2xl"
                 classNames={classNames?.avatar}
+                isPending={isPending || loading}
+                key={organization.logo}
                 organization={organization}
               />
             </Button>
@@ -231,8 +237,8 @@ function OrganizationLogoForm({
 
           <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
             <DropdownMenuItem
-              onClick={openFileDialog}
               disabled={loading || !hasPermission?.success}
+              onClick={openFileDialog}
             >
               <UploadCloud />
 
@@ -241,8 +247,8 @@ function OrganizationLogoForm({
 
             {organization.logo && (
               <DropdownMenuItem
-                onClick={handleDeleteLogo}
                 disabled={loading || !hasPermission?.success}
+                onClick={handleDeleteLogo}
                 variant="destructive"
               >
                 <Trash />
@@ -256,8 +262,8 @@ function OrganizationLogoForm({
 
       <SettingsCardFooter
         className="!py-5"
-        instructions={t("LOGO_INSTRUCTIONS")}
         classNames={classNames}
+        instructions={t("LOGO_INSTRUCTIONS")}
         isPending={isPending}
         isSubmitting={loading}
       />

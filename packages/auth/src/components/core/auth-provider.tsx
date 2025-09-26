@@ -54,10 +54,14 @@ const defaultToast: RenderToast = ({ variant = "default", message }) => {
 
 // Inline utility functions to simplify boolean/object property handling
 const normalizeAvatar = (
-  prop: boolean | Partial<AvatarOptions> | undefined,
+  prop: boolean | Partial<AvatarOptions> | undefined
 ): AvatarOptions | undefined => {
-  if (!prop) return undefined;
-  if (prop === true) return { extension: "png", size: 128 };
+  if (!prop) {
+    return;
+  }
+  if (prop === true) {
+    return { extension: "png", size: 128 };
+  }
   return {
     upload: prop.upload,
     delete: prop.delete,
@@ -67,9 +71,11 @@ const normalizeAvatar = (
 };
 
 const normalizeDeleteUser = (
-  prop: DeleteUserOptions | boolean | undefined,
+  prop: DeleteUserOptions | boolean | undefined
 ): DeleteUserOptions | undefined => {
-  if (!prop) return undefined;
+  if (!prop) {
+    return;
+  }
   return prop === true ? {} : prop;
 };
 
@@ -171,7 +177,7 @@ const createDefaultHooks = (authClient: AuthClient): AuthHooks =>
       useAuthData({
         queryFn: () =>
           authClient.$fetch(
-            `/organization/list-invitations?organizationId=${params?.query?.organizationId || ""}`,
+            `/organization/list-invitations?organizationId=${params?.query?.organizationId || ""}`
           ),
         cacheKey: `listInvitations:${JSON.stringify(params)}`,
       }),
@@ -184,7 +190,7 @@ const createDefaultHooks = (authClient: AuthClient): AuthHooks =>
       useAuthData({
         queryFn: () =>
           authClient.$fetch(
-            `/organization/list-members?organizationId=${params?.query?.organizationId || ""}`,
+            `/organization/list-members?organizationId=${params?.query?.organizationId || ""}`
           ),
         cacheKey: `listMembers:${JSON.stringify(params)}`,
       }),
@@ -489,7 +495,9 @@ export const AuthProvider = ({
   const { t } = useAuthTranslations();
 
   const account = useMemo<AccountOptionsContext | undefined>(() => {
-    if (accountProp === false) return undefined;
+    if (accountProp === false) {
+      return;
+    }
     if (accountProp === true || accountProp === undefined) {
       return {
         basePath: "/account",
@@ -510,8 +518,12 @@ export const AuthProvider = ({
   const deleteUser = useMemo(() => normalizeDeleteUser(deleteUserProp), [deleteUserProp]);
 
   const credentials = useMemo<CredentialsOptions | undefined>(() => {
-    if (credentialsProp === false) return undefined;
-    if (credentialsProp === true) return { forgotPassword: true };
+    if (credentialsProp === false) {
+      return;
+    }
+    if (credentialsProp === true) {
+      return { forgotPassword: true };
+    }
     return {
       ...credentialsProp,
       forgotPassword: credentialsProp?.forgotPassword ?? true,
@@ -519,13 +531,19 @@ export const AuthProvider = ({
   }, [credentialsProp]);
 
   const signUp = useMemo<SignUpOptions | undefined>(() => {
-    if (signUpProp === false) return undefined;
-    if (signUpProp === true || signUpProp === undefined) return { fields: ["name"] };
+    if (signUpProp === false) {
+      return;
+    }
+    if (signUpProp === true || signUpProp === undefined) {
+      return { fields: ["name"] };
+    }
     return { fields: signUpProp.fields || ["name"] };
   }, [signUpProp]);
 
   const organization = useMemo<OrganizationOptionsContext | undefined>(() => {
-    if (!organizationProp) return undefined;
+    if (!organizationProp) {
+      return;
+    }
     if (organizationProp === true) {
       return {
         basePath: "/organization",
@@ -560,30 +578,25 @@ export const AuthProvider = ({
 
   const defaultHooks = useMemo(() => createDefaultHooks(authClient), [authClient]);
 
-  const viewPaths = useMemo(() => {
-    return { ...authViewPaths, ...viewPathsProp };
-  }, [viewPathsProp]);
+  const viewPaths = useMemo(() => ({ ...authViewPaths, ...viewPathsProp }), [viewPathsProp]);
 
-  const hooks = useMemo(() => {
-    return { ...defaultHooks, ...hooksProp };
-  }, [defaultHooks, hooksProp]);
+  const hooks = useMemo(() => ({ ...defaultHooks, ...hooksProp }), [defaultHooks, hooksProp]);
 
-  const mutators = useMemo(() => {
-    return { ...defaultMutators, ...mutatorsProp };
-  }, [defaultMutators, mutatorsProp]);
+  const mutators = useMemo(
+    () => ({ ...defaultMutators, ...mutatorsProp }),
+    [defaultMutators, mutatorsProp]
+  );
 
   const normalizedBaseURL = removeTrailingSlash(baseURL);
   const normalizedBasePath = removeTrailingSlash(basePath);
 
-  const social = useMemo(() => {
-    return processSocialConfig(socialProp);
-  }, [socialProp]);
+  const social = useMemo(() => processSocialConfig(socialProp), [socialProp]);
 
   const { data: sessionData } = hooks.useSession();
 
   const hasSocialProviders = useMemo(
     () => Object.values(authFeatures.social).some((enabled) => enabled),
-    [],
+    []
   );
 
   const featureConfig = useMemo(
@@ -608,7 +621,8 @@ export const AuthProvider = ({
       multiSession,
       magicLink,
       hasSocialProviders,
-    ],
+      credentials,
+    ]
   );
 
   return (

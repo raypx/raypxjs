@@ -24,7 +24,7 @@ import { useDebouncedValidation } from "../../core/hooks/use-debounce";
 import { getLocalizedError } from "../../core/lib/utils";
 import type { FieldType } from "../../types";
 
-export interface UpdateFieldCardProps {
+export type UpdateFieldCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   description?: ReactNode;
@@ -38,7 +38,7 @@ export interface UpdateFieldCardProps {
   value?: unknown;
   validate?: (value: string) => boolean | Promise<boolean>;
   validationSchema?: z.ZodType<unknown>;
-}
+};
 
 export function UpdateFieldCard({
   className,
@@ -71,7 +71,7 @@ export function UpdateFieldCard({
   if (type === "number") {
     fieldSchema = required
       ? z.preprocess(
-          (val) => (!val ? undefined : Number(val)),
+          (val) => (val ? Number(val) : undefined),
           z.number({
             error: (issue) => {
               if (!issue.input) {
@@ -81,7 +81,7 @@ export function UpdateFieldCard({
                 return `${label} ${t("IS_INVALID")}`;
               }
             },
-          }),
+          })
         )
       : z.coerce
           .number({
@@ -166,7 +166,7 @@ export function UpdateFieldCard({
 
       return null;
     },
-    500, // 500ms delay for validation
+    500 // 500ms delay for validation
   );
 
   // Update form errors when debounced validation completes
@@ -236,14 +236,14 @@ export function UpdateFieldCard({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(updateField)}>
         <SettingsCard
+          actionLabel={t("SAVE")}
           className={className}
           classNames={classNames}
           description={description}
           instructions={instructions}
           isPending={isPending}
-          title={label}
-          actionLabel={t("SAVE")}
           optimistic={optimistic}
+          title={label}
         >
           <CardContent className={classNames?.content}>
             {type === "boolean" ? (
@@ -255,9 +255,9 @@ export function UpdateFieldCard({
                     <FormControl>
                       <Checkbox
                         checked={field.value as boolean}
-                        onCheckedChange={field.onChange}
-                        disabled={isSubmitting}
                         className={classNames?.checkbox}
+                        disabled={isSubmitting}
+                        onCheckedChange={field.onChange}
                       />
                     </FormControl>
 
@@ -281,11 +281,11 @@ export function UpdateFieldCard({
                           className={cn(
                             classNames?.input,
                             isValidating && "opacity-75",
-                            validationError && "border-destructive",
+                            validationError && "border-destructive"
                           )}
-                          type="number"
-                          placeholder={placeholder || (typeof label === "string" ? label : "")}
                           disabled={isSubmitting || isValidating}
+                          placeholder={placeholder || (typeof label === "string" ? label : "")}
+                          type="number"
                           {...field}
                           value={field.value as string}
                         />
@@ -294,10 +294,10 @@ export function UpdateFieldCard({
                           className={cn(
                             classNames?.input,
                             isValidating && "opacity-75",
-                            validationError && "border-destructive",
+                            validationError && "border-destructive"
                           )}
-                          placeholder={placeholder || (typeof label === "string" ? label : "")}
                           disabled={isSubmitting || isValidating}
+                          placeholder={placeholder || (typeof label === "string" ? label : "")}
                           {...field}
                           value={field.value as string}
                         />
@@ -306,11 +306,11 @@ export function UpdateFieldCard({
                           className={cn(
                             classNames?.input,
                             isValidating && "opacity-75",
-                            validationError && "border-destructive",
+                            validationError && "border-destructive"
                           )}
-                          type="text"
-                          placeholder={placeholder || (typeof label === "string" ? label : "")}
                           disabled={isSubmitting || isValidating}
+                          placeholder={placeholder || (typeof label === "string" ? label : "")}
+                          type="text"
                           {...field}
                           value={field.value as string}
                         />

@@ -3,13 +3,15 @@
 import { useSyncExternalStore } from "react";
 
 function subscribe() {
-  return () => {};
+  return () => {
+    console.log("unsubscribe");
+  };
 }
 
 export function useIsHydrated() {
   return useSyncExternalStore(
     subscribe,
     () => true,
-    () => false,
+    () => false
   );
 }

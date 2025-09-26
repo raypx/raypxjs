@@ -39,9 +39,8 @@ export function useOptimizedError() {
    * @param errorCodes - Array of error codes
    * @returns Array of localized error messages
    */
-  const getErrorTexts = (errorCodes: string[], fallbackText?: string): string[] => {
-    return errorCodes.map((errorCode) => getErrorText(errorCode, fallbackText));
-  };
+  const getErrorTexts = (errorCodes: string[], fallbackText?: string): string[] =>
+    errorCodes.map((errorCode) => getErrorText(errorCode, fallbackText));
 
   /**
    * Extract and format error from API response

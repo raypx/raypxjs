@@ -1,5 +1,5 @@
 import { db, emails } from "@raypx/db";
-import { and, count, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, count, desc, eq, gte, lte, type SQL, sql } from "drizzle-orm";
 import type {
   EmailAnalyticsFilter,
   EmailDashboardData,
@@ -43,7 +43,7 @@ export class EmailAnalytics {
 
       // Calculate rates
       const calculateRate = (numerator: number, denominator: number) =>
-        denominator > 0 ? Math.round((numerator / denominator) * 10000) / 100 : 0;
+        denominator > 0 ? Math.round((numerator / denominator) * 10_000) / 100 : 0;
 
       return {
         total,
@@ -68,7 +68,7 @@ export class EmailAnalytics {
     }
   }
 
-  static async getRecentEmails(limit: number = 10, filter: EmailAnalyticsFilter = {}) {
+  static async getRecentEmails(limit = 10, filter: EmailAnalyticsFilter = {}) {
     try {
       const conditions = EmailAnalytics.buildWhereConditions(filter);
       return await db
@@ -91,7 +91,7 @@ export class EmailAnalytics {
     }
   }
 
-  static async getTopTemplates(limit: number = 5, filter: EmailAnalyticsFilter = {}) {
+  static async getTopTemplates(limit = 5, filter: EmailAnalyticsFilter = {}) {
     try {
       const conditions = EmailAnalytics.buildWhereConditions(filter);
       const results = await db
@@ -180,15 +180,29 @@ export class EmailAnalytics {
   }
 
   private static buildWhereConditions(filter: EmailAnalyticsFilter) {
-    const conditions = [];
+    const conditions: SQL[] = [];
 
-    if (filter.startDate) conditions.push(gte(emails.createdAt, filter.startDate));
-    if (filter.endDate) conditions.push(lte(emails.createdAt, filter.endDate));
-    if (filter.provider) conditions.push(eq(emails.provider, filter.provider));
-    if (filter.templateName) conditions.push(eq(emails.templateName, filter.templateName));
-    if (filter.userId) conditions.push(eq(emails.userId, filter.userId));
-    if (filter.tags?.length) conditions.push(sql`${emails.tags} && ${filter.tags}`);
-    if (filter.status?.length) conditions.push(sql`${emails.status} = ANY(${filter.status})`);
+    if (filter.startDate) {
+      conditions.push(gte(emails.createdAt, filter.startDate));
+    }
+    if (filter.endDate) {
+      conditions.push(lte(emails.createdAt, filter.endDate));
+    }
+    if (filter.provider) {
+      conditions.push(eq(emails.provider, filter.provider));
+    }
+    if (filter.templateName) {
+      conditions.push(eq(emails.templateName, filter.templateName));
+    }
+    if (filter.userId) {
+      conditions.push(eq(emails.userId, filter.userId));
+    }
+    if (filter.tags?.length) {
+      conditions.push(sql`${emails.tags} && ${filter.tags}`);
+    }
+    if (filter.status?.length) {
+      conditions.push(sql`${emails.status} = ANY(${filter.status})`);
+    }
 
     return conditions.length > 0 ? and(...conditions) : undefined;
   }

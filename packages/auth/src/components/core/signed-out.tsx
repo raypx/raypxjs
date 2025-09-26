@@ -16,5 +16,5 @@ export function SignedOut({ children }: { children: ReactNode }) {
   } = useAuth();
   const { data, isPending } = useSession();
 
-  return !data && !isPending ? children : null;
+  return data || isPending ? null : children;
 }

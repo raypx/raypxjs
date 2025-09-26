@@ -7,10 +7,10 @@ import { cn } from "@raypx/ui/lib/utils";
 import { useAuth } from "../../core/hooks/use-auth";
 import { AccountCell } from "./account-cell";
 
-export interface AccountsCardProps {
+export type AccountsCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function AccountsCard({ className, classNames }: AccountsCardProps) {
   const {
@@ -25,19 +25,19 @@ export function AccountsCard({ className, classNames }: AccountsCardProps) {
   const { data: sessionData } = useSession();
 
   const otherDeviceSessions = (deviceSessions || []).filter(
-    (ds) => ds.session.id !== sessionData?.session.id,
+    (ds) => ds.session.id !== sessionData?.session.id
   );
 
   return (
     <SettingsCard
+      action={() => navigate(`${basePath}/${viewPaths.SIGN_IN}`)}
+      actionLabel={t("ADD_ACCOUNT")}
       className={className}
       classNames={classNames}
-      title={t("ACCOUNTS")}
       description={t("ACCOUNTS_DESCRIPTION")}
-      actionLabel={t("ADD_ACCOUNT")}
       instructions={t("ACCOUNTS_INSTRUCTIONS")}
       isPending={isPending}
-      action={() => navigate(`${basePath}/${viewPaths.SIGN_IN}`)}
+      title={t("ACCOUNTS")}
     >
       {deviceSessions?.length && (
         <CardContent className={cn("grid gap-4", classNames?.content)}>
@@ -47,9 +47,9 @@ export function AccountsCard({ className, classNames }: AccountsCardProps) {
 
           {otherDeviceSessions.map((deviceSession) => (
             <AccountCell
-              key={deviceSession.session.id}
               classNames={classNames}
               deviceSession={deviceSession}
+              key={deviceSession.session.id}
               refetch={refetch}
             />
           ))}

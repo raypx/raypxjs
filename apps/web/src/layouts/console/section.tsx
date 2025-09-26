@@ -10,13 +10,13 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-export interface ConsoleSectionProps {
+export type ConsoleSectionProps = {
   title: string;
   description?: string;
   icon?: LucideIcon;
   children: ReactNode;
   className?: string;
-}
+};
 
 export function ConsoleSection({
   title,

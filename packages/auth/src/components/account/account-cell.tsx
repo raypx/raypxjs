@@ -24,12 +24,12 @@ import { getLocalizedError } from "../../core/lib/utils";
 import type { Refetch } from "../../types";
 import { UserView } from "./user-view";
 
-export interface AccountCellProps {
+export type AccountCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   deviceSession: { user: User; session: Session };
   refetch?: Refetch;
-}
+};
 
 export function AccountCell({ className, classNames, deviceSession, refetch }: AccountCellProps) {
   const {

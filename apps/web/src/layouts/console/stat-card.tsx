@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@raypx/ui/components/c
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-export interface DashboardStatCardProps {
+export type DashboardStatCardProps = {
   title: string;
   value: string | number;
   icon: LucideIcon;
@@ -14,7 +14,7 @@ export interface DashboardStatCardProps {
     text: string;
     variant?: "default" | "secondary" | "destructive" | "outline";
   };
-}
+};
 
 export function DashboardStatCard({
   title,
@@ -26,14 +26,14 @@ export function DashboardStatCard({
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardTitle className="font-medium text-sm">{title}</CardTitle>
         <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
+        <div className="font-bold text-2xl">{value}</div>
+        {subtitle && <p className="text-muted-foreground text-xs">{subtitle}</p>}
         {badge && (
-          <Badge variant={badge.variant || "default"} className="mt-2">
+          <Badge className="mt-2" variant={badge.variant || "default"}>
             {badge.text}
           </Badge>
         )}

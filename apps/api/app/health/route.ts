@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export function GET() {
   try {
     const health = {
       status: "ok",
@@ -23,7 +23,7 @@ export async function GET() {
         timestamp: new Date().toISOString(),
         error: error || "Health check failed",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

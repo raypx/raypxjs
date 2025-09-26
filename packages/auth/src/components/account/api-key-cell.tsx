@@ -12,12 +12,12 @@ import { useLang } from "../../core/hooks/use-lang";
 import type { ApiKey, Refetch } from "../../types";
 import { ApiKeyDeleteDialog } from "./api-key-delete-dialog";
 
-export interface ApiKeyCellProps {
+export type ApiKeyCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   apiKey: ApiKey;
   refetch?: Refetch;
-}
+};
 
 export function ApiKeyCell({ className, classNames, apiKey, refetch }: ApiKeyCellProps) {
   const { t } = useAuth();
@@ -28,7 +28,9 @@ export function ApiKeyCell({ className, classNames, apiKey, refetch }: ApiKeyCel
 
   // Format expiration date or show "Never expires"
   const formatExpiration = () => {
-    if (!apiKey.expiresAt) return t("NEVER_EXPIRES");
+    if (!apiKey.expiresAt) {
+      return t("NEVER_EXPIRES");
+    }
 
     const expiresDate = dayjs(apiKey.expiresAt);
     return `${t("EXPIRES")} ${expiresDate.locale(lang ?? "en").format("ll")}`;
@@ -40,7 +42,7 @@ export function ApiKeyCell({ className, classNames, apiKey, refetch }: ApiKeyCel
         className={cn(
           "flex-row items-center gap-3 truncate px-4 py-3",
           className,
-          classNames?.cell,
+          classNames?.cell
         )}
       >
         <KeyRoundIcon className={cn("size-4 flex-shrink-0", classNames?.icon)} />
@@ -60,19 +62,19 @@ export function ApiKeyCell({ className, classNames, apiKey, refetch }: ApiKeyCel
 
         <Button
           className={cn("relative ms-auto", classNames?.button, classNames?.outlineButton)}
+          onClick={() => setShowDeleteDialog(true)}
           size="sm"
           variant="outline"
-          onClick={() => setShowDeleteDialog(true)}
         >
           {t("DELETE")}
         </Button>
       </Card>
 
       <ApiKeyDeleteDialog
-        classNames={classNames}
         apiKey={apiKey}
-        open={showDeleteDialog}
+        classNames={classNames}
         onOpenChange={setShowDeleteDialog}
+        open={showDeleteDialog}
         refetch={refetch}
       />
     </>

@@ -5,9 +5,9 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { useOnSuccessTransition } from "../../core/hooks/use-success-transition";
 import { getLocalizedError } from "../../core/lib/utils";
 
-interface OneTapProps {
+type OneTapProps = {
   redirectTo?: string;
-}
+};
 
 export function OneTap({ redirectTo }: OneTapProps) {
   const { authClient, t, toast } = useAuth();
@@ -16,7 +16,9 @@ export function OneTap({ redirectTo }: OneTapProps) {
   const { onSuccess } = useOnSuccessTransition({ redirectTo });
 
   useEffect(() => {
-    if (oneTapFetched.current) return;
+    if (oneTapFetched.current) {
+      return;
+    }
     oneTapFetched.current = true;
 
     try {

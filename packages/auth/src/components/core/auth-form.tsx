@@ -35,7 +35,7 @@ export type AuthFormClassNames = {
   secondaryButton?: string;
 };
 
-export interface AuthFormProps {
+export type AuthFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   callbackURL?: string;
@@ -45,7 +45,7 @@ export interface AuthFormProps {
   view?: AuthViewPath;
   otpSeparators?: 0 | 1 | 2;
   setIsSubmitting?: (isSubmitting: boolean) => void;
-}
+};
 
 export function AuthForm({
   className,
@@ -84,11 +84,11 @@ export function AuthForm({
   useEffect(() => {
     let isInvalidView = false;
 
-    if (view === "MAGIC_LINK" && (!magicLink || (!credentials && !emailOTP))) {
+    if (view === "MAGIC_LINK" && !(magicLink && (credentials || emailOTP))) {
       isInvalidView = true;
     }
 
-    if (view === "EMAIL_OTP" && (!emailOTP || (!credentials && !magicLink))) {
+    if (view === "EMAIL_OTP" && !(emailOTP && (credentials || magicLink))) {
       isInvalidView = true;
     }
 
@@ -100,7 +100,7 @@ export function AuthForm({
       !credentials &&
       view &&
       ["SIGN_UP", "FORGOT_PASSWORD", "RESET_PASSWORD", "TWO_FACTOR", "RECOVER_ACCOUNT"].includes(
-        view,
+        view
       )
     ) {
       isInvalidView = true;
@@ -125,34 +125,38 @@ export function AuthForm({
     twoFactorEnabled,
   ]);
 
-  if (view === "SIGN_OUT") return <SignOut />;
-  if (view === "CALLBACK") return <AuthCallback redirectTo={redirectTo} />;
+  if (view === "SIGN_OUT") {
+    return <SignOut />;
+  }
+  if (view === "CALLBACK") {
+    return <AuthCallback redirectTo={redirectTo} />;
+  }
 
   if (view === "SIGN_IN") {
     return credentials ? (
       <SignInForm
         className={className}
         classNames={classNames}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     ) : magicLink ? (
       <MagicLinkForm
+        callbackURL={callbackURL}
         className={className}
         classNames={classNames}
-        callbackURL={callbackURL}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     ) : emailOTP ? (
       <EmailOTPForm
+        callbackURL={callbackURL}
         className={className}
         classNames={classNames}
-        callbackURL={callbackURL}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     ) : null;
@@ -163,9 +167,9 @@ export function AuthForm({
       <TwoFactorForm
         className={className}
         classNames={classNames}
+        isSubmitting={isSubmitting}
         otpSeparators={otpSeparators}
         redirectTo={redirectTo}
-        isSubmitting={isSubmitting}
         setIsSubmitting={setIsSubmitting}
       />
     );
@@ -176,8 +180,8 @@ export function AuthForm({
       <RecoverAccountForm
         className={className}
         classNames={classNames}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     );
@@ -186,11 +190,11 @@ export function AuthForm({
   if (view === "MAGIC_LINK") {
     return (
       <MagicLinkForm
+        callbackURL={callbackURL}
         className={className}
         classNames={classNames}
-        callbackURL={callbackURL}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     );
@@ -199,11 +203,11 @@ export function AuthForm({
   if (view === "EMAIL_OTP") {
     return (
       <EmailOTPForm
+        callbackURL={callbackURL}
         className={className}
         classNames={classNames}
-        callbackURL={callbackURL}
-        redirectTo={redirectTo}
         isSubmitting={isSubmitting}
+        redirectTo={redirectTo}
         setIsSubmitting={setIsSubmitting}
       />
     );
@@ -228,11 +232,11 @@ export function AuthForm({
     return (
       signUpEnabled && (
         <SignUpForm
+          callbackURL={callbackURL}
           className={className}
           classNames={classNames}
-          callbackURL={callbackURL}
-          redirectTo={redirectTo}
           isSubmitting={isSubmitting}
+          redirectTo={redirectTo}
           setIsSubmitting={setIsSubmitting}
         />
       )

@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-# Validate commit message format
-pnpm commitlint --edit $1

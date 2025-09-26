@@ -49,7 +49,9 @@ export function useAnalytics() {
   };
 
   const identify = (userId: string, properties?: Record<string, unknown>) => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     // PostHog
     if (posthog?.identify) {
@@ -66,7 +68,9 @@ export function useAnalytics() {
   };
 
   const reset = () => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     // PostHog
     if (posthog?.reset) {
@@ -75,7 +79,9 @@ export function useAnalytics() {
   };
 
   const setPersonProperties = (properties: Record<string, unknown>) => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     // PostHog
     if (posthog?.setPersonProperties) {
@@ -91,7 +97,9 @@ export function useAnalytics() {
   };
 
   const group = (groupType: string, groupKey: string, properties?: Record<string, unknown>) => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     // PostHog
     if (posthog?.group) {
@@ -100,7 +108,9 @@ export function useAnalytics() {
   };
 
   const pageView = (url?: string, title?: string) => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
 
     // PostHog
     if (posthog?.capture) {
@@ -128,7 +138,7 @@ export function useAnalytics() {
       latency?: number;
       success?: boolean;
       error?: string;
-    },
+    }
   ) => {
     track("ai_interaction", {
       action,
@@ -146,7 +156,7 @@ export function useAnalytics() {
   const trackUserAction = (
     action: string,
     context?: string,
-    properties?: Record<string, unknown>,
+    properties?: Record<string, unknown>
   ) => {
     track("user_action", {
       action,
@@ -182,6 +192,6 @@ export function useAnalytics() {
     isEnabled:
       !envs.NEXT_PUBLIC_ANALYTICS_DISABLED &&
       (process.env.NODE_ENV === "production" || envs.NEXT_PUBLIC_ANALYTICS_DEBUG),
-    isDebug: envs.NEXT_PUBLIC_ANALYTICS_DEBUG || false,
+    isDebug: envs.NEXT_PUBLIC_ANALYTICS_DEBUG,
   };
 }

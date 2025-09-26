@@ -10,7 +10,7 @@ export type CacheClosure<T> = () => Promiseable<T>;
 
 export type CacheKey = string | (string | number)[];
 
-export type CacheValue = string | number | boolean | null | undefined | object | Array<unknown>;
+export type CacheValue = string | number | boolean | null | undefined | object | unknown[];
 
 export type CacheExpiration = number | null;
 
@@ -20,16 +20,16 @@ export type CacheTags = string[];
 // Cache Options
 // ============================================================================
 
-export interface CacheOptions {
+export type CacheOptions = {
   prefix?: string;
   ttl?: number;
-}
+};
 
 // ============================================================================
 // Cache Store Interface
 // ============================================================================
 
-export interface CacheStore {
+export type CacheStore = {
   // Basic Operations
   get<T = CacheValue>(key: CacheKey, defaultValue?: T): Promise<T | null>;
   put(key: CacheKey, value: CacheValue, ttl?: CacheExpiration): Promise<boolean>;
@@ -43,7 +43,7 @@ export interface CacheStore {
   remember<T = CacheValue>(
     key: CacheKey,
     ttl: CacheExpiration,
-    closure: CacheClosure<T>,
+    closure: CacheClosure<T>
   ): Promise<T>;
   rememberForever<T = CacheValue>(key: CacheKey, closure: CacheClosure<T>): Promise<T>;
   pull<T = CacheValue>(key: CacheKey): Promise<T | null>;
@@ -67,23 +67,23 @@ export interface CacheStore {
   connect(): Promise<void>;
   disconnect(): Promise<void>;
   isConnected(): boolean;
-}
+};
 
-export interface TaggedCacheStore {
+export type TaggedCacheStore = {
   getTags(): CacheTags;
-}
+};
 
 // ============================================================================
 // Cache Statistics
 // ============================================================================
 
-export interface CacheStats {
+export type CacheStats = {
   hits: number;
   misses: number;
   hitRate: number;
   totalKeys: number;
   memoryUsage: number;
-}
+};
 
 // ============================================================================
 // Redis Specific Types
@@ -95,13 +95,13 @@ export interface RedisCacheStore extends CacheStore {
   executeCommand<T>(command: string, ...args: unknown[]): Promise<T>;
 }
 
-export interface RedisConnectionInfo {
+export type RedisConnectionInfo = {
   host: string;
   port: number;
   db: number;
   status: "connected" | "disconnected" | "connecting" | "error";
   lastError?: Error;
-}
+};
 
 // ============================================================================
 // Cache Events
@@ -109,14 +109,14 @@ export interface RedisConnectionInfo {
 
 export type CacheEventType = "hit" | "miss" | "set" | "delete" | "flush" | "error";
 
-export interface CacheEvent<T = CacheValue> {
+export type CacheEvent<T = CacheValue> = {
   type: CacheEventType;
   key: CacheKey;
   timestamp: number;
   data?: T;
   error?: Error;
   metadata?: Record<string, unknown>;
-}
+};
 
 export type CacheEventListener<T = CacheValue> = (event: CacheEvent<T>) => void;
 
@@ -125,32 +125,30 @@ export type CacheEventListener<T = CacheValue> = (event: CacheEvent<T>) => void;
 // ============================================================================
 
 export class CacheError extends Error {
-  constructor(
-    message: string,
-    public key?: CacheKey,
-    public operation?: string,
-  ) {
+  key?: CacheKey;
+  operation?: string;
+  constructor(message: string, key?: CacheKey, operation?: string) {
     super(message);
     this.name = "CacheError";
+    this.key = key;
+    this.operation = operation;
   }
 }
 
 export class CacheConnectionError extends CacheError {
-  constructor(
-    message: string,
-    public connection: string,
-  ) {
+  connection: string;
+  constructor(message: string, connection: string) {
     super(message);
     this.name = "CacheConnectionError";
+    this.connection = connection;
   }
 }
 
 export class CacheSerializationError extends CacheError {
-  constructor(
-    message: string,
-    public value: unknown,
-  ) {
+  value: unknown;
+  constructor(message: string, value: unknown) {
     super(message);
     this.name = "CacheSerializationError";
+    this.value = value;
   }
 }

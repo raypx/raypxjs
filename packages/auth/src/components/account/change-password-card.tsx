@@ -20,14 +20,14 @@ import { getLocalizedError, getPasswordSchema } from "../../core/lib/utils";
 import type { PasswordValidation } from "../../types";
 import { InputFieldSkeleton } from "./input-field-skeleton";
 
-export interface ChangePasswordCardProps {
+export type ChangePasswordCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   accounts?: { provider: string }[] | null;
   isPending?: boolean;
   skipHook?: boolean;
   passwordValidation?: PasswordValidation;
-}
+};
 
 export function ChangePasswordCard({
   className,
@@ -103,7 +103,9 @@ export function ChangePasswordCard({
   const { isSubmitting } = form.formState;
 
   const setPassword = async () => {
-    if (!sessionData) return;
+    if (!sessionData) {
+      return;
+    }
     const email = sessionData?.user.email;
 
     try {
@@ -150,17 +152,17 @@ export function ChangePasswordCard({
 
   const credentialsLinked = accounts?.some((acc) => acc.provider === "credential");
 
-  if (!isPending && !credentialsLinked) {
+  if (!(isPending || credentialsLinked)) {
     return (
       <Form {...setPasswordForm}>
         <form onSubmit={setPasswordForm.handleSubmit(setPassword)}>
           <SettingsCard
-            title={t("SET_PASSWORD")}
-            description={t("SET_PASSWORD_DESCRIPTION")}
             actionLabel={t("SET_PASSWORD")}
-            isPending={isPending}
             className={className}
             classNames={classNames}
+            description={t("SET_PASSWORD_DESCRIPTION")}
+            isPending={isPending}
+            title={t("SET_PASSWORD")}
           />
         </form>
       </Form>
@@ -171,9 +173,9 @@ export function ChangePasswordCard({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(changePassword)}>
         <SettingsCard
+          actionLabel={t("SAVE")}
           className={className}
           classNames={classNames}
-          actionLabel={t("SAVE")}
           description={t("CHANGE_PASSWORD_DESCRIPTION")}
           instructions={t("CHANGE_PASSWORD_INSTRUCTIONS")}
           isPending={isPending}
@@ -198,10 +200,10 @@ export function ChangePasswordCard({
 
                       <FormControl>
                         <PasswordField
-                          className={classNames?.input}
                           autoComplete="current-password"
-                          placeholder={t("CURRENT_PASSWORD_PLACEHOLDER")}
+                          className={classNames?.input}
                           disabled={isSubmitting}
+                          placeholder={t("CURRENT_PASSWORD_PLACEHOLDER")}
                           {...field}
                         />
                       </FormControl>
@@ -220,8 +222,8 @@ export function ChangePasswordCard({
 
                       <FormControl>
                         <PasswordField
-                          className={classNames?.input}
                           autoComplete="new-password"
+                          className={classNames?.input}
                           disabled={isSubmitting}
                           placeholder={t("NEW_PASSWORD_PLACEHOLDER")}
                           {...field}
@@ -243,10 +245,10 @@ export function ChangePasswordCard({
 
                         <FormControl>
                           <PasswordField
-                            className={classNames?.input}
                             autoComplete="new-password"
-                            placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
+                            className={classNames?.input}
                             disabled={isSubmitting}
+                            placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
                             {...field}
                           />
                         </FormControl>

@@ -58,7 +58,7 @@ export function ChangePassword() {
       await changePassword({
         newPassword: value.newPassword,
         currentPassword: value.currentPassword,
-        revokeOtherSessions: value.signOutDevices || false,
+        revokeOtherSessions: value.signOutDevices,
         fetchOptions: {
           throw: true,
         },
@@ -68,25 +68,25 @@ export function ChangePassword() {
       toast.success("Password changed successfully");
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "An error occurred while changing password",
+        error instanceof Error ? error.message : "An error occurred while changing password"
       );
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button className="z-10 gap-2" variant="outline" size="sm">
+        <Button className="z-10 gap-2" size="sm" variant="outline">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
+            aria-hidden="true"
             height="1em"
             viewBox="0 0 24 24"
-            aria-hidden="true"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill="currentColor"
               d="M2.5 18.5v-1h19v1zm.535-5.973l-.762-.442l.965-1.693h-1.93v-.884h1.93l-.965-1.642l.762-.443L4 9.066l.966-1.643l.761.443l-.965 1.642h1.93v.884h-1.93l.965 1.693l-.762.442L4 10.835zm8 0l-.762-.442l.966-1.693H9.308v-.884h1.93l-.965-1.642l.762-.443L12 9.066l.966-1.643l.761.443l-.965 1.642h1.93v.884h-1.93l.965 1.693l-.762.442L12 10.835zm8 0l-.762-.442l.966-1.693h-1.931v-.884h1.93l-.965-1.642l.762-.443L20 9.066l.966-1.643l.761.443l-.965 1.642h1.93v.884h-1.93l.965 1.693l-.762.442L20 10.835z"
+              fill="currentColor"
             />
           </svg>
           <span className="text-muted-foreground text-sm">Change Password</span>
@@ -98,7 +98,7 @@ export function ChangePassword() {
           <DialogDescription>Change your password to keep your account secure.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form ref={formRef} onSubmit={form.handleSubmit(handleSubmit)} className="grid gap-4">
+          <form className="grid gap-4" onSubmit={form.handleSubmit(handleSubmit)} ref={formRef}>
             <FormField
               control={form.control}
               name="currentPassword"
@@ -164,7 +164,7 @@ export function ChangePassword() {
             onClick={() => formRef.current?.requestSubmit()}
           >
             {form.formState.isSubmitting ? (
-              <Loader2 size={15} className="animate-spin" />
+              <Loader2 className="animate-spin" size={15} />
             ) : (
               "Change Password"
             )}

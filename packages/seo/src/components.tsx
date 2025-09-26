@@ -12,7 +12,7 @@ import type { SEOConfig } from "./metadata";
 import { createSEOProps } from "./metadata";
 import type { StructuredDataType } from "./structured-data";
 
-export interface ArticleProps {
+export type ArticleProps = {
   title: string;
   description: string;
   url: string;
@@ -23,7 +23,7 @@ export interface ArticleProps {
   publisherLogo?: string;
   images?: string[];
   children?: ReactNode;
-}
+};
 
 export function Article({
   title,
@@ -40,29 +40,29 @@ export function Article({
   return (
     <>
       <ArticleJsonLd
-        url={url}
-        title={title}
-        images={images}
-        datePublished={datePublished}
-        dateModified={dateModified || datePublished}
         authorName={[authorName]}
-        publisherName={publisherName}
-        publisherLogo={publisherLogo}
+        dateModified={dateModified || datePublished}
+        datePublished={datePublished}
         description={description}
+        images={images}
+        publisherLogo={publisherLogo}
+        publisherName={publisherName}
+        title={title}
+        url={url}
       />
       {children}
     </>
   );
 }
 
-export interface BreadcrumbProps {
+export type BreadcrumbProps = {
   itemListElements: Array<{
     position: number;
     name: string;
     item: string;
   }>;
   children?: ReactNode;
-}
+};
 
 export function Breadcrumb({ itemListElements, children }: BreadcrumbProps) {
   return (
@@ -73,7 +73,7 @@ export function Breadcrumb({ itemListElements, children }: BreadcrumbProps) {
   );
 }
 
-export interface OrganizationProps {
+export type OrganizationProps = {
   type?: string;
   id?: string;
   name: string;
@@ -87,7 +87,7 @@ export interface OrganizationProps {
     availableLanguage?: string[];
   }>;
   children?: ReactNode;
-}
+};
 
 export function Organization({
   type = "Organization",
@@ -102,20 +102,20 @@ export function Organization({
   return (
     <>
       <OrganizationJsonLd
-        type={type}
-        id={id}
-        name={name}
-        url={url}
-        logo={logo}
-        sameAs={sameAs}
         contactPoint={contactPoints}
+        id={id}
+        logo={logo}
+        name={name}
+        sameAs={sameAs}
+        type={type}
+        url={url}
       />
       {children}
     </>
   );
 }
 
-export interface WebPageProps {
+export type WebPageProps = {
   url: string;
   description: string;
   lastReviewed?: string;
@@ -124,7 +124,7 @@ export interface WebPageProps {
     name: string;
   };
   children?: ReactNode;
-}
+};
 
 export function WebPage({ url, description, lastReviewed, reviewedBy, children }: WebPageProps) {
   return (
@@ -140,22 +140,22 @@ export function WebPage({ url, description, lastReviewed, reviewedBy, children }
   );
 }
 
-export interface SiteSearchProps {
+export type SiteSearchProps = {
   url: string;
   children?: ReactNode;
-}
+};
 
 export function SiteSearch({ url, children }: SiteSearchProps) {
   return (
     <>
       <SiteLinksSearchBoxJsonLd
-        url={url}
         potentialActions={[
           {
             target: `${url}/search?q={search_term_string}`,
             queryInput: "required name=search_term_string",
           },
         ]}
+        url={url}
       />
       {children}
     </>
@@ -176,9 +176,9 @@ export function SEOProvider({ children, structuredData = [], ...seoConfig }: SEO
       <NextSeo {...seoProps} />
       {structuredData.map((data, index) => (
         <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
           key={index}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
       {children}
@@ -196,9 +196,9 @@ export function PageSEO({ structuredData = [], ...seoProps }: PageSEOProps) {
       <NextSeo {...seoProps} />
       {structuredData.map((data, index) => (
         <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
           key={index}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
     </>
@@ -244,22 +244,22 @@ export function ArticleSEO({
       />
       {structuredData.map((data, index) => (
         <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
           key={index}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
     </>
   );
 }
 
-export interface JsonLdProps {
+export type JsonLdProps = {
   data: StructuredDataType;
-}
+};
 
 export function JsonLd({ data }: JsonLdProps) {
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+    <script dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} type="application/ld+json" />
   );
 }
 

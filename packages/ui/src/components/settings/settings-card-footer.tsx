@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 import { SettingsActionButton } from "./settings-action-button";
 import type { SettingsCardClassNames } from "./settings-card";
 
-export interface SettingsCardFooterProps {
+export type SettingsCardFooterProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   actionLabel?: ReactNode;
@@ -18,7 +18,7 @@ export interface SettingsCardFooterProps {
   optimistic?: boolean;
   variant?: "default" | "destructive";
   action?: () => Promise<unknown> | unknown;
-}
+};
 
 export function SettingsCardFooter({
   className,
@@ -38,7 +38,7 @@ export function SettingsCardFooter({
         (actionLabel || instructions) && "!py-4 border-t",
         variant === "destructive" ? "border-destructive/30 bg-destructive/15" : "bg-sidebar",
         className,
-        classNames?.footer,
+        classNames?.footer
       )}
     >
       {isPending ? (
@@ -57,7 +57,7 @@ export function SettingsCardFooter({
             <CardDescription
               className={cn(
                 "text-center text-muted-foreground text-xs md:text-start md:text-sm",
-                classNames?.instructions,
+                classNames?.instructions
               )}
             >
               {instructions}
@@ -66,12 +66,12 @@ export function SettingsCardFooter({
 
           {actionLabel && (
             <SettingsActionButton
-              classNames={classNames}
               actionLabel={actionLabel}
+              classNames={classNames}
               disabled={disabled}
               isSubmitting={isSubmitting}
-              variant={variant}
               onClick={action}
+              variant={variant}
             />
           )}
         </>

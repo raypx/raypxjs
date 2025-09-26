@@ -52,8 +52,8 @@ export default async function Layout({
   const messages = await getMessages({ locale: lang });
 
   return (
-    <html lang={lang} className={inter.className} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
+    <html className={inter.className} lang={lang} suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={lang} messages={messages}>
           <RootProvider i18n={provider(lang)}>
             <AnalyticsProvider>

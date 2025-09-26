@@ -3,16 +3,18 @@ import { useTranslations } from "next-intl";
 import { useAuth } from "../../core/hooks/use-auth";
 import { useIsHydrated } from "../../core/hooks/use-hydrated";
 
-export interface RecaptchaBadgeProps {
+export type RecaptchaBadgeProps = {
   className?: string;
-}
+};
 
 export function RecaptchaBadge({ className }: RecaptchaBadgeProps) {
   const isHydrated = useIsHydrated();
   const { captcha } = useAuth();
   const t = useTranslations("auth");
 
-  if (!captcha) return null;
+  if (!captcha) {
+    return null;
+  }
 
   if (!captcha.hideBadge) {
     return isHydrated ? (
@@ -33,8 +35,8 @@ export function RecaptchaBadge({ className }: RecaptchaBadgeProps) {
         <a
           className="text-foreground hover:underline"
           href="https://policies.google.com/privacy"
-          target="_blank"
           rel="noreferrer"
+          target="_blank"
         >
           {t("PRIVACY_POLICY")}
         </a>{" "}
@@ -42,8 +44,8 @@ export function RecaptchaBadge({ className }: RecaptchaBadgeProps) {
         <a
           className="text-foreground hover:underline"
           href="https://policies.google.com/terms"
-          target="_blank"
           rel="noreferrer"
+          target="_blank"
         >
           {t("TERMS_OF_SERVICE")}
         </a>

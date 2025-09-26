@@ -13,7 +13,7 @@ import type { Provider } from "../../core/lib/providers/social-providers";
 import { getLocalizedError } from "../../core/lib/utils";
 import type { Refetch } from "../../types";
 
-export interface ProviderCellProps {
+export type ProviderCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   account?: {
@@ -24,7 +24,7 @@ export interface ProviderCellProps {
   other?: boolean;
   provider: Provider;
   refetch?: Refetch;
-}
+};
 
 export function ProviderCell({
   className,
@@ -107,10 +107,10 @@ export function ProviderCell({
       <Button
         className={cn("relative ms-auto", classNames?.button)}
         disabled={isLoading}
+        onClick={account ? handleUnlink : handleLink}
         size="sm"
         type="button"
         variant={account ? "outline" : "default"}
-        onClick={account ? handleUnlink : handleLink}
       >
         {isLoading && <Loader2 className="animate-spin" />}
         {account ? t("UNLINK") : t("LINK")}
@@ -132,7 +132,9 @@ function AccountInfo({ account }: { account: { accountId: string } }) {
     return <Skeleton className="my-0.5 h-3 w-28" />;
   }
 
-  if (!accountInfo) return null;
+  if (!accountInfo) {
+    return null;
+  }
 
   return <div className="text-muted-foreground text-xs">{accountInfo?.user.email}</div>;
 }

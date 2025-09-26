@@ -19,13 +19,13 @@ import { getLocalizedError } from "../../core/lib/utils";
 import type { Invitation } from "../../types";
 import { UserAvatar } from "../account/user-avatar";
 
-export interface InvitationCellProps {
+export type InvitationCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   invitation: Invitation;
 
   organization: Organization;
-}
+};
 
 export function InvitationCell({
   className,
@@ -118,8 +118,8 @@ export function InvitationCell({
 
         <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()}>
           <DropdownMenuItem
-            onClick={handleCancelInvitation}
             disabled={isLoading}
+            onClick={handleCancelInvitation}
             variant="destructive"
           >
             <X className={classNames?.icon} />

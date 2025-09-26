@@ -10,11 +10,13 @@ import type { Gtag } from "./types";
 let gtagInstance: Gtag | null = null;
 
 async function loadGtag(): Promise<Gtag | null> {
-  if (gtagInstance) return gtagInstance;
+  if (gtagInstance) {
+    return gtagInstance;
+  }
 
   // Use global gtag if available (loaded via script)
   if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    gtagInstance = window.gtag;
+    gtagInstance = await window.gtag();
     return gtagInstance;
   }
 
@@ -33,7 +35,7 @@ function GoogleAnalyticsPageView() {
         url = `${url}?${searchParams.toString()}`;
       }
 
-      gtagInstance("config", envs.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+      gtagInstance?.("config", envs.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
         page_path: url,
       });
     } else if (

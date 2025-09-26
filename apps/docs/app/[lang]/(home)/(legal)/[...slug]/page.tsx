@@ -5,14 +5,14 @@ import appConfig from "@/config/app.config";
 import { pagesSource } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
-interface PageProps {
+type PageProps = {
   params: Promise<{
     lang: string;
     slug: string[];
   }>;
-}
+};
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return pagesSource.generateParams();
 }
 
@@ -51,21 +51,21 @@ export default async function Page({ params }: PageProps) {
     <div className="container max-w-4xl py-12">
       {/* Page Header */}
       <header className="mb-8">
-        <h1 className="mb-4 text-4xl font-bold">{page.data.title}</h1>
+        <h1 className="mb-4 font-bold text-4xl">{page.data.title}</h1>
 
         {page.data.description && (
           <p className="text-lg text-muted-foreground">{page.data.description}</p>
         )}
 
         {page.data.date && (
-          <div className="mt-4 text-sm text-muted-foreground">
+          <div className="mt-4 text-muted-foreground text-sm">
             {dayjs(page.data.date).locale(lang).format("LL")}
           </div>
         )}
       </header>
 
       {/* Page Content */}
-      <article className="prose prose-neutral max-w-none dark:prose-invert">
+      <article className="prose prose-neutral dark:prose-invert max-w-none">
         <page.data.body components={getMDXComponents()} />
       </article>
     </div>

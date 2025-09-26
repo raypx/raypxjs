@@ -24,7 +24,7 @@ import { getLocalizedError } from "../../core/lib/utils";
 import type { AuthFormClassNames } from "./auth-form";
 import { OTPInputGroup } from "./otp-input-group";
 
-export interface EmailOTPFormProps {
+export type EmailOTPFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   callbackURL?: string;
@@ -32,7 +32,7 @@ export interface EmailOTPFormProps {
   otpSeparators?: 0 | 1 | 2;
   redirectTo?: string;
   setIsSubmitting?: (value: boolean) => void;
-}
+};
 
 export function EmailOTPForm(props: EmailOTPFormProps) {
   const [email, setEmail] = useState<string | undefined>();
@@ -105,9 +105,9 @@ function EmailForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(sendEmailOTP)}
-        noValidate={isHydrated}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        noValidate={isHydrated}
+        onSubmit={form.handleSubmit(sendEmailOTP)}
       >
         <FormField
           control={form.control}
@@ -119,9 +119,9 @@ function EmailForm({
               <FormControl>
                 <Input
                   className={classNames?.input}
-                  type="email"
-                  placeholder={t("EMAIL_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("EMAIL_PLACEHOLDER")}
+                  type="email"
                   {...field}
                 />
               </FormControl>
@@ -132,9 +132,9 @@ function EmailForm({
         />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn("w-full", classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("EMAIL_OTP_SEND_ACTION")}
         </Button>
@@ -206,8 +206,8 @@ export function OTPForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(verifyCode)}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        onSubmit={form.handleSubmit(verifyCode)}
       >
         <FormField
           control={form.control}
@@ -219,6 +219,9 @@ export function OTPForm({
               <FormControl>
                 <InputOTP
                   {...field}
+                  className={classNames?.otpInput}
+                  containerClassName={classNames?.otpInputContainer}
+                  disabled={isSubmitting}
                   maxLength={6}
                   onChange={(value) => {
                     field.onChange(value);
@@ -227,9 +230,6 @@ export function OTPForm({
                       form.handleSubmit(verifyCode)();
                     }
                   }}
-                  containerClassName={classNames?.otpInputContainer}
-                  className={classNames?.otpInput}
-                  disabled={isSubmitting}
                 >
                   <OTPInputGroup otpSeparators={otpSeparators} />
                 </InputOTP>
@@ -242,9 +242,9 @@ export function OTPForm({
 
         <div className="grid gap-4">
           <Button
-            type="submit"
-            disabled={isSubmitting}
             className={cn(classNames?.button, classNames?.primaryButton)}
+            disabled={isSubmitting}
+            type="submit"
           >
             {isSubmitting && <Loader2 className="animate-spin" />}
             {t("EMAIL_OTP_VERIFY_ACTION")}

@@ -33,13 +33,13 @@ export function OrganizationSlugCard({
   if (!organization) {
     return (
       <SettingsCard
+        actionLabel={t("SAVE")}
         className={className}
         classNames={classNames}
         description={t("ORGANIZATION_SLUG_DESCRIPTION")}
         instructions={t("ORGANIZATION_SLUG_INSTRUCTIONS")}
         isPending
         title={t("ORGANIZATION_SLUG")}
-        actionLabel={t("SAVE")}
         {...props}
       >
         <CardContent className={classNames?.content}>
@@ -145,15 +145,15 @@ function OrganizationSlugForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(updateOrganizationSlug)}>
         <SettingsCard
+          actionLabel={t("SAVE")}
           className={className}
           classNames={classNames}
           description={t("ORGANIZATION_SLUG_DESCRIPTION")}
+          disabled={!hasPermission?.success}
           instructions={t("ORGANIZATION_SLUG_INSTRUCTIONS")}
           isPending={isPending}
-          title={t("ORGANIZATION_SLUG")}
-          actionLabel={t("SAVE")}
           optimistic={optimistic}
-          disabled={!hasPermission?.success}
+          title={t("ORGANIZATION_SLUG")}
           {...props}
         >
           <CardContent className={classNames?.content}>
@@ -168,8 +168,8 @@ function OrganizationSlugForm({
                     <FormControl>
                       <Input
                         className={classNames?.input}
-                        placeholder={t("ORGANIZATION_SLUG_PLACEHOLDER")}
                         disabled={isSubmitting || !hasPermission?.success}
+                        placeholder={t("ORGANIZATION_SLUG_PLACEHOLDER")}
                         {...field}
                       />
                     </FormControl>

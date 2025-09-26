@@ -5,12 +5,12 @@ import { blogSource, changelogSource, pagesSource, source } from "@/lib/source";
 
 export const revalidate = false;
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): Promise<MetadataRoute.Sitemap> | MetadataRoute.Sitemap {
   const url = (path: string): string => new URL(path, appConfig.url).toString();
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
   // Add main pages for each locale
-  locales.forEach((locale) => {
+  for (const locale of locales) {
     sitemapEntries.push(
       {
         url: url(`/${locale}`),
@@ -21,13 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: url(`/${locale}/docs`),
         changeFrequency: "weekly",
         priority: 0.9,
-      },
+      }
     );
-  });
+  }
 
   // Add documentation pages
-  locales.forEach((locale) => {
-    source.getPages().forEach((page) => {
+  for (const locale of locales) {
+    for (const page of source.getPages()) {
       const { lastModified } = page.data;
       sitemapEntries.push({
         url: url(`/${locale}${page.url}`),
@@ -35,13 +35,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly",
         priority: 0.8,
       });
-    });
-  });
+    }
+  }
 
   // Add blog pages
   const blogPosts = blogSource.getPages();
   if (blogPosts.length > 0) {
-    locales.forEach((locale) => {
+    for (const locale of locales) {
       // Blog index page
       sitemapEntries.push({
         url: url(`/${locale}/blog`),
@@ -50,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
 
       // Individual blog posts
-      blogPosts.forEach((post) => {
+      for (const post of blogPosts) {
         if (post.data.published !== false) {
           sitemapEntries.push({
             url: url(`/${locale}${post.url}`),
@@ -59,14 +59,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.6,
           });
         }
-      });
-    });
+      }
+    }
   }
 
   // Add changelog pages
   const changelogEntries = changelogSource.getPages();
   if (changelogEntries.length > 0) {
-    locales.forEach((locale) => {
+    for (const locale of locales) {
       // Changelog index page
       sitemapEntries.push({
         url: url(`/${locale}/changelog`),
@@ -75,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
 
       // Individual changelog entries
-      changelogEntries.forEach((entry) => {
+      for (const entry of changelogEntries) {
         if (entry.data.published !== false) {
           sitemapEntries.push({
             url: url(`/${locale}${entry.url}`),
@@ -84,24 +84,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.5,
           });
         }
-      });
-    });
+      }
+    }
   }
 
   // Add static pages
   const staticPages = pagesSource.getPages();
-  staticPages.forEach((page) => {
+  for (const page of staticPages) {
     if (page.data.published !== false) {
-      locales.forEach((locale) => {
+      for (const locale of locales) {
         sitemapEntries.push({
           url: url(`/${locale}/pages${page.url}`),
           lastModified: page.data.date ? new Date(page.data.date) : undefined,
           changeFrequency: "monthly",
           priority: 0.4,
         });
-      });
+      }
     }
-  });
+  }
 
   return sitemapEntries;
 }

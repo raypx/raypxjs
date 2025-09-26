@@ -70,10 +70,11 @@ import {
   Users,
   UserX,
 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-interface User {
+type User = {
   id: string;
   name: string;
   email: string;
@@ -86,20 +87,20 @@ interface User {
   createdAt: string;
   updatedAt: string;
   image?: string;
-}
+};
 
 type UserRole = "user" | "moderator" | "admin" | "superadmin";
 type UserStatus = "all" | "active" | "banned";
 type FilterState = "all" | UserRole;
 
-interface UserStats {
+type UserStats = {
   totalUsers: number;
   activeUsers: number;
   bannedUsers: number;
   recentUsers: number;
-}
+};
 
-interface UsersResponse {
+type UsersResponse = {
   data: User[];
   meta: {
     total: number;
@@ -108,7 +109,7 @@ interface UsersResponse {
     limit: number;
     offset: number;
   };
-}
+};
 
 // API functions
 const fetchUsers = async (params: {
@@ -121,11 +122,11 @@ const fetchUsers = async (params: {
   status?: string;
 }): Promise<UsersResponse> => {
   const query = new URLSearchParams();
-  Object.entries(params).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(params)) {
     if (value !== undefined) {
       query.set(key, value.toString());
     }
-  });
+  }
 
   const response = await fetch(`/api/v1/users?${query}`);
   if (!response.ok) {
@@ -147,7 +148,7 @@ const banUser = async (
   data: {
     banReason: string;
     banExpires?: string;
-  },
+  }
 ) => {
   const response = await fetch(`/api/v1/users/${id}/ban`, {
     method: "POST",
@@ -224,7 +225,7 @@ export default function UsersPage() {
   // Reset page when search changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch, statusFilter, roleFilter]);
+  }, []);
 
   const {
     hooks: { useSession },
@@ -266,7 +267,7 @@ export default function UsersPage() {
       sortBy: "createdAt" as const,
       sortOrder: "desc" as const,
     }),
-    [currentPage, limit, debouncedSearch, statusFilter, roleFilter],
+    [currentPage, debouncedSearch, statusFilter, roleFilter]
   );
 
   const { data, isLoading, error, isFetching } = useQuery({
@@ -425,24 +426,24 @@ export default function UsersPage() {
   if (error) {
     const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
     return (
-      <div className="p-6 space-y-6">
+      <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold">User Management</h1>
+          <h1 className="font-semibold text-2xl">User Management</h1>
           <p className="text-muted-foreground">Manage users, roles, and access permissions</p>
         </div>
         <Card className="border-red-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-center py-12">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-                  <AlertTriangle className="w-8 h-8 text-red-600" />
+              <div className="space-y-4 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+                  <AlertTriangle className="h-8 w-8 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-red-900 mb-2">Failed to Load Users</h3>
-                  <p className="text-red-700 text-sm max-w-md mx-auto mb-4">{errorMessage}</p>
+                  <h3 className="mb-2 font-medium text-lg text-red-900">Failed to Load Users</h3>
+                  <p className="mx-auto mb-4 max-w-md text-red-700 text-sm">{errorMessage}</p>
                 </div>
-                <div className="flex gap-3 justify-center">
-                  <Button variant="outline" onClick={() => window.location.reload()}>
+                <div className="flex justify-center gap-3">
+                  <Button onClick={() => window.location.reload()} variant="outline">
                     Reload Page
                   </Button>
                   <Button
@@ -468,15 +469,15 @@ export default function UsersPage() {
   const renderStatsSection = (): any => {
     if (isStatsLoading) {
       return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
-                <div className="h-4 w-4 bg-gray-200 rounded animate-pulse" />
+                <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
+                <div className="h-4 w-4 animate-pulse rounded bg-gray-200" />
               </CardHeader>
               <CardContent>
-                <div className="h-8 w-16 bg-gray-200 rounded animate-pulse" />
+                <div className="h-8 w-16 animate-pulse rounded bg-gray-200" />
               </CardContent>
             </Card>
           ))}
@@ -484,7 +485,9 @@ export default function UsersPage() {
       );
     }
 
-    if (!statsData?.data) return null;
+    if (!statsData?.data) {
+      return null;
+    }
 
     const stats = [
       {
@@ -518,17 +521,17 @@ export default function UsersPage() {
     ];
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+                <CardTitle className="font-medium text-sm">{stat.title}</CardTitle>
                 <Icon className={`h-4 w-4 ${stat.color}`} />
               </CardHeader>
               <CardContent>
-                <div className={`text-2xl font-bold ${stat.valueColor}`}>
+                <div className={`font-bold text-2xl ${stat.valueColor}`}>
                   {stat.value.toLocaleString()}
                 </div>
               </CardContent>
@@ -540,10 +543,10 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6 p-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold">User Management</h1>
+        <h1 className="font-semibold text-2xl">User Management</h1>
         <p className="text-muted-foreground">Manage users, roles, and access permissions</p>
       </div>
 
@@ -554,7 +557,7 @@ export default function UsersPage() {
         <Card className="border-orange-200 bg-orange-50">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-orange-800">
-              <Users className="w-5 h-5" />
+              <Users className="h-5 w-5" />
               <span>Currently Impersonating</span>
             </CardTitle>
             <CardDescription>
@@ -562,24 +565,24 @@ export default function UsersPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
+            <div className="flex items-center justify-between rounded-lg border bg-white p-3">
               <div className="flex items-center space-x-3">
                 <div>
                   <div className="font-medium">{session.user.name}</div>
-                  <div className="text-sm text-gray-500">{session.user.email}</div>
+                  <div className="text-gray-500 text-sm">{session.user.email}</div>
                 </div>
-                <Badge variant="outline" className="bg-orange-100 text-orange-800">
+                <Badge className="bg-orange-100 text-orange-800" variant="outline">
                   Impersonating
                 </Badge>
               </div>
               <Button
-                variant="outline"
-                size="sm"
-                onClick={handleEndImpersonation}
-                disabled={endImpersonationMutation.isPending}
                 className="text-red-600 hover:text-red-700"
+                disabled={endImpersonationMutation.isPending}
+                onClick={handleEndImpersonation}
+                size="sm"
+                variant="outline"
               >
-                <LogOut className="w-4 h-4 mr-2" />
+                <LogOut className="mr-2 h-4 w-4" />
                 Stop Impersonating
               </Button>
             </div>
@@ -588,24 +591,24 @@ export default function UsersPage() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 transform text-muted-foreground" />
           <Input
+            className="pl-9"
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, email, or username..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
           />
           {search !== debouncedSearch && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="-translate-y-1/2 absolute top-1/2 right-3 transform">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
             </div>
           )}
         </div>
         <Select
-          value={statusFilter}
           onValueChange={(value) => setStatusFilter(value as UserStatus)}
+          value={statusFilter}
         >
           <SelectTrigger className="w-full sm:w-32">
             <SelectValue placeholder="Status" />
@@ -616,7 +619,7 @@ export default function UsersPage() {
             <SelectItem value="banned">Banned</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={roleFilter} onValueChange={(value) => setRoleFilter(value as FilterState)}>
+        <Select onValueChange={(value) => setRoleFilter(value as FilterState)} value={roleFilter}>
           <SelectTrigger className="w-full sm:w-32">
             <SelectValue placeholder="Role" />
           </SelectTrigger>
@@ -643,24 +646,24 @@ export default function UsersPage() {
           {isLoading ? (
             <div className="space-y-3">
               {Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} className="animate-pulse border rounded p-4">
+                <div className="animate-pulse rounded border p-4" key={i}>
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full" />
-                    <div className="space-y-2 flex-1">
-                      <div className="h-4 bg-gray-200 rounded w-1/4" />
-                      <div className="h-3 bg-gray-200 rounded w-1/6" />
+                    <div className="h-8 w-8 rounded-full bg-gray-200" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 w-1/4 rounded bg-gray-200" />
+                      <div className="h-3 w-1/6 rounded bg-gray-200" />
                     </div>
-                    <div className="h-6 bg-gray-200 rounded w-16" />
-                    <div className="h-6 bg-gray-200 rounded w-12" />
+                    <div className="h-6 w-16 rounded bg-gray-200" />
+                    <div className="h-6 w-12 rounded bg-gray-200" />
                   </div>
                 </div>
               ))}
             </div>
           ) : data?.data.length === 0 ? (
-            <div className="text-center py-12">
-              <UserIcon className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
-              <h3 className="text-lg font-medium mb-2">No users found</h3>
-              <p className="text-muted-foreground max-w-sm mx-auto">
+            <div className="py-12 text-center">
+              <UserIcon className="mx-auto mb-4 h-16 w-16 text-muted-foreground opacity-50" />
+              <h3 className="mb-2 font-medium text-lg">No users found</h3>
+              <p className="mx-auto max-w-sm text-muted-foreground">
                 {debouncedSearch || statusFilter !== "all" || roleFilter !== "all"
                   ? "No users match your current filters. Try adjusting your search criteria."
                   : "No users have been created yet."}
@@ -676,7 +679,7 @@ export default function UsersPage() {
                     <TableHead>Role</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Created</TableHead>
-                    <TableHead className="w-12"></TableHead>
+                    <TableHead className="w-12" />
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -684,15 +687,15 @@ export default function UsersPage() {
                     <TableRow key={user.id}>
                       <TableCell>
                         <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200">
                             {user.image ? (
-                              <img
-                                src={user.image}
+                              <Image
                                 alt={user.name}
-                                className="w-8 h-8 rounded-full"
+                                className="h-8 w-8 rounded-full"
+                                src={user.image}
                               />
                             ) : (
-                              <span className="text-sm font-medium">
+                              <span className="font-medium text-sm">
                                 {user.name.charAt(0).toUpperCase()}
                               </span>
                             )}
@@ -700,7 +703,7 @@ export default function UsersPage() {
                           <div>
                             <div className="font-medium">{user.name}</div>
                             {user.username && (
-                              <div className="text-sm text-muted-foreground">@{user.username}</div>
+                              <div className="text-muted-foreground text-sm">@{user.username}</div>
                             )}
                           </div>
                         </div>
@@ -709,9 +712,9 @@ export default function UsersPage() {
                         <div className="flex items-center space-x-2">
                           <span>{user.email}</span>
                           {user.emailVerified ? (
-                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <CheckCircle className="h-4 w-4 text-green-600" />
                           ) : (
-                            <AlertTriangle className="w-4 h-4 text-yellow-600" />
+                            <AlertTriangle className="h-4 w-4 text-yellow-600" />
                           )}
                         </div>
                       </TableCell>
@@ -725,15 +728,15 @@ export default function UsersPage() {
                           <div>
                             <Badge variant="destructive">Banned</Badge>
                             {user.banExpires && (
-                              <div className="text-xs text-muted-foreground mt-1">
+                              <div className="mt-1 text-muted-foreground text-xs">
                                 Until {format(new Date(user.banExpires), "MMM d, yyyy")}
                               </div>
                             )}
                           </div>
                         ) : (
                           <Badge
+                            className="border-green-200 bg-green-50 text-green-700"
                             variant="outline"
-                            className="bg-green-50 text-green-700 border-green-200"
                           >
                             Active
                           </Badge>
@@ -743,39 +746,39 @@ export default function UsersPage() {
                       <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="w-4 h-4" />
+                            <Button size="sm" variant="ghost">
+                              <MoreHorizontal className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => handleRoleChange(user)}>
-                              <Shield className="w-4 h-4 mr-2" />
+                              <Shield className="mr-2 h-4 w-4" />
                               Change Role
                             </DropdownMenuItem>
                             {!user.banned &&
                               user.role !== "admin" &&
                               user.role !== "superadmin" && (
                                 <DropdownMenuItem onClick={() => handleImpersonate(user)}>
-                                  <Users className="w-4 h-4 mr-2" />
+                                  <Users className="mr-2 h-4 w-4" />
                                   Impersonate
                                 </DropdownMenuItem>
                               )}
                             {user.banned ? (
                               <DropdownMenuItem
-                                onClick={() => handleUnban(user)}
                                 className="text-green-600"
+                                onClick={() => handleUnban(user)}
                               >
-                                <CheckCircle className="w-4 h-4 mr-2" />
+                                <CheckCircle className="mr-2 h-4 w-4" />
                                 Unban User
                               </DropdownMenuItem>
                             ) : (
                               <DropdownMenuItem
-                                onClick={() => handleBan(user)}
                                 className="text-red-600"
+                                onClick={() => handleBan(user)}
                               >
-                                <Ban className="w-4 h-4 mr-2" />
+                                <Ban className="mr-2 h-4 w-4" />
                                 Ban User
                               </DropdownMenuItem>
                             )}
@@ -791,21 +794,21 @@ export default function UsersPage() {
 
           {/* Pagination */}
           {data && data.meta.totalPages > 1 && (
-            <div className="flex items-center justify-center space-x-2 mt-4">
+            <div className="mt-4 flex items-center justify-center space-x-2">
               <Button
-                variant="outline"
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                variant="outline"
               >
                 Previous
               </Button>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-sm">
                 Page {data.meta.page} of {data.meta.totalPages}
               </span>
               <Button
-                variant="outline"
-                onClick={() => setCurrentPage(Math.min(data.meta.totalPages, currentPage + 1))}
                 disabled={currentPage === data.meta.totalPages}
+                onClick={() => setCurrentPage(Math.min(data.meta.totalPages, currentPage + 1))}
+                variant="outline"
               >
                 Next
               </Button>
@@ -815,7 +818,7 @@ export default function UsersPage() {
       </Card>
 
       {/* Ban User Dialog */}
-      <Dialog open={isBanDialogOpen} onOpenChange={setIsBanDialogOpen}>
+      <Dialog onOpenChange={setIsBanDialogOpen} open={isBanDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Ban User</DialogTitle>
@@ -829,30 +832,30 @@ export default function UsersPage() {
               <Label htmlFor="ban-reason">Ban Reason *</Label>
               <Textarea
                 id="ban-reason"
-                value={banForm.reason}
                 onChange={(e) => setBanForm({ ...banForm, reason: e.target.value })}
                 placeholder="Enter reason for ban..."
                 required
+                value={banForm.reason}
               />
             </div>
             <div>
               <Label htmlFor="ban-expires">Ban Expires (optional)</Label>
               <Input
                 id="ban-expires"
+                onChange={(e) => setBanForm({ ...banForm, expires: e.target.value })}
                 type="datetime-local"
                 value={banForm.expires}
-                onChange={(e) => setBanForm({ ...banForm, expires: e.target.value })}
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsBanDialogOpen(false)}>
+            <Button onClick={() => setIsBanDialogOpen(false)} variant="outline">
               Cancel
             </Button>
             <Button
-              variant="destructive"
-              onClick={confirmBan}
               disabled={banMutation.isPending || !banForm.reason.trim()}
+              onClick={confirmBan}
+              variant="destructive"
             >
               {banMutation.isPending ? "Banning..." : "Ban User"}
             </Button>
@@ -861,7 +864,7 @@ export default function UsersPage() {
       </Dialog>
 
       {/* Unban User Dialog */}
-      <AlertDialog open={isUnbanDialogOpen} onOpenChange={setIsUnbanDialogOpen}>
+      <AlertDialog onOpenChange={setIsUnbanDialogOpen} open={isUnbanDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Unban User</AlertDialogTitle>
@@ -872,7 +875,7 @@ export default function UsersPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmUnban} disabled={unbanMutation.isPending}>
+            <AlertDialogAction disabled={unbanMutation.isPending} onClick={confirmUnban}>
               {unbanMutation.isPending ? "Unbanning..." : "Unban User"}
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -880,7 +883,7 @@ export default function UsersPage() {
       </AlertDialog>
 
       {/* Change Role Dialog */}
-      <Dialog open={isRoleDialogOpen} onOpenChange={setIsRoleDialogOpen}>
+      <Dialog onOpenChange={setIsRoleDialogOpen} open={isRoleDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Change User Role</DialogTitle>
@@ -891,7 +894,7 @@ export default function UsersPage() {
           </DialogHeader>
           <div>
             <Label htmlFor="new-role">New Role</Label>
-            <Select value={newRole} onValueChange={setNewRole}>
+            <Select onValueChange={setNewRole} value={newRole}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a role" />
               </SelectTrigger>
@@ -904,10 +907,10 @@ export default function UsersPage() {
             </Select>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsRoleDialogOpen(false)}>
+            <Button onClick={() => setIsRoleDialogOpen(false)} variant="outline">
               Cancel
             </Button>
-            <Button onClick={confirmRoleChange} disabled={roleChangeMutation.isPending || !newRole}>
+            <Button disabled={roleChangeMutation.isPending || !newRole} onClick={confirmRoleChange}>
               {roleChangeMutation.isPending ? "Updating..." : "Update Role"}
             </Button>
           </DialogFooter>
@@ -915,7 +918,7 @@ export default function UsersPage() {
       </Dialog>
 
       {/* Impersonate User Dialog */}
-      <Dialog open={isImpersonateDialogOpen} onOpenChange={setIsImpersonateDialogOpen}>
+      <Dialog onOpenChange={setIsImpersonateDialogOpen} open={isImpersonateDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Impersonate User</DialogTitle>
@@ -924,9 +927,9 @@ export default function UsersPage() {
               switched to their account in this session.
             </DialogDescription>
           </DialogHeader>
-          <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
             <div className="flex items-start space-x-2">
-              <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5" />
+              <AlertTriangle className="mt-0.5 h-5 w-5 text-yellow-600" />
               <div className="text-sm text-yellow-800">
                 <div className="font-medium">Important Security Notice</div>
                 <ul className="mt-2 space-y-1 text-sm">
@@ -939,13 +942,13 @@ export default function UsersPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsImpersonateDialogOpen(false)}>
+            <Button onClick={() => setIsImpersonateDialogOpen(false)} variant="outline">
               Cancel
             </Button>
             <Button
-              onClick={confirmImpersonate}
-              disabled={impersonateMutation.isPending}
               className="bg-orange-600 hover:bg-orange-700"
+              disabled={impersonateMutation.isPending}
+              onClick={confirmImpersonate}
             >
               {impersonateMutation.isPending ? "Starting..." : "Start Impersonation"}
             </Button>

@@ -6,13 +6,13 @@ import { Card } from "../card";
 import { SettingsCardFooter } from "./settings-card-footer";
 import { SettingsCardHeader } from "./settings-card-header";
 
-export interface UserAvatarClassNames {
+export type UserAvatarClassNames = {
   base?: string;
   image?: string;
   fallback?: string;
   fallbackIcon?: string;
   skeleton?: string;
-}
+};
 
 export type SettingsCardClassNames = {
   base?: string;
@@ -80,7 +80,7 @@ export function SettingsCard({
         "w-full pb-0 text-start",
         variant === "destructive" && "border-destructive/40",
         className,
-        classNames?.base,
+        classNames?.base
       )}
       {...props}
     >
@@ -94,15 +94,15 @@ export function SettingsCard({
       {children}
 
       <SettingsCardFooter
-        classNames={classNames}
+        action={action}
         actionLabel={actionLabel}
+        classNames={classNames}
         disabled={disabled}
+        instructions={instructions}
         isPending={isPending}
         isSubmitting={isSubmitting}
-        instructions={instructions}
         optimistic={optimistic}
         variant={variant}
-        action={action}
       />
     </Card>
   );

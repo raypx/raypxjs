@@ -17,13 +17,13 @@ export function UpdateNameCard({ className, classNames, ...props }: SettingsCard
     <UpdateFieldCard
       className={className}
       classNames={classNames}
-      value={sessionData?.user.name}
       description={t("NAME_DESCRIPTION")}
-      name="name"
       instructions={t("NAME_INSTRUCTIONS", { maxLength: 32 })}
       label={t("NAME")}
+      name="name"
       placeholder={t("NAME_PLACEHOLDER")}
       required={nameRequired}
+      value={sessionData?.user.name}
       {...props}
     />
   );

@@ -34,17 +34,12 @@ describe("app config schema", () => {
       {
         message: `Please provide a valid HTTPS URL for production deployment. Set the variable NEXT_PUBLIC_SITE_URL with a valid URL, such as: 'https://example.com'`,
         path: ["url"],
-      },
+      }
     )
-    .refine(
-      (schema) => {
-        return schema.themeColor !== schema.themeColorDark;
-      },
-      {
-        message: `Please provide different theme colors for light and dark themes.`,
-        path: ["themeColor"],
-      },
-    );
+    .refine((schema) => schema.themeColor !== schema.themeColorDark, {
+      message: "Please provide different theme colors for light and dark themes.",
+      path: ["themeColor"],
+    });
 
   beforeEach(() => {
     vi.resetAllMocks();
@@ -113,7 +108,7 @@ describe("app config schema", () => {
     };
 
     expect(() => AppConfigSchema.parse(invalidConfig)).toThrow(
-      /Please provide different theme colors/,
+      /Please provide different theme colors/
     );
   });
 

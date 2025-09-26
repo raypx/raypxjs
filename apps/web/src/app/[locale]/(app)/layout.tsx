@@ -3,11 +3,11 @@ import { SidebarInset, SidebarProvider } from "@raypx/ui/components/sidebar";
 import type { ReactNode } from "react";
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar";
 
-interface AppLayoutProps {
+type AppLayoutProps = {
   children: ReactNode;
-}
+};
 
-export default async function AppLayout({ children }: AppLayoutProps) {
+export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <RedirectToSignIn />

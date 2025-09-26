@@ -6,22 +6,22 @@ import { useAuth } from "../../core/hooks/use-auth";
 import type { Profile } from "../../types";
 import { UserAvatar, type UserAvatarClassNames } from "./user-avatar";
 
-export interface UserViewClassNames {
+export type UserViewClassNames = {
   base?: string;
   avatar?: UserAvatarClassNames;
   content?: string;
   title?: string;
   subtitle?: string;
   skeleton?: string;
-}
+};
 
-export interface UserViewProps {
+export type UserViewProps = {
   className?: string;
   classNames?: UserViewClassNames;
   isPending?: boolean;
   size?: "sm" | "default" | "lg" | null;
   user?: Profile | null;
-}
+};
 
 /**
  * Displays user information with avatar and details in a compact view
@@ -53,7 +53,7 @@ export function UserView({ className, classNames, isPending, size, user }: UserV
                 "max-w-full",
                 size === "lg" ? "h-4.5 w-32" : "h-3.5 w-24",
                 classNames?.title,
-                classNames?.skeleton,
+                classNames?.skeleton
               )}
             />
             {size !== "sm" && (
@@ -62,7 +62,7 @@ export function UserView({ className, classNames, isPending, size, user }: UserV
                   "mt-1.5 max-w-full",
                   size === "lg" ? "h-3.5 w-40" : "h-3 w-32",
                   classNames?.subtitle,
-                  classNames?.skeleton,
+                  classNames?.skeleton
                 )}
               />
             )}
@@ -73,7 +73,7 @@ export function UserView({ className, classNames, isPending, size, user }: UserV
               className={cn(
                 "truncate font-semibold",
                 size === "lg" ? "text-base" : "text-sm",
-                classNames?.title,
+                classNames?.title
               )}
             >
               {user?.displayName ||
@@ -91,7 +91,7 @@ export function UserView({ className, classNames, isPending, size, user }: UserV
                 className={cn(
                   "truncate opacity-70",
                   size === "lg" ? "text-sm" : "text-xs",
-                  classNames?.subtitle,
+                  classNames?.subtitle
                 )}
               >
                 {user?.email}

@@ -19,7 +19,7 @@ export default function DashboardLoading() {
       </div>
 
       {/* Stats Grid Skeleton */}
-      <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -31,9 +31,9 @@ export default function DashboardLoading() {
               <div className="flex items-center gap-2">
                 <Skeleton className="h-3 w-3" />
                 <Skeleton className="h-3 w-12" />
-                <Skeleton className="h-3 w-20 hidden sm:block" />
+                <Skeleton className="hidden h-3 w-20 sm:block" />
               </div>
-              <Skeleton className="h-3 w-32 hidden sm:block" />
+              <Skeleton className="hidden h-3 w-32 sm:block" />
             </CardContent>
           </Card>
         ))}
@@ -49,7 +49,7 @@ export default function DashboardLoading() {
             </CardHeader>
             <CardContent className="space-y-3">
               {Array.from({ length: 4 }).map((_, j) => (
-                <Skeleton key={j} className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" key={j} />
               ))}
             </CardContent>
           </Card>
@@ -63,7 +63,7 @@ export default function DashboardLoading() {
           <Skeleton className="h-4 w-56" />
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-48 sm:h-64 lg:h-80 w-full" />
+          <Skeleton className="h-48 w-full sm:h-64 lg:h-80" />
         </CardContent>
       </Card>
     </div>

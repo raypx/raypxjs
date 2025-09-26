@@ -10,7 +10,7 @@ import type { Provider } from "../../core/lib/providers/social-providers";
 import { getLocalizedError, getSearchParam } from "../../core/lib/utils";
 import type { AuthViewClassNames } from "./auth-view";
 
-interface ProviderButtonProps {
+type ProviderButtonProps = {
   className?: string;
   classNames?: AuthViewClassNames;
   callbackURL?: string;
@@ -20,7 +20,7 @@ interface ProviderButtonProps {
   redirectTo?: string;
   socialLayout: "auto" | "horizontal" | "grid" | "vertical";
   setIsSubmitting: (isSubmitting: boolean) => void;
-}
+};
 
 export function ProviderButton({
   className,
@@ -51,7 +51,7 @@ export function ProviderButton({
 
   const getRedirectTo = useCallback(
     () => redirectToProp || getSearchParam("redirectTo") || contextRedirectTo,
-    [redirectToProp, contextRedirectTo],
+    [redirectToProp, contextRedirectTo]
   );
 
   const getCallbackURL = useCallback(
@@ -62,7 +62,7 @@ export function ProviderButton({
           ? `${basePath}/${viewPaths.CALLBACK}?redirectTo=${getRedirectTo()}`
           : getRedirectTo())
       }`,
-    [callbackURLProp, persistClient, basePath, viewPaths, baseURL, getRedirectTo],
+    [callbackURLProp, persistClient, basePath, viewPaths, baseURL, getRedirectTo]
   );
 
   const doSignInSocial = async () => {
@@ -81,7 +81,7 @@ export function ProviderButton({
 
           setTimeout(() => {
             setIsSubmitting(false);
-          }, 10000);
+          }, 10_000);
         } else {
           await authClient.signIn.oauth2(oauth2Params);
         }
@@ -97,7 +97,7 @@ export function ProviderButton({
 
           setTimeout(() => {
             setIsSubmitting(false);
-          }, 10000);
+          }, 10_000);
         } else {
           await authClient.signIn.social(socialParams);
         }
@@ -122,11 +122,11 @@ export function ProviderButton({
         classNames?.form?.button,
         classNames?.form?.outlineButton,
         classNames?.form?.providerButton,
-        isLastUsed && "relative",
+        isLastUsed && "relative"
       )}
       disabled={isSubmitting}
-      variant="outline"
       onClick={doSignInSocial}
+      variant="outline"
     >
       {provider.icon && <provider.icon className={classNames?.form?.icon} />}
 
@@ -134,8 +134,8 @@ export function ProviderButton({
       {socialLayout === "vertical" && `${t("SIGN_IN_WITH")} ${provider.name}`}
       {isLastUsed && (
         <Badge
+          className="-top-2 -right-2 absolute border-blue-200 bg-blue-100 text-blue-800 text-xs"
           variant="secondary"
-          className="absolute -top-2 -right-2 text-xs bg-blue-100 text-blue-800 border-blue-200"
         >
           Last Used
         </Badge>

@@ -4,19 +4,21 @@ import { notFound } from "next/navigation";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
-interface DocPageProps {
+type DocPageProps = {
   params: Promise<{ slug?: string[] }>;
-}
+};
 
 export default async function DocPage(props: DocPageProps) {
   const params = await props.params;
   const page = source.getPage(params.slug);
-  if (!page) notFound();
+  if (!page) {
+    notFound();
+  }
 
   const { body: Mdx, toc, lastModified } = page.data;
 
   return (
-    <DocsPage toc={toc} full={page.data.full} lastUpdate={lastModified}>
+    <DocsPage full={page.data.full} lastUpdate={lastModified} toc={toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
@@ -30,14 +32,16 @@ export default async function DocPage(props: DocPageProps) {
   );
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return source.generateParams();
 }
 
 export async function generateMetadata(props: DocPageProps) {
   const params = await props.params;
   const page = source.getPage(params.slug);
-  if (!page) notFound();
+  if (!page) {
+    notFound();
+  }
 
   return {
     title: page.data.title,

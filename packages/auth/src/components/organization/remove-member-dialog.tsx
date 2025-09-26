@@ -87,25 +87,25 @@ export function RemoveMemberDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <MemberCell className={classNames?.cell} member={member} hideActions />
+        <MemberCell className={classNames?.cell} hideActions member={member} />
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
-            type="button"
-            variant="outline"
-            onClick={() => onOpenChange?.(false)}
             className={cn(classNames?.button, classNames?.outlineButton)}
             disabled={isRemoving}
+            onClick={() => onOpenChange?.(false)}
+            type="button"
+            variant="outline"
           >
             {t("CANCEL")}
           </Button>
 
           <Button
-            type="button"
-            variant="destructive"
-            onClick={removeMember}
             className={cn(classNames?.button, classNames?.destructiveButton)}
             disabled={isRemoving}
+            onClick={removeMember}
+            type="button"
+            variant="destructive"
           >
             {isRemoving && <Loader2 className="animate-spin" />}
 

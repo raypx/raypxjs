@@ -106,7 +106,7 @@ export function getUserPermissions(role: UserRole) {
 export function hasPermission(
   userRole: UserRole,
   resource: keyof typeof statement,
-  action: (typeof statement)[keyof typeof statement][number],
+  action: (typeof statement)[keyof typeof statement][number]
 ): boolean {
   const permissions = getUserPermissions(userRole);
 

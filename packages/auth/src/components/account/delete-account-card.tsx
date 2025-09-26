@@ -6,13 +6,13 @@ import { useState } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
 import { DeleteAccountDialog } from "./delete-account-dialog";
 
-export interface DeleteAccountCardProps {
+export type DeleteAccountCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   accounts?: { provider: string }[] | null;
   isPending?: boolean;
   skipHook?: boolean;
-}
+};
 
 export function DeleteAccountCard({
   className,
@@ -37,21 +37,21 @@ export function DeleteAccountCard({
   return (
     <div>
       <SettingsCard
+        action={() => setShowDialog(true)}
+        actionLabel={t("DELETE_ACCOUNT")}
         className={className}
         classNames={classNames}
-        actionLabel={t("DELETE_ACCOUNT")}
         description={t("DELETE_ACCOUNT_DESCRIPTION")}
         isPending={isPending}
         title={t("DELETE_ACCOUNT")}
         variant="destructive"
-        action={() => setShowDialog(true)}
       />
 
       <DeleteAccountDialog
-        classNames={classNames}
         accounts={accounts}
-        open={showDialog}
+        classNames={classNames}
         onOpenChange={setShowDialog}
+        open={showDialog}
       />
     </div>
   );

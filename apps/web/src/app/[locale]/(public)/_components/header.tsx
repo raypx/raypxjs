@@ -16,16 +16,16 @@ export function Header() {
   const { data: session } = useSession();
 
   return (
-    <header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-6 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <header className="w-full border-gray-200 border-b bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link href="/">
-          <h1 className="text-xl font-semibold">
+          <h1 className="font-semibold text-xl">
             <Image
-              src="/images/logo.png"
               alt="Raypx"
               className="size-8 rounded-full"
-              width={40}
               height={40}
+              src="/images/logo.png"
+              width={40}
             />
           </h1>
         </Link>

@@ -26,13 +26,13 @@ export function OrganizationMembersCard({
   if (!organization) {
     return (
       <SettingsCard
+        actionLabel={t("INVITE_MEMBER")}
         className={className}
         classNames={classNames}
-        title={t("MEMBERS")}
         description={t("MEMBERS_DESCRIPTION")}
         instructions={t("MEMBERS_INSTRUCTIONS")}
-        actionLabel={t("INVITE_MEMBER")}
         isPending
+        title={t("MEMBERS")}
         {...props}
       />
     );
@@ -86,15 +86,15 @@ function OrganizationMembersContent({
   return (
     <>
       <SettingsCard
+        action={() => setInviteDialogOpen(true)}
+        actionLabel={t("INVITE_MEMBER")}
         className={className}
         classNames={classNames}
-        title={t("MEMBERS")}
         description={t("MEMBERS_DESCRIPTION")}
-        instructions={t("MEMBERS_INSTRUCTIONS")}
-        actionLabel={t("INVITE_MEMBER")}
-        action={() => setInviteDialogOpen(true)}
-        isPending={isPending}
         disabled={!hasPermissionInvite?.success}
+        instructions={t("MEMBERS_INSTRUCTIONS")}
+        isPending={isPending}
+        title={t("MEMBERS")}
         {...props}
       >
         {!isPending && members && members.length > 0 && (
@@ -103,10 +103,10 @@ function OrganizationMembersContent({
               .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
               .map((member) => (
                 <MemberCell
-                  key={member.id}
                   classNames={classNames}
-                  member={member}
                   hideActions={!hasPermissionUpdateMember?.success}
+                  key={member.id}
+                  member={member}
                 />
               ))}
           </CardContent>
@@ -114,9 +114,9 @@ function OrganizationMembersContent({
       </SettingsCard>
 
       <InviteMemberDialog
-        open={inviteDialogOpen}
-        onOpenChange={setInviteDialogOpen}
         classNames={classNames}
+        onOpenChange={setInviteDialogOpen}
+        open={inviteDialogOpen}
         organization={organization}
       />
     </>

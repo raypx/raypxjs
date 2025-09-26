@@ -23,7 +23,7 @@ type TaskConfig = Simplify<{
 
 export function createTask(
   titleOrCommand: string,
-  taskFnOrOpts?: ListrTask["task"] | TaskConfig | string,
+  taskFnOrOpts?: ListrTask["task"] | TaskConfig | string
 ): ListrTask {
   if (typeof taskFnOrOpts === "function") {
     return {
@@ -49,12 +49,11 @@ export function createTask(
         try {
           const success = safeExec(command, options);
 
-          if (!success) {
-            throw new Error(`Command execution failed: ${command}`);
-          } else {
+          if (success) {
             task.title = autoSuccessTitle;
             return;
           }
+          throw new Error(`Command execution failed: ${command}`);
         } catch (error) {
           attempts++;
           const errorMessage = error instanceof Error ? error.message : "Unknown error";
@@ -85,6 +84,8 @@ export type Cmd = Simplify<{
   options?: CmdOptions;
 }>;
 
+type TaskFunction = (args?: string[]) => ListrTask[];
+
 /**
  * Creates a Cmd object with tasks and options
  * Supports both task arrays and functions that return task arrays
@@ -109,7 +110,7 @@ export type Cmd = Simplify<{
  */
 export function definedCmd(
   tasks: Cmd["tasks"] | (() => Cmd["tasks"]) | ((args: string[]) => Cmd["tasks"]),
-  options: Cmd["options"] = {},
+  options: Cmd["options"] = {}
 ): Cmd {
   let taskList: Cmd["tasks"];
 
@@ -118,7 +119,7 @@ export function definedCmd(
     const args = process.argv.slice(3);
 
     // Check if function expects arguments by checking its length
-    const taskFunction = tasks as (args?: string[]) => Cmd["tasks"];
+    const taskFunction = tasks as TaskFunction;
     taskList =
       taskFunction.length > 0 ? taskFunction(args) : (taskFunction as () => Cmd["tasks"])();
   } else {

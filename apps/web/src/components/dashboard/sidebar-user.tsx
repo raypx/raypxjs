@@ -30,10 +30,10 @@ import { useLocalePathname, useLocaleRouter } from "@/components/link";
 import { localeConfig, locales } from "../../config/i18n.config";
 import { UserAvatar } from "../layout/user-avatar";
 
-interface SidebarUserProps {
+type SidebarUserProps = {
   user: any;
   className?: string;
-}
+};
 
 /**
  * User navigation for the dashboard sidebar
@@ -64,7 +64,7 @@ export function SidebarUser({ user }: SidebarUserProps) {
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
         { pathname, params },
-        { locale: nextLocale },
+        { locale: nextLocale }
       );
     });
   };
@@ -91,11 +91,10 @@ export function SidebarUser({ user }: SidebarUserProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
+              className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               size="lg"
-              className="cursor-pointer data-[state=open]:bg-sidebar-accent
-              data-[state=open]:text-sidebar-accent-foreground"
             >
-              <UserAvatar name={user.name} image={user.image} className="size-8 border" />
+              <UserAvatar className="size-8 border" image={user.image} name={user.name} />
 
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -105,14 +104,14 @@ export function SidebarUser({ user }: SidebarUserProps) {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
+            align="end"
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
-            align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <UserAvatar name={user.name} image={user.image} className="size-8 border" />
+                <UserAvatar className="size-8 border" image={user.image} name={user.name} />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
                   <span className="truncate text-xs">{user.email}</span>
@@ -134,10 +133,10 @@ export function SidebarUser({ user }: SidebarUserProps) {
                     const isSelected = theme === option.value;
                     return (
                       <DropdownMenuCheckboxItem
-                        key={option.value}
                         checked={isSelected}
-                        onCheckedChange={() => !isSelected && setTheme(option.value)}
                         className="cursor-pointer"
+                        key={option.value}
+                        onCheckedChange={() => !isSelected && setTheme(option.value)}
                       >
                         <IconComponent className="mr-2 size-4" />
                         <span>{option.label}</span>
@@ -159,10 +158,10 @@ export function SidebarUser({ user }: SidebarUserProps) {
                     const isSelected = currentLocale === localeOption;
                     return (
                       <DropdownMenuCheckboxItem
-                        key={localeOption}
                         checked={isSelected}
-                        onCheckedChange={() => !isSelected && setLocale(localeOption)}
                         className="cursor-pointer"
+                        key={localeOption}
+                        onCheckedChange={() => !isSelected && setLocale(localeOption)}
                       >
                         {localeConfig[localeOption].flag && (
                           <span className="mr-2 text-md">{localeConfig[localeOption].flag}</span>
@@ -179,7 +178,7 @@ export function SidebarUser({ user }: SidebarUserProps) {
 
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={async (event) => {
+              onClick={(event) => {
                 event.preventDefault();
                 handleSignOut();
               }}

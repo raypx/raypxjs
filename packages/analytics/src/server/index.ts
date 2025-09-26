@@ -1,16 +1,16 @@
 import { PostHog } from "posthog-node";
 import { envs } from "../envs";
 
-interface AnalyticsEvent {
+type AnalyticsEvent = {
   event: string;
   distinctId: string;
   properties?: Record<string, unknown>;
-}
+};
 
-interface AnalyticsIdentify {
+type AnalyticsIdentify = {
   distinctId: string;
   properties: Record<string, unknown>;
-}
+};
 
 class ServerAnalyticsService {
   private posthog: PostHog | null = null;
@@ -24,7 +24,7 @@ class ServerAnalyticsService {
       this.posthog = new PostHog(envs.NEXT_PUBLIC_POSTHOG_KEY, {
         host: envs.NEXT_PUBLIC_POSTHOG_HOST,
         flushAt: 20,
-        flushInterval: 10000,
+        flushInterval: 10_000,
       });
     }
   }
@@ -35,7 +35,7 @@ class ServerAnalyticsService {
     }
 
     try {
-      this.posthog.capture({
+      await this.posthog.capture({
         distinctId: params.distinctId,
         event: params.event,
         properties: params.properties,
@@ -51,7 +51,7 @@ class ServerAnalyticsService {
     }
 
     try {
-      this.posthog.identify({
+      await this.posthog.identify({
         distinctId: params.distinctId,
         properties: params.properties,
       });
@@ -71,14 +71,14 @@ class ServerAnalyticsService {
     }
 
     try {
-      this.posthog.groupIdentify({
+      await this.posthog.groupIdentify({
         groupType: params.groupType,
         groupKey: params.groupKey,
         properties: params.properties || {},
       });
 
       // Associate user with group
-      this.posthog.capture({
+      await this.posthog.capture({
         distinctId: params.distinctId,
         event: "$group_identify",
         properties: {
@@ -98,7 +98,7 @@ class ServerAnalyticsService {
     }
 
     try {
-      this.posthog.alias({
+      await this.posthog.alias({
         distinctId,
         alias,
       });
@@ -121,17 +121,17 @@ class ServerAnalyticsService {
       groups?: Record<string, string>;
       personProperties?: Record<string, string>;
       groupProperties?: Record<string, Record<string, string>>;
-    },
+    }
   ): Promise<boolean | string | undefined> {
     if (!this.posthog || process.env.NODE_ENV !== "production") {
-      return undefined;
+      return;
     }
 
     try {
       return await this.posthog.getFeatureFlag(key, distinctId, options);
     } catch (error) {
       console.warn("Feature flag error:", error);
-      return undefined;
+      return;
     }
   }
 
@@ -141,17 +141,17 @@ class ServerAnalyticsService {
       groups?: Record<string, string>;
       personProperties?: Record<string, string>;
       groupProperties?: Record<string, Record<string, string>>;
-    },
+    }
   ): Promise<Record<string, boolean | string> | undefined> {
     if (!this.posthog || process.env.NODE_ENV !== "production") {
-      return undefined;
+      return;
     }
 
     try {
       return await this.posthog.getAllFlags(distinctId, options);
     } catch (error) {
       console.warn("Get all flags error:", error);
-      return undefined;
+      return;
     }
   }
 }

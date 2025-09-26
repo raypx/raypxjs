@@ -22,11 +22,10 @@ const geistMono = Geist_Mono({
   preload: false,
 });
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     description: appConfig.description,
   });
-};
 
 export default async function RootLayout({
   children,

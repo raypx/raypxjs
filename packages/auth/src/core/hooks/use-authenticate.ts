@@ -5,14 +5,14 @@ import type { AuthViewPath } from "../../server";
 import type { AnyAuthClient } from "../../types";
 import { useAuth } from "./use-auth";
 
-interface AuthenticateOptions<TAuthClient extends AnyAuthClient> {
+type AuthenticateOptions<TAuthClient extends AnyAuthClient> = {
   authClient?: TAuthClient;
   authView?: AuthViewPath;
   enabled?: boolean;
-}
+};
 
 export function useAuthenticate<TAuthClient extends AnyAuthClient>(
-  options?: AuthenticateOptions<TAuthClient>,
+  options?: AuthenticateOptions<TAuthClient>
 ) {
   type Session = TAuthClient["$Infer"]["Session"]["session"];
   type User = TAuthClient["$Infer"]["Session"]["user"];
@@ -21,7 +21,6 @@ export function useAuthenticate<TAuthClient extends AnyAuthClient>(
 
   const {
     hooks: { useSession },
-    basePath,
     viewPaths,
     replace,
   } = useAuth();
@@ -36,14 +35,16 @@ export function useAuthenticate<TAuthClient extends AnyAuthClient>(
     | undefined;
 
   useEffect(() => {
-    if (!enabled || isPending || sessionData) return;
+    if (!enabled || isPending || sessionData) {
+      return;
+    }
     const currentUrl = new URL(window.location.href);
     const redirectTo =
       currentUrl.searchParams.get("redirectTo") ||
       window.location.href.replace(window.location.origin, "");
 
     replace(`${viewPaths[authView]}?redirectTo=${redirectTo}`);
-  }, [isPending, sessionData, basePath, viewPaths, replace, authView, enabled]);
+  }, [isPending, sessionData, viewPaths, replace, authView, enabled]);
 
   return {
     data: sessionData,

@@ -33,8 +33,9 @@
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:react19",
+    "type-fest": "catalog:",
     "next": "catalog:",
     "posthog-js": "^1.268.5",
-    "typescript": "catalog:"
+    "typescript": "catalog:dev"
   }
 }

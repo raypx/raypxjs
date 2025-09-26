@@ -21,6 +21,6 @@
     "next": "catalog:",
     "next-seo": "^6.8.0",
     "schema-dts": "^1.1.5",
-    "typescript": "catalog:"
+    "typescript": "catalog:dev"
   }
 }

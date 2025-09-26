@@ -61,7 +61,9 @@ export function ApiKeyDeleteDialog({
 
   // Format expiration date or show "Never expires"
   const formatExpiration = () => {
-    if (!apiKey.expiresAt) return t("NEVER_EXPIRES");
+    if (!apiKey.expiresAt) {
+      return t("NEVER_EXPIRES");
+    }
 
     const expiresDate = dayjs(apiKey.expiresAt);
     return `${t("EXPIRES")} ${expiresDate.locale(lang ?? "en").format("LL")}`;
@@ -70,8 +72,8 @@ export function ApiKeyDeleteDialog({
   return (
     <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent
-        onOpenAutoFocus={(e) => e.preventDefault()}
         className={classNames?.dialog?.content}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className={classNames?.dialog?.header}>
           <DialogTitle className={cn("text-lg md:text-xl", classNames?.title)}>
@@ -102,21 +104,21 @@ export function ApiKeyDeleteDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
+            className={cn(classNames?.button, classNames?.secondaryButton)}
+            disabled={isLoading}
+            onClick={() => onOpenChange?.(false)}
             type="button"
             variant="secondary"
-            onClick={() => onOpenChange?.(false)}
-            disabled={isLoading}
-            className={cn(classNames?.button, classNames?.secondaryButton)}
           >
             {t("CANCEL")}
           </Button>
 
           <Button
+            className={cn(classNames?.button, classNames?.destructiveButton)}
+            disabled={isLoading}
+            onClick={handleDelete}
             type="button"
             variant="destructive"
-            onClick={handleDelete}
-            disabled={isLoading}
-            className={cn(classNames?.button, classNames?.destructiveButton)}
           >
             {isLoading && <Loader2 className="animate-spin" />}
             {t("DELETE")}

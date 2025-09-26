@@ -12,10 +12,10 @@ import { AlertTriangle, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface DashboardErrorProps {
+type DashboardErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
-}
+};
 
 export default function DashboardError({ error, reset }: DashboardErrorProps) {
   const router = useRouter();
@@ -27,13 +27,13 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Breadcrumb placeholder */}
-      <div className="h-5 hidden sm:block" />
+      <div className="hidden h-5 sm:block" />
 
       {/* Error Card */}
-      <div className="flex items-center justify-center min-h-[400px] sm:min-h-[500px]">
-        <Card className="w-full max-w-md mx-auto">
-          <CardHeader className="text-center pb-4">
-            <div className="flex justify-center mb-4">
+      <div className="flex min-h-[400px] items-center justify-center sm:min-h-[500px]">
+        <Card className="mx-auto w-full max-w-md">
+          <CardHeader className="pb-4 text-center">
+            <div className="mb-4 flex justify-center">
               <div className="rounded-full bg-destructive/10 p-3">
                 <AlertTriangle className="h-6 w-6 text-destructive" />
               </div>
@@ -46,29 +46,29 @@ export default function DashboardError({ error, reset }: DashboardErrorProps) {
           <CardContent className="space-y-4">
             {process.env.NODE_ENV === "development" && (
               <div className="rounded-lg bg-muted p-3">
-                <p className="text-xs font-mono text-muted-foreground break-all">{error.message}</p>
+                <p className="break-all font-mono text-muted-foreground text-xs">{error.message}</p>
                 {error.digest && (
-                  <p className="text-xs text-muted-foreground mt-1">Error ID: {error.digest}</p>
+                  <p className="mt-1 text-muted-foreground text-xs">Error ID: {error.digest}</p>
                 )}
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Button onClick={reset} className="w-full sm:flex-1" size="sm">
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button className="w-full sm:flex-1" onClick={reset} size="sm">
                 <RotateCcw className="mr-2 h-4 w-4" />
                 Try Again
               </Button>
               <Button
-                variant="outline"
-                onClick={() => router.push("/dashboard")}
                 className="w-full sm:flex-1"
+                onClick={() => router.push("/dashboard")}
                 size="sm"
+                variant="outline"
               >
                 Reload Dashboard
               </Button>
             </div>
 
-            <p className="text-xs text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground text-xs">
               If the problem persists, please contact support.
             </p>
           </CardContent>

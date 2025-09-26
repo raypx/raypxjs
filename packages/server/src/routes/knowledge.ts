@@ -86,7 +86,7 @@ knowledgeRoutes.post("/", async (c) => {
         status: "ok",
         data: knowledgeBase,
       },
-      201,
+      201
     );
   } catch (error) {
     console.error("Error creating knowledge base:", error);
@@ -225,7 +225,7 @@ knowledgeRoutes.post("/:id/documents", async (c) => {
           chunks: chunks.length,
         },
       },
-      201,
+      201
     );
   } catch (error) {
     if (error instanceof Error && error.message === "Knowledge base not found") {

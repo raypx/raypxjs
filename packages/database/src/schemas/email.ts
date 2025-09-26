@@ -83,7 +83,7 @@ export const emails = pgTable(
     index("idx_emails_status").on(table.status),
     index("idx_emails_user_id").on(table.userId),
     index("idx_emails_created_at").on(table.createdAt),
-  ],
+  ]
 );
 
 export const emailEvents = pgTable(
@@ -121,7 +121,7 @@ export const emailEvents = pgTable(
     index("idx_email_events_email_id").on(table.emailId),
     index("idx_email_events_event_type").on(table.eventType),
     index("idx_email_events_timestamp").on(table.timestamp),
-  ],
+  ]
 );
 
 export const emailTemplates = pgTable(
@@ -152,7 +152,7 @@ export const emailTemplates = pgTable(
   (table) => [
     index("idx_email_templates_name").on(table.name),
     index("idx_email_templates_is_active").on(table.isActive),
-  ],
+  ]
 );
 
 // Relations

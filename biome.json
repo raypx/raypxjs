@@ -29,14 +29,39 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "noStaticOnlyClass": "off"
+        "noStaticOnlyClass": "off",
+        "noExcessiveCognitiveComplexity": {
+          "level": "off",
+          "options": {
+            "maxAllowedComplexity": 30
+          }
+        }
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
+        "noConsole": "off",
         "noArrayIndexKey": "off"
+      },
+      "correctness": {
+        "useHookAtTopLevel": "off",
+        "noNestedComponentDefinitions": "off"
+      },
+      "style": {
+        "useNamingConvention": "off",
+        "noExportedImports": "off",
+        "noNestedTernary": "off",
+        "noMagicNumbers": "off"
+      },
+      "nursery": {
+        "noShadow": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "useTopLevelRegex": "off",
+        "noNamespaceImport": "off"
       }
     }
   },
@@ -61,7 +86,8 @@
     "enabled": true,
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "useSortedAttributes": "on"
       }
     }
   },
@@ -72,5 +98,6 @@
         "enabled": false
       }
     }
-  ]
+  ],
+  "extends": ["ultracite"]
 }

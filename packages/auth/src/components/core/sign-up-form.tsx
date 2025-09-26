@@ -37,7 +37,7 @@ import { UserAvatar } from "../account/user-avatar";
 import type { AuthFormClassNames } from "./auth-form";
 import { Captcha } from "./captcha";
 
-export interface SignUpFormProps {
+export type SignUpFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   callbackURL?: string;
@@ -45,7 +45,7 @@ export interface SignUpFormProps {
   redirectTo?: string;
   setIsSubmitting?: (value: boolean) => void;
   passwordValidation?: PasswordValidation;
-}
+};
 
 export function SignUpForm({
   className,
@@ -90,7 +90,7 @@ export function SignUpForm({
 
   const getRedirectTo = useCallback(
     () => redirectTo || getSearchParam("redirectTo") || contextRedirectTo,
-    [redirectTo, contextRedirectTo],
+    [redirectTo, contextRedirectTo]
   );
 
   const getCallbackURL = useCallback(
@@ -101,7 +101,7 @@ export function SignUpForm({
           ? `${basePath}/${viewPaths.CALLBACK}?redirectTo=${getRedirectTo()}`
           : getRedirectTo())
       }`,
-    [callbackURL, persistClient, basePath, viewPaths, baseURL, getRedirectTo],
+    [callbackURL, persistClient, basePath, viewPaths, baseURL, getRedirectTo]
   );
 
   const { onSuccess, isPending: transitionPending } = useOnSuccessTransition({
@@ -150,11 +150,17 @@ export function SignUpForm({
   // Add additional fields from signUpFields
   if (signUpFields) {
     for (const field of signUpFields) {
-      if (field === "name") continue; // Already handled above
-      if (field === "image") continue; // Already handled above
+      if (field === "name") {
+        continue; // Already handled above
+      }
+      if (field === "image") {
+        continue; // Already handled above
+      }
 
       const additionalField = additionalFields?.[field];
-      if (!additionalField) continue;
+      if (!additionalField) {
+        continue;
+      }
 
       let fieldSchema: z.ZodTypeAny;
 
@@ -162,10 +168,10 @@ export function SignUpForm({
       if (additionalField.type === "number") {
         fieldSchema = additionalField.required
           ? z.preprocess(
-              (val) => (!val ? undefined : Number(val)),
+              (val) => (val ? Number(val) : undefined),
               z.number({
                 error: `${additionalField.label} ${t("IS_INVALID")}`,
-              }),
+              })
             )
           : z.coerce
               .number({
@@ -207,13 +213,15 @@ export function SignUpForm({
     .refine(
       (data) => {
         // Skip validation if confirmPassword is not enabled
-        if (!confirmPasswordEnabled) return true;
+        if (!confirmPasswordEnabled) {
+          return true;
+        }
         return data.password === data.confirmPassword;
       },
       {
         message: t("PASSWORDS_DO_NOT_MATCH"),
         path: ["confirmPassword"],
-      },
+      }
     );
 
   // Create default values for the form
@@ -229,10 +237,16 @@ export function SignUpForm({
   // Add default values for additional fields
   if (signUpFields) {
     for (const field of signUpFields) {
-      if (field === "name") continue;
-      if (field === "image") continue;
+      if (field === "name") {
+        continue;
+      }
+      if (field === "image") {
+        continue;
+      }
       const additionalField = additionalFields?.[field];
-      if (!additionalField) continue;
+      if (!additionalField) {
+        continue;
+      }
 
       defaultValues[field] = additionalField.type === "boolean" ? false : "";
     }
@@ -250,7 +264,9 @@ export function SignUpForm({
   }, [form.formState.isSubmitting, transitionPending, setIsSubmitting]);
 
   const handleAvatarChange = async (file: File) => {
-    if (!avatar) return;
+    if (!avatar) {
+      return;
+    }
 
     setUploadingAvatar(true);
 
@@ -259,7 +275,7 @@ export function SignUpForm({
         file,
         crypto.randomUUID(),
         avatar.size,
-        avatar.extension,
+        avatar.extension
       );
 
       let image: string | undefined | null;
@@ -308,7 +324,9 @@ export function SignUpForm({
       // Validate additional fields with custom validators if provided
       for (const [field, value] of Object.entries(additionalFieldValues)) {
         const additionalField = additionalFields?.[field];
-        if (!additionalField?.validate) continue;
+        if (!additionalField?.validate) {
+          continue;
+        }
 
         if (typeof value === "string" && !(await additionalField.validate(value))) {
           form.setError(field, {
@@ -367,23 +385,25 @@ export function SignUpForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(signUp)}
-        noValidate={isHydrated}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        noValidate={isHydrated}
+        onSubmit={form.handleSubmit(signUp)}
       >
         {signUpFields?.includes("image") && avatar && (
           <>
             <input
-              ref={fileInputRef}
               accept="image/*"
               disabled={uploadingAvatar}
               hidden
-              type="file"
               onChange={(e) => {
                 const file = e.target.files?.item(0);
-                if (file) handleAvatarChange(file);
+                if (file) {
+                  handleAvatarChange(file);
+                }
                 e.target.value = "";
               }}
+              ref={fileInputRef}
+              type="file"
             />
 
             <FormField
@@ -399,12 +419,12 @@ export function SignUpForm({
                         <Button
                           className="size-fit rounded-full"
                           size="icon"
-                          variant="ghost"
                           type="button"
+                          variant="ghost"
                         >
                           <UserAvatar
-                            isPending={uploadingAvatar}
                             className="size-16"
+                            isPending={uploadingAvatar}
                             user={
                               avatarImage
                                 ? {
@@ -422,15 +442,15 @@ export function SignUpForm({
                         align="start"
                         onCloseAutoFocus={(e) => e.preventDefault()}
                       >
-                        <DropdownMenuItem onClick={openFileDialog} disabled={uploadingAvatar}>
+                        <DropdownMenuItem disabled={uploadingAvatar} onClick={openFileDialog}>
                           <UploadCloud />
                           {t("UPLOAD_AVATAR")}
                         </DropdownMenuItem>
 
                         {avatarImage && (
                           <DropdownMenuItem
-                            onClick={handleDeleteAvatar}
                             disabled={uploadingAvatar}
+                            onClick={handleDeleteAvatar}
                             variant="destructive"
                           >
                             <Trash />
@@ -441,10 +461,10 @@ export function SignUpForm({
                     </DropdownMenu>
 
                     <Button
+                      disabled={uploadingAvatar}
+                      onClick={openFileDialog}
                       type="button"
                       variant="outline"
-                      onClick={openFileDialog}
-                      disabled={uploadingAvatar}
                     >
                       {uploadingAvatar && <Loader2 className="animate-spin" />}
 
@@ -470,8 +490,8 @@ export function SignUpForm({
                 <FormControl>
                   <Input
                     className={classNames?.input}
-                    placeholder={t("NAME_PLACEHOLDER")}
                     disabled={isSubmitting}
+                    placeholder={t("NAME_PLACEHOLDER")}
                     {...field}
                   />
                 </FormControl>
@@ -493,8 +513,8 @@ export function SignUpForm({
                 <FormControl>
                   <Input
                     className={classNames?.input}
-                    placeholder={t("USERNAME_PLACEHOLDER")}
                     disabled={isSubmitting}
+                    placeholder={t("USERNAME_PLACEHOLDER")}
                     {...field}
                   />
                 </FormControl>
@@ -515,9 +535,9 @@ export function SignUpForm({
               <FormControl>
                 <Input
                   className={classNames?.input}
-                  type="email"
-                  placeholder={t("EMAIL_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("EMAIL_PLACEHOLDER")}
+                  type="email"
                   {...field}
                 />
               </FormControl>
@@ -538,8 +558,8 @@ export function SignUpForm({
                 <PasswordField
                   autoComplete="new-password"
                   className={classNames?.input}
-                  placeholder={t("PASSWORD_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("PASSWORD_PLACEHOLDER")}
                   {...field}
                 />
               </FormControl>
@@ -561,8 +581,8 @@ export function SignUpForm({
                   <PasswordField
                     autoComplete="new-password"
                     className={classNames?.input}
-                    placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
                     disabled={isSubmitting}
+                    placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
                     {...field}
                   />
                 </FormControl>
@@ -584,16 +604,16 @@ export function SignUpForm({
 
             return additionalField.type === "boolean" ? (
               <FormField
-                key={field}
                 control={form.control}
+                key={field}
                 name={field}
                 render={({ field: formField }) => (
                   <FormItem className="flex">
                     <FormControl>
                       <Checkbox
                         checked={formField.value as boolean}
-                        onCheckedChange={formField.onChange}
                         disabled={isSubmitting}
+                        onCheckedChange={formField.onChange}
                       />
                     </FormControl>
 
@@ -605,8 +625,8 @@ export function SignUpForm({
               />
             ) : (
               <FormField
-                key={field}
                 control={form.control}
+                key={field}
                 name={field}
                 render={({ field: formField }) => (
                   <FormItem>
@@ -616,35 +636,35 @@ export function SignUpForm({
                       {additionalField.type === "number" ? (
                         <Input
                           className={classNames?.input}
-                          type="number"
+                          disabled={isSubmitting}
                           placeholder={
                             additionalField.placeholder ||
                             (typeof additionalField.label === "string" ? additionalField.label : "")
                           }
-                          disabled={isSubmitting}
+                          type="number"
                           {...formField}
                           value={formField.value as number}
                         />
                       ) : additionalField.multiline ? (
                         <Textarea
                           className={classNames?.input}
+                          disabled={isSubmitting}
                           placeholder={
                             additionalField.placeholder ||
                             (typeof additionalField.label === "string" ? additionalField.label : "")
                           }
-                          disabled={isSubmitting}
                           {...formField}
                           value={formField.value as string}
                         />
                       ) : (
                         <Input
                           className={classNames?.input}
-                          type="text"
+                          disabled={isSubmitting}
                           placeholder={
                             additionalField.placeholder ||
                             (typeof additionalField.label === "string" ? additionalField.label : "")
                           }
-                          disabled={isSubmitting}
+                          type="text"
                           {...formField}
                           value={formField.value as string}
                         />
@@ -658,12 +678,12 @@ export function SignUpForm({
             );
           })}
 
-        <Captcha ref={captchaRef as RefObject<ReCAPTCHA>} action="/sign-up/email" />
+        <Captcha action="/sign-up/email" ref={captchaRef as RefObject<ReCAPTCHA>} />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn("w-full", classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("SIGN_UP_ACTION")}
         </Button>

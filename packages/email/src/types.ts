@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noEnum: types */
 import type { ReactElement } from "react";
 
 // Core enums
@@ -41,14 +42,14 @@ export enum ResendWebhookEventType {
 }
 
 // Base interfaces
-interface BaseEmailData {
+type BaseEmailData = {
   id: string;
   subject: string;
   toAddress: string;
   createdAt: Date;
-}
+};
 
-interface BaseEmailStats {
+type BaseEmailStats = {
   total: number;
   sent: number;
   delivered: number;
@@ -58,7 +59,7 @@ interface BaseEmailStats {
   complained: number;
   unsubscribed: number;
   failed: number;
-}
+};
 
 // Main interfaces
 export interface EmailDeliveryStats extends BaseEmailStats {
@@ -70,7 +71,7 @@ export interface EmailDeliveryStats extends BaseEmailStats {
   unsubscribeRate: number;
 }
 
-export interface SendEmailOptions {
+export type SendEmailOptions = {
   to: string | string[];
   subject: string;
   template: ReactElement;
@@ -80,17 +81,17 @@ export interface SendEmailOptions {
   tags?: string[];
   metadata?: Record<string, unknown>;
   trackingEnabled?: boolean;
-}
+};
 
-export interface SendEmailResult {
+export type SendEmailResult = {
   success: boolean;
   error?: string;
   emailId?: string;
   providerId?: string;
   messageId?: string;
-}
+};
 
-export interface EmailAnalyticsFilter {
+export type EmailAnalyticsFilter = {
   startDate?: Date;
   endDate?: Date;
   provider?: EmailProvider;
@@ -98,9 +99,9 @@ export interface EmailAnalyticsFilter {
   userId?: string;
   tags?: string[];
   status?: EmailStatus[];
-}
+};
 
-export interface EmailEventData {
+export type EmailEventData = {
   emailId: string;
   eventType: EmailEventType;
   timestamp?: Date;
@@ -114,14 +115,14 @@ export interface EmailEventData {
   clickedUrl?: string;
   providerEventId?: string;
   providerData?: Record<string, unknown>;
-}
+};
 
-export interface WebhookEvent {
+export type WebhookEvent = {
   type: string;
   data: Record<string, unknown>;
   timestamp: string;
   signature?: string;
-}
+};
 
 export interface ResendWebhookEvent extends WebhookEvent {
   type: ResendWebhookEventType;
@@ -137,7 +138,7 @@ export interface ResendWebhookEvent extends WebhookEvent {
   };
 }
 
-export interface EmailDashboardData {
+export type EmailDashboardData = {
   stats: EmailDeliveryStats;
   recentEmails: Array<
     BaseEmailData & {
@@ -158,9 +159,9 @@ export interface EmailDashboardData {
     delivered: number;
     opened: number;
   }>;
-}
+};
 
-export interface EmailTemplateProps {
+export type EmailTemplateProps = {
   username?: string;
   email?: string;
   actionUrl?: string;
@@ -176,7 +177,7 @@ export interface EmailTemplateProps {
     userAgent?: string;
     location?: string;
   };
-}
+};
 
 // Utility constants and functions
 export const EMAIL_STATUSES = Object.values(EmailStatus);

@@ -22,11 +22,11 @@ import { getLocalizedError, getPasswordSchema } from "../../core/lib/utils";
 import type { PasswordValidation } from "../../types";
 import type { AuthFormClassNames } from "./auth-form";
 
-export interface ResetPasswordFormProps {
+export type ResetPasswordFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   passwordValidation?: PasswordValidation;
-}
+};
 
 export function ResetPasswordForm({
   className,
@@ -75,7 +75,9 @@ export function ResetPasswordForm({
   const isSubmitting = form.formState.isSubmitting;
 
   useEffect(() => {
-    if (tokenChecked.current) return;
+    if (tokenChecked.current) {
+      return;
+    }
     tokenChecked.current = true;
 
     const searchParams = new URLSearchParams(window.location.search);
@@ -117,8 +119,8 @@ export function ResetPasswordForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(resetPassword)}
         className={cn("grid w-full gap-6", className, classNames?.base)}
+        onSubmit={form.handleSubmit(resetPassword)}
       >
         <FormField
           control={form.control}
@@ -131,8 +133,8 @@ export function ResetPasswordForm({
                 <PasswordField
                   autoComplete="new-password"
                   className={classNames?.input}
-                  placeholder={t("NEW_PASSWORD_PLACEHOLDER")}
                   disabled={isSubmitting}
+                  placeholder={t("NEW_PASSWORD_PLACEHOLDER")}
                   {...field}
                 />
               </FormControl>
@@ -154,8 +156,8 @@ export function ResetPasswordForm({
                   <PasswordField
                     autoComplete="new-password"
                     className={classNames?.input}
-                    placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
                     disabled={isSubmitting}
+                    placeholder={t("CONFIRM_PASSWORD_PLACEHOLDER")}
                     {...field}
                   />
                 </FormControl>
@@ -167,9 +169,9 @@ export function ResetPasswordForm({
         )}
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn("w-full", classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("RESET_PASSWORD_ACTION")}
         </Button>

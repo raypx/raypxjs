@@ -81,7 +81,9 @@ export function CreateOrganizationDialog({
   const isSubmitting = form.formState.isSubmitting;
 
   const handleLogoChange = async (file: File) => {
-    if (!organizationOptions?.logo) return;
+    if (!organizationOptions?.logo) {
+      return;
+    }
 
     setLogoPending(true);
 
@@ -90,7 +92,7 @@ export function CreateOrganizationDialog({
         file,
         crypto.randomUUID(),
         organizationOptions.logo.size,
-        organizationOptions.logo.extension,
+        organizationOptions.logo.extension
       );
 
       let image: string | undefined | null;
@@ -174,7 +176,7 @@ export function CreateOrganizationDialog({
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             {organizationOptions?.logo && (
               <FormField
                 control={form.control}
@@ -182,16 +184,18 @@ export function CreateOrganizationDialog({
                 render={() => (
                   <FormItem>
                     <input
-                      ref={fileInputRef}
                       accept="image/*"
                       disabled={logoPending}
                       hidden
-                      type="file"
                       onChange={(e) => {
                         const file = e.target.files?.item(0);
-                        if (file) handleLogoChange(file);
+                        if (file) {
+                          handleLogoChange(file);
+                        }
                         e.target.value = "";
                       }}
+                      ref={fileInputRef}
+                      type="file"
                     />
 
                     <FormLabel>{t("LOGO")}</FormLabel>
@@ -220,7 +224,7 @@ export function CreateOrganizationDialog({
                           align="start"
                           onCloseAutoFocus={(e) => e.preventDefault()}
                         >
-                          <DropdownMenuItem onClick={openFileDialog} disabled={logoPending}>
+                          <DropdownMenuItem disabled={logoPending} onClick={openFileDialog}>
                             <UploadCloud />
 
                             {t("UPLOAD_LOGO")}
@@ -228,8 +232,8 @@ export function CreateOrganizationDialog({
 
                           {logo && (
                             <DropdownMenuItem
-                              onClick={deleteLogo}
                               disabled={logoPending}
+                              onClick={deleteLogo}
                               variant="destructive"
                             >
                               <Trash />
@@ -242,9 +246,9 @@ export function CreateOrganizationDialog({
 
                       <Button
                         disabled={logoPending}
-                        variant="outline"
                         onClick={openFileDialog}
                         type="button"
+                        variant="outline"
                       >
                         {logoPending && <Loader2 className="animate-spin" />}
 
@@ -292,18 +296,18 @@ export function CreateOrganizationDialog({
 
             <DialogFooter className={classNames?.dialog?.footer}>
               <Button
+                className={cn(classNames?.button, classNames?.outlineButton)}
+                onClick={() => onOpenChange?.(false)}
                 type="button"
                 variant="outline"
-                onClick={() => onOpenChange?.(false)}
-                className={cn(classNames?.button, classNames?.outlineButton)}
               >
                 {t("CANCEL")}
               </Button>
 
               <Button
-                type="submit"
                 className={cn(classNames?.button, classNames?.primaryButton)}
                 disabled={isSubmitting}
+                type="submit"
               >
                 {isSubmitting && <Loader2 className="animate-spin" />}
 

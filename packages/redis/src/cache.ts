@@ -41,18 +41,20 @@ const json = {
     } catch (error) {
       throw new CacheSerializationError(
         `Failed to serialize value: ${error instanceof Error ? error.message : "Unknown error"}`,
-        value,
+        value
       );
     }
   },
   deserialize: <T>(value: string | null): T | null => {
-    if (value === null) return null;
+    if (value === null) {
+      return null;
+    }
     try {
       return JSON.parse(value) as T;
     } catch (error) {
       throw new CacheSerializationError(
         `Failed to deserialize value: ${error instanceof Error ? error.message : "Unknown error"}`,
-        value,
+        value
       );
     }
   },
@@ -60,15 +62,15 @@ const json = {
 
 export class Cache implements RedisCacheStore {
   #prefix = "";
-  #ttl: number;
-  #connection: string;
-  #stats = {
+  readonly #ttl: number;
+  readonly #connection: string;
+  readonly #stats = {
     hits: INITIAL_HITS,
     misses: INITIAL_MISSES,
     totalKeys: INITIAL_TOTAL_KEYS,
     memoryUsage: INITIAL_MEMORY_USAGE,
   };
-  #eventListeners: CacheEventListener[] = [];
+  readonly #eventListeners: CacheEventListener[] = [];
   protected readonly redis: RedisClientType;
 
   constructor(connection: string, opts: CacheOptions = {}) {
@@ -140,7 +142,9 @@ export class Cache implements RedisCacheStore {
   async add(key: CacheKey, value: CacheValue, ttl?: CacheExpiration): Promise<boolean> {
     try {
       const exists = await this.has(key);
-      if (exists) return false;
+      if (exists) {
+        return false;
+      }
       return await this.put(key, value, ttl);
     } catch (error) {
       const cacheKey = this.buildKey(key);
@@ -208,7 +212,7 @@ export class Cache implements RedisCacheStore {
   async remember<T = CacheValue>(
     key: CacheKey,
     ttl: CacheExpiration,
-    closure: CacheClosure<T>,
+    closure: CacheClosure<T>
   ): Promise<T> {
     try {
       const value = await this.get<T>(key);
@@ -226,7 +230,7 @@ export class Cache implements RedisCacheStore {
     }
   }
 
-  async rememberForever<T = CacheValue>(key: CacheKey, closure: CacheClosure<T>): Promise<T> {
+  rememberForever<T = CacheValue>(key: CacheKey, closure: CacheClosure<T>): Promise<T> {
     return this.remember(key, null, closure);
   }
 
@@ -306,7 +310,7 @@ export class Cache implements RedisCacheStore {
   async putMany(values: Record<string, CacheValue>, ttl?: CacheExpiration): Promise<boolean> {
     try {
       const results = await Promise.all(
-        Object.entries(values).map(([key, value]) => this.put(key, value, ttl)),
+        Object.entries(values).map(([key, value]) => this.put(key, value, ttl))
       );
       return results.every(Boolean);
     } catch (error) {
@@ -338,7 +342,7 @@ export class Cache implements RedisCacheStore {
 
   tags(names: string[]): TaggedCacheStore {
     throw new Error(
-      `Tags are not supported in this Redis cache implementation. Attempted to use tags: [${names.join(", ")}]`,
+      `Tags are not supported in this Redis cache implementation. Attempted to use tags: [${names.join(", ")}]`
     );
   }
 
@@ -447,7 +451,7 @@ export class Cache implements RedisCacheStore {
   private emitEvent(
     type: CacheEvent["type"],
     key?: CacheKey,
-    data?: Record<string, unknown>,
+    data?: Record<string, unknown>
   ): void {
     const event: CacheEvent = {
       type,
@@ -458,13 +462,13 @@ export class Cache implements RedisCacheStore {
       metadata: data,
     };
 
-    this.#eventListeners.forEach((listener) => {
+    for (const listener of this.#eventListeners) {
       try {
         listener(event);
       } catch (error) {
         console.error("Error in cache event listener:", error);
       }
-    });
+    }
   }
 
   // ============================================================================
@@ -503,8 +507,12 @@ export class Cache implements RedisCacheStore {
   }
 
   private normalizeTtl(ttl?: CacheExpiration): number | undefined {
-    if (ttl === null) return undefined;
-    if (ttl === undefined) return this.#ttl;
+    if (ttl === null) {
+      return;
+    }
+    if (ttl === undefined) {
+      return this.#ttl;
+    }
     return Math.max(0, ttl);
   }
 
@@ -512,7 +520,7 @@ export class Cache implements RedisCacheStore {
     operation: string,
     key: string,
     error: unknown,
-    context?: Record<string, unknown>,
+    context?: Record<string, unknown>
   ): string {
     const baseMessage = `Cache operation '${operation}' failed for key '${key}'`;
 
@@ -546,13 +554,13 @@ export class Cache implements RedisCacheStore {
   // Legacy Methods (for backward compatibility)
   // ============================================================================
 
-  async set(key: CacheKey, value: CacheValue, seconds?: number): Promise<boolean> {
+  set(key: CacheKey, value: CacheValue, seconds?: number): Promise<boolean> {
     return this.put(key, value, seconds || undefined);
   }
 
   async getMultiple<T, R = Record<string, T | null>>(
     keys: string[],
-    defaultVal: T | null = null,
+    defaultVal: T | null = null
   ): Promise<R> {
     const values = await this.many(keys);
     return Object.entries(values).reduce<R>(
@@ -560,23 +568,23 @@ export class Cache implements RedisCacheStore {
         (results as Record<string, T | null>)[key] = (value as T) ?? defaultVal;
         return results;
       },
-      {} as unknown as R,
+      {} as unknown as R
     );
   }
 
-  async forget(key: CacheKey): Promise<boolean> {
+  forget(key: CacheKey): Promise<boolean> {
     return this.delete(key);
   }
 
-  async clear(): Promise<boolean> {
+  clear(): Promise<boolean> {
     return this.flush();
   }
 
-  async forever(key: CacheKey, value: CacheValue): Promise<boolean> {
+  forever(key: CacheKey, value: CacheValue): Promise<boolean> {
     return this.put(key, value, null);
   }
 
-  async ttl(key: CacheKey): Promise<number | null> {
+  ttl(key: CacheKey): Promise<number | null> {
     return this.getTtl(key);
   }
 }

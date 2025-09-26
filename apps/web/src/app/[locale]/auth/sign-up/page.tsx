@@ -4,11 +4,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     title: "Sign Up",
   });
-};
 
 export default function SignUpPage() {
   return (
@@ -18,15 +17,15 @@ export default function SignUpPage() {
           <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full text-primary-foreground">
             <Image
               alt="Raypx"
-              height={24}
               className="object-cover"
+              height={24}
               src="/images/logo.png"
               width={24}
             />
           </div>
           Raypx
         </Link>
-        <AuthView view="SIGN_UP" socialLayout="grid" />
+        <AuthView socialLayout="grid" view="SIGN_UP" />
       </div>
     </div>
   );

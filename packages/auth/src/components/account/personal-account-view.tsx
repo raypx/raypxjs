@@ -43,7 +43,7 @@ export function PersonalAccountView({
                 "max-w-full",
                 size === "lg" ? "h-4.5 w-32" : "h-3.5 w-24",
                 classNames?.title,
-                classNames?.skeleton,
+                classNames?.skeleton
               )}
             />
 
@@ -53,7 +53,7 @@ export function PersonalAccountView({
                   "mt-1.5 max-w-full",
                   size === "lg" ? "h-3.5 w-40" : "h-3 w-32",
                   classNames?.subtitle,
-                  classNames?.skeleton,
+                  classNames?.skeleton
                 )}
               />
             )}
@@ -64,7 +64,7 @@ export function PersonalAccountView({
               className={cn(
                 "truncate font-semibold",
                 size === "lg" ? "text-base" : "text-sm",
-                classNames?.title,
+                classNames?.title
               )}
             >
               {user?.displayName ||
@@ -82,7 +82,7 @@ export function PersonalAccountView({
                 className={cn(
                   "truncate opacity-70",
                   size === "lg" ? "text-sm" : "text-xs",
-                  classNames?.subtitle,
+                  classNames?.subtitle
                 )}
               >
                 {t("PERSONAL_ACCOUNT")}

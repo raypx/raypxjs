@@ -19,7 +19,9 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
 
   // Function to check if a path is active
   const isActive = (href: string | undefined): boolean => {
-    if (!href) return false;
+    if (!href) {
+      return false;
+    }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -61,7 +63,7 @@ export function SidebarMain({ items }: { items: NestedMenuItem[] }) {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-        ),
+        )
       )}
     </>
   );

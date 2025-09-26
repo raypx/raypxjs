@@ -4,11 +4,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     title: "Recover Account",
   });
-};
 
 export default function RecoverAccountPage() {
   return (
@@ -18,8 +17,8 @@ export default function RecoverAccountPage() {
           <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full text-primary-foreground">
             <Image
               alt="Raypx"
-              height={24}
               className="object-cover"
+              height={24}
               src="/images/logo.png"
               width={24}
             />

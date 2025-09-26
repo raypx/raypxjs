@@ -10,7 +10,7 @@ export function baseOptions(locale: string, t: any): BaseLayoutProps {
     nav: {
       title: (
         <>
-          <Logo size={24} priority />
+          <Logo priority size={24} />
           {appConfig.name}
         </>
       ),

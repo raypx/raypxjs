@@ -13,7 +13,7 @@ const setup = definedCmd(
   {
     concurrent: true, // Enable concurrent execution
     exitOnError: true, // Exit immediately on error
-  },
+  }
 );
 
 export default setup;

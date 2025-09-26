@@ -23,7 +23,7 @@ import { ApiKeysCard } from "./api-keys-card";
 import { SecuritySettingsCards } from "./security-settings-cards";
 import { UserInvitationsCard } from "./user-invitations-card";
 
-export interface AccountViewProps {
+export type AccountViewProps = {
   className?: string;
   classNames?: {
     base?: string;
@@ -36,7 +36,7 @@ export interface AccountViewProps {
   view?: AccountViewPath;
   path?: string;
   hideNav?: boolean;
-}
+};
 
 export function AccountView({
   className,
@@ -82,7 +82,7 @@ export function AccountView({
       className={cn(
         "flex w-full grow flex-col gap-4 md:flex-row md:gap-12",
         className,
-        classNames?.base,
+        classNames?.base
       )}
     >
       {!hideNav && (
@@ -104,19 +104,19 @@ export function AccountView({
               <div className="flex flex-col px-4 pb-4">
                 {navItems.map((item) => (
                   <Link
-                    key={item.view}
                     href={buildAccountUrl(
                       accountOptions?.basePath,
-                      accountOptions?.viewPaths[item.view],
+                      accountOptions?.viewPaths[item.view]
                     )}
+                    key={item.view}
                   >
                     <Button
-                      size="lg"
                       className={cn(
                         "w-full justify-start px-4 transition-none",
                         classNames?.drawer?.menuItem,
-                        view === item.view ? "font-semibold" : "text-foreground/70",
+                        view === item.view ? "font-semibold" : "text-foreground/70"
                       )}
+                      size="lg"
                       variant="ghost"
                     >
                       {item.label}
@@ -134,20 +134,20 @@ export function AccountView({
           <div className={cn("flex w-48 flex-col gap-1 lg:w-60", classNames?.sidebar?.base)}>
             {navItems.map((item) => (
               <Link
-                key={item.view}
                 href={buildAccountUrl(
                   accountOptions?.basePath,
-                  accountOptions?.viewPaths[item.view],
+                  accountOptions?.viewPaths[item.view]
                 )}
+                key={item.view}
               >
                 <Button
-                  size="lg"
                   className={cn(
                     "w-full justify-start px-4 transition-none",
                     classNames?.sidebar?.button,
                     view === item.view ? "font-semibold" : "text-foreground/70",
-                    view === item.view && classNames?.sidebar?.buttonActive,
+                    view === item.view && classNames?.sidebar?.buttonActive
                   )}
+                  size="lg"
                   variant="ghost"
                 >
                   {item.label}

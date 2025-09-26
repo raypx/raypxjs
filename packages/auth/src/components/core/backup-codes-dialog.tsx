@@ -39,8 +39,8 @@ export function BackupCodesDialog({
   return (
     <Dialog onOpenChange={onOpenChange} {...props}>
       <DialogContent
-        onOpenAutoFocus={(e) => e.preventDefault()}
         className={classNames?.dialog?.content}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader className={classNames?.dialog?.header}>
           <DialogTitle className={cn("text-lg md:text-xl", classNames?.title)}>
@@ -53,7 +53,7 @@ export function BackupCodesDialog({
 
         <div className="grid grid-cols-2 gap-2">
           {backupCodes.map((code, index) => (
-            <div key={index} className="rounded-md bg-muted p-2 text-center font-mono text-sm">
+            <div className="rounded-md bg-muted p-2 text-center font-mono text-sm" key={index}>
               {code}
             </div>
           ))}
@@ -61,11 +61,11 @@ export function BackupCodesDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
+            className={cn(classNames?.button, classNames?.outlineButton)}
+            disabled={copied}
+            onClick={handleCopy}
             type="button"
             variant="outline"
-            onClick={handleCopy}
-            disabled={copied}
-            className={cn(classNames?.button, classNames?.outlineButton)}
           >
             {copied ? (
               <>
@@ -81,10 +81,10 @@ export function BackupCodesDialog({
           </Button>
 
           <Button
+            className={cn(classNames?.button, classNames?.primaryButton)}
+            onClick={() => onOpenChange?.(false)}
             type="button"
             variant="default"
-            onClick={() => onOpenChange?.(false)}
-            className={cn(classNames?.button, classNames?.primaryButton)}
           >
             {t("CONTINUE")}
           </Button>

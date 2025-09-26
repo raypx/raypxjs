@@ -23,9 +23,10 @@ export function ApiKeysCard({ className, classNames, organizationId, ...props }:
   const { data: apiKeys, isPending, refetch } = useListApiKeys();
 
   // Filter API keys by organizationId
-  const filteredApiKeys = useMemo(() => {
-    return apiKeys?.filter((apiKey) => organizationId === apiKey.metadata?.organizationId);
-  }, [apiKeys, organizationId]);
+  const filteredApiKeys = useMemo(
+    () => apiKeys?.filter((apiKey) => organizationId === apiKey.metadata?.organizationId),
+    [apiKeys, organizationId]
+  );
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [displayDialogOpen, setDisplayDialogOpen] = useState(false);
@@ -39,23 +40,23 @@ export function ApiKeysCard({ className, classNames, organizationId, ...props }:
   return (
     <>
       <SettingsCard
+        action={() => setCreateDialogOpen(true)}
+        actionLabel={t("CREATE_API_KEY")}
         className={className}
         classNames={classNames}
-        actionLabel={t("CREATE_API_KEY")}
         description={t("API_KEYS_DESCRIPTION")}
         instructions={t("API_KEYS_INSTRUCTIONS")}
         isPending={isPending}
         title={t("API_KEYS")}
-        action={() => setCreateDialogOpen(true)}
         {...props}
       >
         {filteredApiKeys && filteredApiKeys.length > 0 && (
           <CardContent className={cn("grid gap-4", classNames?.content)}>
             {filteredApiKeys?.map((apiKey) => (
               <ApiKeyCell
-                key={apiKey.id}
-                classNames={classNames}
                 apiKey={apiKey}
+                classNames={classNames}
+                key={apiKey.id}
                 refetch={refetch}
               />
             ))}
@@ -65,18 +66,18 @@ export function ApiKeysCard({ className, classNames, organizationId, ...props }:
 
       <CreateApiKeyDialog
         classNames={classNames}
-        open={createDialogOpen}
         onOpenChange={setCreateDialogOpen}
         onSuccess={handleCreateApiKey}
-        refetch={refetch}
+        open={createDialogOpen}
         organizationId={organizationId}
+        refetch={refetch}
       />
 
       <ApiKeyDisplayDialog
-        classNames={classNames}
         apiKey={createdApiKey}
-        open={displayDialogOpen}
+        classNames={classNames}
         onOpenChange={setDisplayDialogOpen}
+        open={displayDialogOpen}
       />
     </>
   );

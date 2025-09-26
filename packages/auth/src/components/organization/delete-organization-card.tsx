@@ -18,18 +18,19 @@ export function DeleteOrganizationCard({
 
   const { data: organization } = useCurrentOrganization({ slug });
 
-  if (!organization)
+  if (!organization) {
     return (
       <SettingsCard
+        actionLabel={t("DELETE_ORGANIZATION")}
         className={className}
         classNames={classNames}
-        actionLabel={t("DELETE_ORGANIZATION")}
         description={t("DELETE_ORGANIZATION_DESCRIPTION")}
         isPending
         title={t("DELETE_ORGANIZATION")}
         variant="destructive"
       />
     );
+  }
 
   return (
     <DeleteOrganizationForm
@@ -60,25 +61,27 @@ function DeleteOrganizationForm({
 
   const [showDialog, setShowDialog] = useState(false);
 
-  if (!hasPermission?.success) return null;
+  if (!hasPermission?.success) {
+    return null;
+  }
 
   return (
     <>
       <SettingsCard
+        action={() => setShowDialog(true)}
+        actionLabel={t("DELETE_ORGANIZATION")}
         className={className}
         classNames={classNames}
-        actionLabel={t("DELETE_ORGANIZATION")}
         description={t("DELETE_ORGANIZATION_DESCRIPTION")}
         isPending={isPending}
         title={t("DELETE_ORGANIZATION")}
         variant="destructive"
-        action={() => setShowDialog(true)}
       />
 
       <DeleteOrganizationDialog
         classNames={classNames}
-        open={showDialog}
         onOpenChange={setShowDialog}
+        open={showDialog}
         organization={organization}
       />
     </>

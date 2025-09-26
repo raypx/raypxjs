@@ -120,7 +120,7 @@ export default function KnowledgePage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Knowledge Base</h1>
+          <h1 className="font-bold text-3xl tracking-tight">Knowledge Base</h1>
           <p className="text-muted-foreground">
             Manage your organization's knowledge articles and documentation.
           </p>
@@ -136,12 +136,12 @@ export default function KnowledgePage() {
         {stats.map((stat) => (
           <Card key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+              <CardTitle className="font-medium text-sm">{stat.title}</CardTitle>
               <stat.icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">{stat.change} from last month</p>
+              <div className="font-bold text-2xl">{stat.value}</div>
+              <p className="text-muted-foreground text-xs">{stat.change} from last month</p>
             </CardContent>
           </Card>
         ))}
@@ -156,8 +156,8 @@ export default function KnowledgePage() {
         <CardContent>
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder="Search articles..." className="pl-10" />
+              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
+              <Input className="pl-10" placeholder="Search articles..." />
             </div>
             <Button variant="outline">
               <Filter className="mr-2 h-4 w-4" />
@@ -176,14 +176,14 @@ export default function KnowledgePage() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-5">
             {categories.map((category) => (
-              <div key={category.name} className="text-center">
+              <div className="text-center" key={category.name}>
                 <div
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${category.color}`}
+                  className={`inline-flex items-center rounded-full px-3 py-1 font-medium text-sm ${category.color}`}
                 >
                   {category.name}
                 </div>
-                <p className="text-2xl font-bold mt-2">{category.count}</p>
-                <p className="text-xs text-muted-foreground">articles</p>
+                <p className="mt-2 font-bold text-2xl">{category.count}</p>
+                <p className="text-muted-foreground text-xs">articles</p>
               </div>
             ))}
           </div>
@@ -200,19 +200,19 @@ export default function KnowledgePage() {
           <div className="space-y-4">
             {articles.map((article) => (
               <div
+                className="flex items-start justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
                 key={article.id}
-                className="flex items-start justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
               >
                 <div className="flex-1 space-y-3">
                   <div className="flex items-start justify-between">
                     <div className="space-y-1">
-                      <h3 className="text-lg font-medium">{article.title}</h3>
-                      <p className="text-sm text-muted-foreground">{article.excerpt}</p>
+                      <h3 className="font-medium text-lg">{article.title}</h3>
+                      <p className="text-muted-foreground text-sm">{article.excerpt}</p>
                     </div>
                     <Badge className={getStatusColor(article.status)}>{article.status}</Badge>
                   </div>
 
-                  <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                  <div className="flex items-center space-x-4 text-muted-foreground text-xs">
                     <div className="flex items-center space-x-1">
                       <User className="h-3 w-3" />
                       <span>{article.author}</span>
@@ -235,23 +235,23 @@ export default function KnowledgePage() {
 
                   <div className="flex items-center space-x-2">
                     {article.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
+                      <Badge className="text-xs" key={tag} variant="outline">
                         {tag}
                       </Badge>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2 ml-4">
-                  <Button variant="outline" size="sm">
+                <div className="ml-4 flex items-center space-x-2">
+                  <Button size="sm" variant="outline">
                     <Edit className="mr-2 h-3 w-3" />
                     Edit
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button size="sm" variant="outline">
                     <Eye className="mr-2 h-3 w-3" />
                     View
                   </Button>
-                  <Button variant="ghost" size="icon" className="text-red-600 hover:text-red-700">
+                  <Button className="text-red-600 hover:text-red-700" size="icon" variant="ghost">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>

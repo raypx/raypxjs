@@ -16,10 +16,14 @@ export const PROJECT_ROOT = resolve(__dirname, "../../../");
  * Formats duration in milliseconds to human-readable string
  */
 export function formatDuration(ms: number): string {
-  if (ms < 1000) return `${ms}ms`;
-  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
-  const minutes = Math.floor(ms / 60000);
-  const seconds = Math.floor((ms % 60000) / 1000);
+  if (ms < 1000) {
+    return `${ms}ms`;
+  }
+  if (ms < 60_000) {
+    return `${(ms / 1000).toFixed(1)}s`;
+  }
+  const minutes = Math.floor(ms / 60_000);
+  const seconds = Math.floor((ms % 60_000) / 1000);
   return `${minutes}m ${seconds}s`;
 }
 
@@ -55,18 +59,24 @@ const DANGEROUS_PATTERNS = [
  */
 function validateCommand(command: string): boolean {
   const trimmedCmd = command.trim();
-  if (!trimmedCmd) return false;
+  if (!trimmedCmd) {
+    return false;
+  }
 
   // Extract the base command (first word)
   const baseCommand = trimmedCmd.split(/\s+/)[0];
-  if (!baseCommand) return false;
+  if (!baseCommand) {
+    return false;
+  }
 
   // Check if command is in whitelist
   const isAllowed = ALLOWED_COMMANDS.some(
-    (cmd) => baseCommand === cmd || baseCommand.startsWith(`${cmd}/`),
+    (cmd) => baseCommand === cmd || baseCommand.startsWith(`${cmd}/`)
   );
 
-  if (!isAllowed) return false;
+  if (!isAllowed) {
+    return false;
+  }
 
   // Check for dangerous patterns
   return !DANGEROUS_PATTERNS.some((pattern) => pattern.test(trimmedCmd));
@@ -90,7 +100,7 @@ export function safeExec(command: string, options?: ExecSyncOptions): boolean {
     execSync(command, {
       encoding: "utf8",
       maxBuffer: 1024 * 1024 * 10,
-      timeout: 180000, // 3 minutes default
+      timeout: 180_000, // 3 minutes default
       ...SILENT_EXEC_OPTIONS,
       ...options,
     });

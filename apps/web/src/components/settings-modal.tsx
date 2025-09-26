@@ -26,11 +26,11 @@ import { Textarea } from "@raypx/ui/components/textarea";
 import { Bell, Camera, Palette, Save, Settings, Shield, User } from "lucide-react";
 import { useState } from "react";
 
-interface SettingsModalProps {
+type SettingsModalProps = {
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-}
+};
 
 export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,9 +75,9 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
   };
 
   return (
-    <Dialog open={isOpenState} onOpenChange={setIsOpenState}>
+    <Dialog onOpenChange={setIsOpenState} open={isOpenState}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
@@ -88,38 +88,38 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs className="w-full" onValueChange={setActiveTab} value={activeTab}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="profile">
               <User className="h-4 w-4" />
               Profile
             </TabsTrigger>
-            <TabsTrigger value="preferences" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="preferences">
               <Palette className="h-4 w-4" />
               Preferences
             </TabsTrigger>
-            <TabsTrigger value="notifications" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="notifications">
               <Bell className="h-4 w-4" />
               Notifications
             </TabsTrigger>
-            <TabsTrigger value="security" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="security">
               <Shield className="h-4 w-4" />
               Security
             </TabsTrigger>
           </TabsList>
 
           {/* Profile Tab */}
-          <TabsContent value="profile" className="space-y-6 mt-6">
+          <TabsContent className="mt-6 space-y-6" value="profile">
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <Avatar className="h-24 w-24 mx-auto mb-4">
+                <Avatar className="mx-auto mb-4 h-24 w-24">
                   <AvatarImage
-                    src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`}
                     alt="Profile"
+                    src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${Math.random().toString(36).substring(2, 10)}`}
                   />
                   <AvatarFallback className="text-2xl">JD</AvatarFallback>
                 </Avatar>
-                <Button variant="outline" size="sm">
+                <Button size="sm" variant="outline">
                   <Camera className="mr-2 h-4 w-4" />
                   Change Photo
                 </Button>
@@ -131,16 +131,16 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                     <Label htmlFor="firstName">First Name</Label>
                     <Input
                       id="firstName"
-                      value={formData.firstName}
                       onChange={(e) => handleInputChange("firstName", e.target.value)}
+                      value={formData.firstName}
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
                     <Input
                       id="lastName"
-                      value={formData.lastName}
                       onChange={(e) => handleInputChange("lastName", e.target.value)}
+                      value={formData.lastName}
                     />
                   </div>
                 </div>
@@ -149,9 +149,9 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     type="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
                   />
                 </div>
 
@@ -159,10 +159,10 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                   <Label htmlFor="bio">Bio</Label>
                   <Textarea
                     id="bio"
-                    rows={3}
-                    value={formData.bio}
                     onChange={(e) => handleInputChange("bio", e.target.value)}
                     placeholder="Tell us about yourself..."
+                    rows={3}
+                    value={formData.bio}
                   />
                 </div>
 
@@ -171,16 +171,16 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                     <Label htmlFor="location">Location</Label>
                     <Input
                       id="location"
-                      value={formData.location}
                       onChange={(e) => handleInputChange("location", e.target.value)}
+                      value={formData.location}
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="company">Company</Label>
                     <Input
                       id="company"
-                      value={formData.company}
                       onChange={(e) => handleInputChange("company", e.target.value)}
+                      value={formData.company}
                     />
                   </div>
                 </div>
@@ -189,10 +189,10 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                   <Label htmlFor="website">Website</Label>
                   <Input
                     id="website"
-                    type="url"
-                    value={formData.website}
                     onChange={(e) => handleInputChange("website", e.target.value)}
                     placeholder="https://example.com"
+                    type="url"
+                    value={formData.website}
                   />
                 </div>
               </div>
@@ -200,14 +200,14 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
           </TabsContent>
 
           {/* Preferences Tab */}
-          <TabsContent value="preferences" className="space-y-6 mt-6">
+          <TabsContent className="mt-6 space-y-6" value="preferences">
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="timezone">Timezone</Label>
                   <Select
-                    value={formData.timezone}
                     onValueChange={(value) => handleInputChange("timezone", value)}
+                    value={formData.timezone}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -224,8 +224,8 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                 <div className="space-y-2">
                   <Label htmlFor="language">Language</Label>
                   <Select
-                    value={formData.language}
                     onValueChange={(value) => handleInputChange("language", value)}
+                    value={formData.language}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -242,8 +242,8 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                 <div className="space-y-2">
                   <Label htmlFor="theme">Theme</Label>
                   <Select
-                    value={formData.theme}
                     onValueChange={(value) => handleInputChange("theme", value)}
+                    value={formData.theme}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -258,7 +258,7 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Display Options</h3>
+                <h3 className="font-medium text-lg">Display Options</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="compactMode">Compact Mode</Label>
@@ -266,11 +266,11 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                   </div>
                   <div className="flex items-center justify-between">
                     <Label htmlFor="showAvatars">Show Avatars</Label>
-                    <Switch id="showAvatars" defaultChecked />
+                    <Switch defaultChecked id="showAvatars" />
                   </div>
                   <div className="flex items-center justify-between">
                     <Label htmlFor="animations">Enable Animations</Label>
-                    <Switch id="animations" defaultChecked />
+                    <Switch defaultChecked id="animations" />
                   </div>
                 </div>
               </div>
@@ -278,21 +278,21 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
           </TabsContent>
 
           {/* Notifications Tab */}
-          <TabsContent value="notifications" className="space-y-6 mt-6">
+          <TabsContent className="mt-6 space-y-6" value="notifications">
             <div className="space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Email Notifications</h3>
+                <h3 className="font-medium text-lg">Email Notifications</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <Label htmlFor="emailNotifications">Email Notifications</Label>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Receive notifications via email
                       </p>
                     </div>
                     <Switch
-                      id="emailNotifications"
                       checked={formData.emailNotifications}
+                      id="emailNotifications"
                       onCheckedChange={(checked) =>
                         handleInputChange("emailNotifications", checked)
                       }
@@ -301,13 +301,13 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
                   <div className="flex items-center justify-between">
                     <div>
                       <Label htmlFor="marketingEmails">Marketing Emails</Label>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Receive promotional and marketing emails
                       </p>
                     </div>
                     <Switch
-                      id="marketingEmails"
                       checked={formData.marketingEmails}
+                      id="marketingEmails"
                       onCheckedChange={(checked) => handleInputChange("marketingEmails", checked)}
                     />
                   </div>
@@ -315,18 +315,18 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Push Notifications</h3>
+                <h3 className="font-medium text-lg">Push Notifications</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <Label htmlFor="pushNotifications">Push Notifications</Label>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Receive push notifications in your browser
                       </p>
                     </div>
                     <Switch
-                      id="pushNotifications"
                       checked={formData.pushNotifications}
+                      id="pushNotifications"
                       onCheckedChange={(checked) => handleInputChange("pushNotifications", checked)}
                     />
                   </div>
@@ -336,32 +336,32 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
           </TabsContent>
 
           {/* Security Tab */}
-          <TabsContent value="security" className="space-y-6 mt-6">
+          <TabsContent className="mt-6 space-y-6" value="security">
             <div className="space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
-                <div className="flex items-center justify-between p-4 border rounded-lg">
+                <h3 className="font-medium text-lg">Two-Factor Authentication</h3>
+                <div className="flex items-center justify-between rounded-lg border p-4">
                   <div>
                     <Label htmlFor="twoFactorAuth">2FA Status</Label>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Add an extra layer of security to your account
                     </p>
                   </div>
                   <Switch
-                    id="twoFactorAuth"
                     checked={formData.twoFactorAuth}
+                    id="twoFactorAuth"
                     onCheckedChange={(checked) => handleInputChange("twoFactorAuth", checked)}
                   />
                 </div>
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Password</h3>
+                <h3 className="font-medium text-lg">Password</h3>
                 <Button variant="outline">Change Password</Button>
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Sessions</h3>
+                <h3 className="font-medium text-lg">Sessions</h3>
                 <Button variant="outline">Manage Active Sessions</Button>
               </div>
             </div>
@@ -369,7 +369,7 @@ export function SettingsModal({ trigger, open, onOpenChange }: SettingsModalProp
         </Tabs>
 
         <DialogFooter className="flex gap-2">
-          <Button variant="outline" onClick={handleCancel}>
+          <Button onClick={handleCancel} variant="outline">
             Cancel
           </Button>
           <Button onClick={handleSave}>

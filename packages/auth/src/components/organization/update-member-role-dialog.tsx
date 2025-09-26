@@ -135,9 +135,9 @@ export function UpdateMemberRoleDialog({
         </DialogHeader>
 
         <div className="grid gap-6 py-4">
-          <MemberCell className={classNames?.cell} member={member} hideActions />
+          <MemberCell className={classNames?.cell} hideActions member={member} />
 
-          <Select value={selectedRole} onValueChange={setSelectedRole}>
+          <Select onValueChange={setSelectedRole} value={selectedRole}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder={t("SELECT_ROLE")} />
             </SelectTrigger>
@@ -154,20 +154,20 @@ export function UpdateMemberRoleDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
-            type="button"
-            variant="outline"
-            onClick={() => onOpenChange?.(false)}
             className={cn(classNames?.button, classNames?.outlineButton)}
             disabled={isUpdating}
+            onClick={() => onOpenChange?.(false)}
+            type="button"
+            variant="outline"
           >
             {t("CANCEL")}
           </Button>
 
           <Button
-            type="button"
-            onClick={updateMemberRole}
             className={cn(classNames?.button, classNames?.primaryButton)}
             disabled={isUpdating}
+            onClick={updateMemberRole}
+            type="button"
           >
             {isUpdating && <Loader2 className="animate-spin" />}
 

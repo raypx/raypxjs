@@ -7,7 +7,7 @@ import {
   VerifyEmail,
   WelcomeEmail,
 } from "@raypx/email";
-import { type BetterAuthOptions, betterAuth } from "better-auth";
+import { type BetterAuthOptions, type BetterAuthPlugin, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import {
   admin,
@@ -32,7 +32,7 @@ import {
 
 // Build plugins array based on enabled features
 const buildServerPlugins = () => {
-  const plugins = [];
+  const plugins: BetterAuthPlugin[] = [];
 
   // Always include basic plugins
   plugins.push(
@@ -40,7 +40,7 @@ const buildServerPlugins = () => {
     mcp({
       loginPage: "/signin",
     }),
-    lastLoginMethod(),
+    lastLoginMethod()
   );
 
   // Add feature-specific plugins
@@ -63,7 +63,7 @@ const buildServerPlugins = () => {
             to: email,
           });
         },
-      }),
+      })
     );
   }
 
@@ -85,7 +85,7 @@ const buildServerPlugins = () => {
           superadmin: superAdminRole,
         },
       }),
-      organization(),
+      organization()
     );
   }
 
@@ -95,7 +95,7 @@ const buildServerPlugins = () => {
       emailOTP({
         sendVerificationOTP: async (data, _request) => {
           const { email, otp } = data;
-          sendEmail({
+          await sendEmail({
             to: email,
             subject: "Verify your email",
             template: SendVerificationOTP({
@@ -103,7 +103,7 @@ const buildServerPlugins = () => {
             }),
           });
         },
-      }),
+      })
     );
   }
 
@@ -144,7 +144,7 @@ const createConfig = (): BetterAuthOptions => {
     socialProviders,
     trustedOrigins: (req) =>
       [req.headers.get("origin") ?? "", req.headers.get("referer") ?? ""].filter(
-        Boolean,
+        Boolean
       ) as string[],
     session: {
       cookieCache: {
@@ -176,16 +176,16 @@ const createConfig = (): BetterAuthOptions => {
     databaseHooks: {
       user: {
         create: {
-          before: async (user) => {
+          before: (user) => {
             const name = user.name?.trim() || user.email?.split("@")[0] || nanoid();
             const image = user.image || `https://ui-avatars.com/api/?name=${name}`;
 
-            return {
+            return Promise.resolve({
               data: {
                 name,
                 image,
               },
-            };
+            });
           },
           after: async (user) => {
             await sendEmail({

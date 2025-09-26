@@ -6,8 +6,8 @@ import { CTASection } from "./_components/cta-section";
 import { FeaturesSection } from "./_components/features-section";
 import { HeroSection } from "./_components/hero-section";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return createMetadata({
+export const generateMetadata = async (): Promise<Metadata> =>
+  createMetadata({
     title: `${appConfig.name} - Build AI-Powered Applications`,
     description:
       "The complete platform for building, deploying, and scaling AI-powered applications with enterprise-grade security and performance.",
@@ -19,11 +19,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
       "enterprise",
     ],
   });
-};
 
-export default async function LandingPage() {
+export default function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />

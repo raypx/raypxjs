@@ -20,13 +20,13 @@ import { useOnSuccessTransition } from "../../core/hooks/use-success-transition"
 import { getLocalizedError } from "../../core/lib/utils";
 import type { AuthFormClassNames } from "./auth-form";
 
-export interface RecoverAccountFormProps {
+export type RecoverAccountFormProps = {
   className?: string;
   classNames?: AuthFormClassNames;
   isSubmitting?: boolean;
   redirectTo?: string;
   setIsSubmitting?: (value: boolean) => void;
-}
+};
 
 export function RecoverAccountForm({
   className,
@@ -79,8 +79,8 @@ export function RecoverAccountForm({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(verifyBackupCode)}
         className={cn("grid gap-6", className, classNames?.base)}
+        onSubmit={form.handleSubmit(verifyBackupCode)}
       >
         <FormField
           control={form.control}
@@ -91,10 +91,10 @@ export function RecoverAccountForm({
 
               <FormControl>
                 <Input
-                  placeholder={t("BACKUP_CODE_PLACEHOLDER")}
                   autoComplete="off"
                   className={classNames?.input}
                   disabled={isSubmitting}
+                  placeholder={t("BACKUP_CODE_PLACEHOLDER")}
                   {...field}
                 />
               </FormControl>
@@ -105,9 +105,9 @@ export function RecoverAccountForm({
         />
 
         <Button
-          type="submit"
-          disabled={isSubmitting}
           className={cn(classNames?.button, classNames?.primaryButton)}
+          disabled={isSubmitting}
+          type="submit"
         >
           {isSubmitting ? <Loader2 className="animate-spin" /> : t("RECOVER_ACCOUNT_ACTION")}
         </Button>

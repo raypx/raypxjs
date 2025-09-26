@@ -12,12 +12,12 @@ import { useEffect, useState } from "react";
 import { useRouter as useLocaleRouter } from "@/components/link";
 import { Routes } from "@/config/routes.config";
 
-interface LoginWrapperProps {
+type LoginWrapperProps = {
   children: React.ReactNode;
   mode?: "modal" | "redirect";
   asChild?: boolean;
   callbackUrl?: string;
-}
+};
 
 export const LoginWrapper = ({
   children,
@@ -50,13 +50,13 @@ export const LoginWrapper = ({
 
   if (mode === "modal") {
     return (
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Dialog onOpenChange={setIsModalOpen} open={isModalOpen}>
         <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
-        <DialogContent className="sm:max-w-[400px] p-0">
+        <DialogContent className="p-0 sm:max-w-[400px]">
           <DialogHeader className="hidden">
             <DialogTitle />
           </DialogHeader>
-          <AuthView view="SIGN_IN" className="border-none" />
+          <AuthView className="border-none" view="SIGN_IN" />
         </DialogContent>
       </Dialog>
     );
@@ -64,9 +64,9 @@ export const LoginWrapper = ({
 
   return (
     <button
-      type="button"
+      className="cursor-pointer border-none bg-transparent p-0"
       onClick={handleLogin}
-      className="cursor-pointer bg-transparent border-none p-0"
+      type="button"
     >
       {children}
     </button>

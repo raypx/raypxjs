@@ -76,7 +76,7 @@ export class EmailWebhookHandler {
     }
   }
 
-  static async handleWebhookEvent(event: WebhookEvent): Promise<void> {
+  static handleWebhookEvent(event: WebhookEvent): Promise<void> | void {
     try {
       console.log(`Processing generic webhook event: ${event.type}`);
       // Handle generic webhook events here - can be extended for other providers
@@ -90,7 +90,7 @@ export class EmailWebhookHandler {
     payload: string,
     signature: string,
     secret: string,
-    event: ResendWebhookEvent,
+    event: ResendWebhookEvent
   ): Promise<void> {
     if (!EmailWebhookHandler.verifyResendSignature(payload, signature, secret)) {
       throw new Error("Invalid webhook signature");
@@ -117,7 +117,7 @@ export const handleClickTracking = async (
   emailId: string,
   url: string,
   userAgent?: string,
-  ip?: string,
+  ip?: string
 ) => {
   try {
     await trackEmailEvent({

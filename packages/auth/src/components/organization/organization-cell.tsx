@@ -18,11 +18,11 @@ import { getLocalizedError } from "../../core/lib/utils";
 import { LeaveOrganizationDialog } from "./leave-organization-dialog";
 import { OrganizationCellView } from "./organization-cell-view";
 
-export interface OrganizationCellProps {
+export type OrganizationCellProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   organization: Organization;
-}
+};
 
 export function OrganizationCell({ className, classNames, organization }: OrganizationCellProps) {
   const { authClient, t, organization: organizationOptions, navigate, toast } = useAuth();
@@ -37,7 +37,7 @@ export function OrganizationCell({ className, classNames, organization }: Organi
 
     if (pathMode === "slug") {
       navigate(
-        `${organizationOptions?.basePath}/${organization.slug}/${organizationOptions?.viewPaths.SETTINGS}`,
+        `${organizationOptions?.basePath}/${organization.slug}/${organizationOptions?.viewPaths.SETTINGS}`
       );
 
       return;
@@ -95,7 +95,7 @@ export function OrganizationCell({ className, classNames, organization }: Organi
           </DropdownMenuTrigger>
 
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={handleManageOrganization} disabled={isManagingOrganization}>
+            <DropdownMenuItem disabled={isManagingOrganization} onClick={handleManageOrganization}>
               <SettingsIcon className={classNames?.icon} />
 
               {t("MANAGE_ORGANIZATION")}
@@ -111,8 +111,8 @@ export function OrganizationCell({ className, classNames, organization }: Organi
       </Card>
 
       <LeaveOrganizationDialog
-        open={isLeaveDialogOpen}
         onOpenChange={setIsLeaveDialogOpen}
+        open={isLeaveDialogOpen}
         organization={organization}
       />
     </>

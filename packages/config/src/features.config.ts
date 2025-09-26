@@ -22,14 +22,14 @@ const featuresConfig = FeaturesConfigSchema.parse({
   enableThemeToggle: getBoolean(process.env.NEXT_PUBLIC_ENABLE_THEME_TOGGLE, true),
   enableAccountDeletion: getBoolean(
     process.env.NEXT_PUBLIC_ENABLE_PERSONAL_ACCOUNT_DELETION,
-    false,
+    false
   ),
   enableTeamDeletion: getBoolean(process.env.NEXT_PUBLIC_ENABLE_TEAM_ACCOUNTS_DELETION, false),
   enableTeamAccounts: getBoolean(process.env.NEXT_PUBLIC_ENABLE_TEAM_ACCOUNTS, true),
   enableTeamCreation: getBoolean(process.env.NEXT_PUBLIC_ENABLE_TEAM_ACCOUNTS_CREATION, true),
   enablePersonalAccountBilling: getBoolean(
     process.env.NEXT_PUBLIC_ENABLE_PERSONAL_ACCOUNT_BILLING,
-    false,
+    false
   ),
   enableTeamAccountBilling: getBoolean(process.env.NEXT_PUBLIC_ENABLE_TEAM_ACCOUNTS_BILLING, false),
   languagePriority: process.env.NEXT_PUBLIC_LANGUAGE_PRIORITY as LanguagePriority,

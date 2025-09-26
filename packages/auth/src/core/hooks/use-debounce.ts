@@ -32,7 +32,7 @@ export function useDebounce<T>(value: T, delay: number): T {
  */
 export function useDebouncedCallback<T extends unknown[]>(
   callback: (...args: T) => void,
-  delay: number,
+  delay: number
 ) {
   const callbackRef = useRef(callback);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -43,13 +43,14 @@ export function useDebouncedCallback<T extends unknown[]>(
   }, [callback]);
 
   // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-    };
-  }, []);
+    },
+    []
+  );
 
   const debouncedCallback = useCallback(
     (...args: T) => {
@@ -61,7 +62,7 @@ export function useDebouncedCallback<T extends unknown[]>(
         callbackRef.current(...args);
       }, delay);
     },
-    [delay],
+    [delay]
   );
 
   return debouncedCallback;
@@ -78,7 +79,7 @@ export function useDebouncedCallback<T extends unknown[]>(
 export function useDebouncedValidation<T>(
   value: T,
   validate: (value: T) => Promise<string | null> | string | null,
-  delay: number = 300,
+  delay = 300
 ) {
   const [error, setError] = useState<string | null>(null);
   const [isValidating, setIsValidating] = useState(false);

@@ -3,7 +3,7 @@ import type { InferSelectModel } from "drizzle-orm";
 
 export type User = InferSelectModel<typeof schemas.user>;
 
-export interface UserListOptions {
+export type UserListOptions = {
   limit?: number;
   offset?: number;
   search?: string;
@@ -11,14 +11,14 @@ export interface UserListOptions {
   sortOrder?: "asc" | "desc";
   role?: string;
   status?: "active" | "banned";
-}
+};
 
-export interface UpdateUserData {
+export type UpdateUserData = {
   banned?: boolean;
   banReason?: string;
   banExpires?: Date;
   role?: string;
-}
+};
 
 export class UserService {
   /**

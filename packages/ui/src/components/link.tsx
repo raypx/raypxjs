@@ -30,11 +30,11 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     if (external || (typeof props.href === "string" && props.href.startsWith("http"))) {
       return (
         <a
-          ref={ref}
-          href={typeof props.href === "string" ? props.href : props.href?.toString()}
           className={className}
-          target="_blank"
+          href={typeof props.href === "string" ? props.href : props.href?.toString()}
+          ref={ref}
           rel="noopener noreferrer"
+          target="_blank"
           {...(props as ComponentProps<"a">)}
         >
           {children}
@@ -44,11 +44,11 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
     // Internal links using Next.js Link
     return (
-      <NextLink ref={ref} className={className} {...props}>
+      <NextLink className={className} ref={ref} {...props}>
         {children}
       </NextLink>
     );
-  },
+  }
 );
 
 Link.displayName = "Link";

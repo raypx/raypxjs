@@ -34,20 +34,21 @@ export function UserInvitationsCard({ className, classNames, ...props }: Setting
 
   const pendingInvitations = invitations?.filter((invitation) => invitation.status === "pending");
 
-  if (!pendingInvitations?.length) return null;
+  if (!pendingInvitations?.length) {
+    return null;
+  }
 
   return (
     <SettingsCard
       className={className}
       classNames={classNames}
-      title={t("PENDING_INVITATIONS")}
       description={t("PENDING_USER_INVITATIONS_DESCRIPTION")}
+      title={t("PENDING_INVITATIONS")}
       {...props}
     >
       <CardContent className={cn("grid gap-4", classNames?.content)}>
         {pendingInvitations.map((invitation) => (
           <UserInvitationRow
-            key={invitation.id}
             classNames={classNames}
             invitation={{
               id: invitation.id,
@@ -56,6 +57,7 @@ export function UserInvitationsCard({ className, classNames, ...props }: Setting
               status: invitation.status,
               expiresAt: invitation.expiresAt,
             }}
+            key={invitation.id}
             onChanged={handleRefresh}
           />
         ))}
@@ -177,13 +179,13 @@ function UserInvitationRow({
           </DropdownMenuTrigger>
 
           <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()}>
-            <DropdownMenuItem onClick={handleAccept} disabled={isLoading}>
+            <DropdownMenuItem disabled={isLoading} onClick={handleAccept}>
               <Check className={classNames?.icon} />
 
               {t("ACCEPT")}
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={handleReject} disabled={isLoading} variant="destructive">
+            <DropdownMenuItem disabled={isLoading} onClick={handleReject} variant="destructive">
               <X className={classNames?.icon} />
 
               {t("REJECT")}

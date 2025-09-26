@@ -25,19 +25,21 @@ export const LangSwitcher = () => {
   const currentLocale = locales.find((l) => l.code === locale);
 
   const handleLocaleChange = (newLocale: string) => {
-    if (newLocale === locale) return;
+    if (newLocale === locale) {
+      return;
+    }
 
     setIsOpen(false);
     setUserLocale(newLocale);
   };
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          className="size-8 cursor-pointer rounded-full border border-border p-0.5"
           size="sm"
-          className="size-8 p-0.5 border border-border rounded-full cursor-pointer"
+          variant="ghost"
         >
           <Languages className="size-3" />
           <span className="sr-only">{currentLocale?.name}</span>
@@ -46,18 +48,18 @@ export const LangSwitcher = () => {
       <DropdownMenuContent align="end" className="w-48">
         {locales.map((loc) => (
           <DropdownMenuItem
+            className={cn(
+              "flex cursor-pointer items-center justify-between",
+              locale === loc.code && "bg-accent"
+            )}
             key={loc.code}
             onClick={() => handleLocaleChange(loc.code)}
-            className={cn(
-              "flex items-center justify-between cursor-pointer",
-              locale === loc.code && "bg-accent",
-            )}
           >
             <div className="flex items-center gap-3">
               <span className="text-lg">{loc.flag}</span>
               <div className="flex flex-col">
-                <span className="text-sm font-medium">{loc.nativeName}</span>
-                <span className="text-xs text-muted-foreground">{loc.name}</span>
+                <span className="font-medium text-sm">{loc.nativeName}</span>
+                <span className="text-muted-foreground text-xs">{loc.name}</span>
               </div>
             </div>
             {locale === loc.code && <Check className="h-4 w-4 text-primary" />}

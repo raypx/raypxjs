@@ -7,11 +7,17 @@ import { useIsHydrated } from "../../core/hooks/use-hydrated";
 import { useLang } from "../../core/hooks/use-lang";
 import { useTheme } from "../../core/hooks/use-theme";
 
-export function RecaptchaV3({ children }: { children: ReactNode }) {
+type RecaptchaV3Props = {
+  children: ReactNode;
+};
+
+export function RecaptchaV3({ children }: RecaptchaV3Props) {
   const isHydrated = useIsHydrated();
   const { captcha } = useAuth();
 
-  if (captcha?.provider !== "google-recaptcha-v3") return children;
+  if (captcha?.provider !== "google-recaptcha-v3") {
+    return children;
+  }
 
   return (
     <GoogleReCaptchaProvider
@@ -49,15 +55,19 @@ function RecaptchaV3Style() {
   const { lang } = useLang();
 
   useEffect(() => {
-    if (!executeRecaptcha) return;
+    if (!executeRecaptcha) {
+      return;
+    }
 
-    const updateRecaptcha = async () => {
+    const updateRecaptcha = () => {
       // find iframe with title "reCAPTCHA"
       const iframe = document.querySelector("iframe[title='reCAPTCHA']") as HTMLIFrameElement;
       if (iframe) {
         const iframeSrcUrl = new URL(iframe.src);
         iframeSrcUrl.searchParams.set("theme", theme);
-        if (lang) iframeSrcUrl.searchParams.set("hl", lang);
+        if (lang) {
+          iframeSrcUrl.searchParams.set("hl", lang);
+        }
         iframe.src = iframeSrcUrl.toString();
       }
     };

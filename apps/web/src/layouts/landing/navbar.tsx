@@ -32,17 +32,17 @@ import { LoginWrapper } from "@/layouts/landing/login-wrapper";
 import appConfig from "../../config/app.config";
 import { NavbarMobile } from "./navbar-mobile";
 
-interface NavBarProps {
+type NavBarProps = {
   scroll?: boolean;
-}
+};
 
 const customNavigationMenuTriggerStyle = cn(
   navigationMenuTriggerStyle(),
-  "relative bg-transparent text-muted-foreground cursor-pointer",
+  "relative cursor-pointer bg-transparent text-muted-foreground",
   "hover:bg-accent hover:text-accent-foreground",
   "focus:bg-accent focus:text-accent-foreground",
-  "data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground",
-  "data-[state=open]:bg-transparent data-[state=open]:text-accent-foreground",
+  "data-active:bg-transparent data-active:font-semibold data-active:text-accent-foreground",
+  "data-[state=open]:bg-transparent data-[state=open]:text-accent-foreground"
 );
 
 export function Navbar({ scroll }: NavBarProps) {
@@ -70,9 +70,9 @@ export function Navbar({ scroll }: NavBarProps) {
         "sticky inset-x-0 top-0 z-40 py-4 transition-all duration-300",
         scroll
           ? scrolled
-            ? "bg-muted/50 backdrop-blur-md border-b supports-backdrop-filter:bg-muted/50"
+            ? "border-b bg-muted/50 backdrop-blur-md supports-backdrop-filter:bg-muted/50"
             : "bg-transparent"
-          : "border-b bg-muted/50",
+          : "border-b bg-muted/50"
       )}
     >
       <Container className="px-4">
@@ -80,28 +80,28 @@ export function Navbar({ scroll }: NavBarProps) {
         <nav className="hidden lg:flex">
           {/* logo and name */}
           <div className="flex items-center">
-            <LocaleLink href="/" className="flex items-center space-x-2">
+            <LocaleLink className="flex items-center space-x-2" href="/">
               <Logo />
-              <span className="text-xl font-semibold">{appConfig.name}</span>
+              <span className="font-semibold text-xl">{appConfig.name}</span>
             </LocaleLink>
           </div>
 
           {/* menu links */}
-          <div className="flex-1 flex items-center justify-center space-x-2">
+          <div className="flex flex-1 items-center justify-center space-x-2">
             <NavigationMenu className="relative">
               <NavigationMenuList className="flex items-center">
                 {menuLinks?.map((item, index) =>
                   item.items ? (
-                    <NavigationMenuItem key={index} className="relative">
+                    <NavigationMenuItem className="relative" key={index}>
                       <NavigationMenuTrigger
+                        className={customNavigationMenuTriggerStyle}
                         data-active={
                           item.items.some((subItem) =>
-                            subItem.href ? localePathname.startsWith(subItem.href) : false,
+                            subItem.href ? localePathname.startsWith(subItem.href) : false
                           )
                             ? "true"
                             : undefined
                         }
-                        className={customNavigationMenuTriggerStyle}
                       >
                         {item.title}
                       </NavigationMenuTrigger>
@@ -114,16 +114,16 @@ export function Navbar({ scroll }: NavBarProps) {
                               <li key={subIndex}>
                                 <NavigationMenuLink asChild>
                                   <LocaleLink
-                                    href={subItem.href || "#"}
-                                    target={subItem.external ? "_blank" : undefined}
-                                    rel={subItem.external ? "noopener noreferrer" : undefined}
                                     className={cn(
                                       "group flex select-none flex-row items-center gap-4 rounded-md",
                                       "p-2 leading-none no-underline outline-hidden transition-colors",
                                       "hover:bg-accent hover:text-accent-foreground",
                                       "focus:bg-accent focus:text-accent-foreground",
-                                      isSubItemActive && "bg-accent text-accent-foreground",
+                                      isSubItemActive && "bg-accent text-accent-foreground"
                                     )}
+                                    href={subItem.href || "#"}
+                                    rel={subItem.external ? "noopener noreferrer" : undefined}
+                                    target={subItem.external ? "_blank" : undefined}
                                   >
                                     <div
                                       className={cn(
@@ -131,7 +131,7 @@ export function Navbar({ scroll }: NavBarProps) {
                                         "bg-transparent text-muted-foreground",
                                         "group-hover:bg-transparent group-hover:text-accent-foreground",
                                         "group-focus:bg-transparent group-focus:text-accent-foreground",
-                                        isSubItemActive && "bg-transparent text-accent-foreground",
+                                        isSubItemActive && "bg-transparent text-accent-foreground"
                                       )}
                                     >
                                       {subItem.icon ? subItem.icon : null}
@@ -139,11 +139,10 @@ export function Navbar({ scroll }: NavBarProps) {
                                     <div className="flex-1">
                                       <div
                                         className={cn(
-                                          "text-sm font-medium text-muted-foreground",
+                                          "font-medium text-muted-foreground text-sm",
                                           "group-hover:bg-transparent group-hover:text-accent-foreground",
                                           "group-focus:bg-transparent group-focus:text-accent-foreground",
-                                          isSubItemActive &&
-                                            "bg-transparent text-accent-foreground",
+                                          isSubItemActive && "bg-transparent text-accent-foreground"
                                         )}
                                       >
                                         {subItem.title}
@@ -151,11 +150,11 @@ export function Navbar({ scroll }: NavBarProps) {
                                       {subItem.description && (
                                         <div
                                           className={cn(
-                                            "text-sm text-muted-foreground",
+                                            "text-muted-foreground text-sm",
                                             "group-hover:bg-transparent group-hover:text-accent-foreground/80",
                                             "group-focus:bg-transparent group-focus:text-accent-foreground/80",
                                             isSubItemActive &&
-                                              "bg-transparent text-accent-foreground/80",
+                                              "bg-transparent text-accent-foreground/80"
                                           )}
                                         >
                                           {subItem.description}
@@ -168,8 +167,7 @@ export function Navbar({ scroll }: NavBarProps) {
                                           "size-4 shrink-0 text-muted-foreground",
                                           "group-hover:bg-transparent group-hover:text-accent-foreground",
                                           "group-focus:bg-transparent group-focus:text-accent-foreground",
-                                          isSubItemActive &&
-                                            "bg-transparent text-accent-foreground",
+                                          isSubItemActive && "bg-transparent text-accent-foreground"
                                         )}
                                       />
                                     )}
@@ -184,7 +182,6 @@ export function Navbar({ scroll }: NavBarProps) {
                   ) : (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink
-                        asChild
                         active={
                           item.href
                             ? item.href === "/"
@@ -192,18 +189,19 @@ export function Navbar({ scroll }: NavBarProps) {
                               : localePathname.startsWith(item.href)
                             : false
                         }
+                        asChild
                         className={customNavigationMenuTriggerStyle}
                       >
                         <LocaleLink
                           href={item.href || "#"}
-                          target={item.external ? "_blank" : undefined}
                           rel={item.external ? "noopener noreferrer" : undefined}
+                          target={item.external ? "_blank" : undefined}
                         >
                           {item.title}
                         </LocaleLink>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
-                  ),
+                  )
                 )}
               </NavigationMenuList>
             </NavigationMenu>
@@ -212,7 +210,7 @@ export function Navbar({ scroll }: NavBarProps) {
           {/* navbar right show sign in or user */}
           <div className="flex items-center gap-x-4">
             {!mounted || isPending ? (
-              <Skeleton className="size-8 border rounded-full" />
+              <Skeleton className="size-8 rounded-full border" />
             ) : currentUser ? (
               <>
                 <OrganizationSwitcher />
@@ -221,20 +219,20 @@ export function Navbar({ scroll }: NavBarProps) {
               </>
             ) : (
               <div className="flex items-center gap-x-4">
-                <LoginWrapper mode="modal" asChild>
-                  <Button variant="outline" size="sm" className="cursor-pointer">
+                <LoginWrapper asChild mode="modal">
+                  <Button className="cursor-pointer" size="sm" variant="outline">
                     {t("common.login")}
                   </Button>
                 </LoginWrapper>
 
                 <LocaleLink
-                  href={Routes.Register}
                   className={cn(
                     buttonVariants({
                       variant: "default",
                       size: "sm",
-                    }),
+                    })
                   )}
+                  href={Routes.Register}
                 >
                   {t("common.signUp")}
                 </LocaleLink>

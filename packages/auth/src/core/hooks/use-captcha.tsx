@@ -34,7 +34,9 @@ export function useCaptcha() {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const executeCaptcha = async (action: string) => {
-    if (!captcha) throw new Error(t("MISSING_RESPONSE"));
+    if (!captcha) {
+      throw new Error(t("MISSING_RESPONSE"));
+    }
 
     // Sanitize the action name for reCAPTCHA
     let response: string | undefined | null;
@@ -65,6 +67,9 @@ export function useCaptcha() {
         response = hcaptchaRef.current.getResponse();
         break;
       }
+      default: {
+        break;
+      }
     }
 
     if (!response) {
@@ -75,7 +80,9 @@ export function useCaptcha() {
   };
 
   const getCaptchaHeaders = async (action: string) => {
-    if (!captcha) return undefined;
+    if (!captcha) {
+      return;
+    }
 
     // Use custom endpoints if provided, otherwise use defaults
     const endpoints = captcha.endpoints || DEFAULT_CAPTCHA_ENDPOINTS;
@@ -85,11 +92,13 @@ export function useCaptcha() {
       return { "x-captcha-response": await executeCaptcha(action) };
     }
 
-    return undefined;
+    return;
   };
 
   const resetCaptcha = () => {
-    if (!captcha) return;
+    if (!captcha) {
+      return;
+    }
 
     switch (captcha.provider) {
       case "google-recaptcha-v3": {
@@ -112,6 +121,9 @@ export function useCaptcha() {
         const hcaptchaRef = captchaRef as RefObject<HCaptcha>;
         // HCaptcha uses resetCaptcha()
         hcaptchaRef.current?.resetCaptcha?.();
+        break;
+      }
+      default: {
         break;
       }
     }

@@ -94,21 +94,21 @@ export function LeaveOrganizationDialog({
 
         <DialogFooter className={classNames?.dialog?.footer}>
           <Button
-            type="button"
-            variant="outline"
-            onClick={() => onOpenChange?.(false)}
             className={cn(classNames?.button, classNames?.outlineButton)}
             disabled={isLeaving}
+            onClick={() => onOpenChange?.(false)}
+            type="button"
+            variant="outline"
           >
             {t("CANCEL")}
           </Button>
 
           <Button
-            type="button"
-            variant="destructive"
-            onClick={handleLeaveOrganization}
             className={cn(classNames?.button, classNames?.destructiveButton)}
             disabled={isLeaving}
+            onClick={handleLeaveOrganization}
+            type="button"
+            variant="destructive"
           >
             {isLeaving && <Loader2 className="animate-spin" />}
 

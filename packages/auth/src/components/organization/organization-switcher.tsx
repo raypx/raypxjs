@@ -31,7 +31,7 @@ import { CreateOrganizationDialog } from "./create-organization-dialog";
 import { OrganizationCellView, type OrganizationViewClassNames } from "./organization-cell-view";
 import { OrganizationLogo } from "./organization-logo";
 
-export interface OrganizationSwitcherClassNames {
+export type OrganizationSwitcherClassNames = {
   base?: string;
   skeleton?: string;
   trigger?: {
@@ -49,7 +49,7 @@ export interface OrganizationSwitcherClassNames {
     menuItem?: string;
     separator?: string;
   };
-}
+};
 
 export interface OrganizationSwitcherProps extends Omit<ComponentProps<typeof Button>, "trigger"> {
   classNames?: OrganizationSwitcherClassNames;
@@ -123,10 +123,12 @@ export function OrganizationSwitcher({
     organizationsPending || sessionPending || activeOrganizationPending || organizationPending;
 
   useEffect(() => {
-    if (organizationRefetching) return;
+    if (organizationRefetching) {
+      return;
+    }
 
     setActiveOrganizationPending(false);
-  }, [activeOrganization, organizationRefetching]);
+  }, [organizationRefetching]);
 
   const switchOrganization = useCallback(
     async (organization: Organization | null) => {
@@ -142,7 +144,7 @@ export function OrganizationSwitcher({
           navigate(
             personalPath ??
               buildAccountUrl(accountOptions?.basePath, accountOptions?.viewPaths.SETTINGS) ??
-              redirectTo,
+              redirectTo
           );
         }
 
@@ -180,7 +182,9 @@ export function OrganizationSwitcher({
       organizationOptions?.basePath,
       redirectTo,
       navigate,
-    ],
+      accountOptions?.basePath,
+      accountOptions?.viewPaths.SETTINGS,
+    ]
   );
 
   // Auto-select first organization when hidePersonal is true
@@ -210,15 +214,15 @@ export function OrganizationSwitcher({
 
   return (
     <>
-      <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+      <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
         <DropdownMenuTrigger asChild>
           {trigger ||
             (size === "icon" ? (
               <Button
-                size="icon"
                 className={cn("size-fit rounded-full", className, classNames?.trigger?.base)}
-                variant="ghost"
+                size="icon"
                 type="button"
+                variant="ghost"
                 {...props}
               >
                 {isPending ||
@@ -227,20 +231,20 @@ export function OrganizationSwitcher({
                 (user as User)?.isAnonymous ||
                 hidePersonal ? (
                   <OrganizationLogo
-                    key={activeOrganization?.logo}
+                    aria-label={t("ORGANIZATION")}
                     className={cn(className, classNames?.base)}
                     classNames={classNames?.trigger?.avatar}
                     isPending={isPending}
+                    key={activeOrganization?.logo}
                     organization={activeOrganization}
-                    aria-label={t("ORGANIZATION")}
                   />
                 ) : (
                   <UserAvatar
-                    key={user?.image}
+                    aria-label={t("ACCOUNT")}
                     className={cn(className, classNames?.base)}
                     classNames={classNames?.trigger?.avatar}
+                    key={user?.image}
                     user={user}
-                    aria-label={t("ACCOUNT")}
                   />
                 )}
               </Button>
@@ -275,17 +279,17 @@ export function OrganizationSwitcher({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
+          align={align}
           className={cn(
             "w-[--radix-dropdown-menu-trigger-width] min-w-56 max-w-64",
-            classNames?.content?.base,
+            classNames?.content?.base
           )}
-          align={align}
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
           <div
             className={cn(
               "flex items-center justify-between gap-2 p-2",
-              classNames?.content?.menuItem,
+              classNames?.content?.menuItem
             )}
           >
             {(user && !(user as User).isAnonymous) || isPending ? (
@@ -312,19 +316,19 @@ export function OrganizationSwitcher({
                             organizationOptions?.basePath,
                             organizationOptions?.viewPaths.SETTINGS,
                             activeOrganization?.slug,
-                            organizationOptions?.pathMode,
+                            organizationOptions?.pathMode
                           )
                         : buildAccountUrl(
                             accountOptions?.basePath,
-                            accountOptions?.viewPaths.SETTINGS,
+                            accountOptions?.viewPaths.SETTINGS
                           )
                     }
                   >
                     <Button
-                      size="icon"
-                      variant="outline"
                       className="!size-8 ml-auto"
                       onClick={() => setDropdownOpen(false)}
+                      size="icon"
+                      variant="outline"
                     >
                       <SettingsIcon className="size-4" />
                     </Button>
@@ -361,7 +365,7 @@ export function OrganizationSwitcher({
                     organization={organization}
                   />
                 </DropdownMenuItem>
-              ),
+              )
           )}
 
           {organizations &&
@@ -398,8 +402,8 @@ export function OrganizationSwitcher({
       </DropdownMenu>
 
       <CreateOrganizationDialog
-        open={isCreateOrgDialogOpen}
         onOpenChange={setIsCreateOrgDialogOpen}
+        open={isCreateOrgDialogOpen}
       />
     </>
   );

@@ -77,7 +77,9 @@ export function OrganizationView({
   }
 
   useEffect(() => {
-    if (organization || organizationPending || organizationRefetching) return;
+    if (organization || organizationPending || organizationRefetching) {
+      return;
+    }
 
     replace(`${accountOptions?.basePath}/${accountOptions?.viewPaths?.ORGANIZATIONS}`);
   }, [
@@ -94,7 +96,7 @@ export function OrganizationView({
       className={cn(
         "flex w-full grow flex-col gap-4 md:flex-row md:gap-12",
         className,
-        classNames?.base,
+        classNames?.base
       )}
     >
       {!hideNav && (
@@ -117,21 +119,21 @@ export function OrganizationView({
               <div className="flex flex-col px-4 pb-4">
                 {navItems.map((item) => (
                   <Link
-                    key={item.view}
                     href={buildOrganizationUrl(
                       organizationOptions?.basePath,
                       organizationOptions?.viewPaths[item.view],
                       slug,
-                      organizationOptions?.pathMode,
+                      organizationOptions?.pathMode
                     )}
+                    key={item.view}
                   >
                     <Button
-                      size="lg"
                       className={cn(
                         "w-full justify-start px-4 transition-none",
                         classNames?.drawer?.menuItem,
-                        view === item.view ? "font-semibold" : "text-foreground/70",
+                        view === item.view ? "font-semibold" : "text-foreground/70"
                       )}
+                      size="lg"
                       variant="ghost"
                     >
                       {item.label}
@@ -149,22 +151,22 @@ export function OrganizationView({
           <div className={cn("flex w-48 flex-col gap-1 lg:w-60", classNames?.sidebar?.base)}>
             {navItems.map((item) => (
               <Link
-                key={item.view}
                 href={buildOrganizationUrl(
                   organizationOptions?.basePath,
                   organizationOptions?.viewPaths[item.view],
                   slug,
-                  organizationOptions?.pathMode,
+                  organizationOptions?.pathMode
                 )}
+                key={item.view}
               >
                 <Button
-                  size="lg"
                   className={cn(
                     "w-full justify-start px-4 transition-none",
                     classNames?.sidebar?.button,
                     view === item.view ? "font-semibold" : "text-foreground/70",
-                    view === item.view && classNames?.sidebar?.buttonActive,
+                    view === item.view && classNames?.sidebar?.buttonActive
                   )}
+                  size="lg"
                   variant="ghost"
                 >
                   {item.label}

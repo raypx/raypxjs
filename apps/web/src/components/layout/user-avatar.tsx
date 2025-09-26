@@ -1,11 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@raypx/ui/components/avatar";
 import { User2Icon } from "lucide-react";
 
-interface UserAvatarProps {
+type UserAvatarProps = {
   className?: string;
   name: string;
   image: string | null | undefined;
-}
+};
 
 /**
  * User avatar component, used in navbar and sidebar
@@ -18,7 +18,7 @@ interface UserAvatarProps {
 export function UserAvatar({ name, image, ...props }: UserAvatarProps) {
   return (
     <Avatar {...props}>
-      <AvatarImage alt={name} title={name} src={image ?? undefined} />
+      <AvatarImage alt={name} src={image ?? undefined} title={name} />
       <AvatarFallback>
         <span className="sr-only">{name}</span>
         <User2Icon className="size-4" />

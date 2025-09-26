@@ -140,7 +140,7 @@ export function DeleteAccountDialog({
         </Card>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(deleteAccount)} className="grid gap-6">
+          <form className="grid gap-6" onSubmit={form.handleSubmit(deleteAccount)}>
             {credentialsLinked && (
               <FormField
                 control={form.control}
@@ -152,9 +152,9 @@ export function DeleteAccountDialog({
                     <FormControl>
                       <Input
                         autoComplete="current-password"
+                        className={classNames?.input}
                         placeholder={t("PASSWORD_PLACEHOLDER")}
                         type="password"
-                        className={classNames?.input}
                         {...field}
                       />
                     </FormControl>
@@ -167,10 +167,10 @@ export function DeleteAccountDialog({
 
             <DialogFooter className={classNames?.dialog?.footer}>
               <Button
-                type="button"
-                variant="secondary"
                 className={cn(classNames?.button, classNames?.secondaryButton)}
                 onClick={() => onOpenChange?.(false)}
+                type="button"
+                variant="secondary"
               >
                 {t("CANCEL")}
               </Button>
@@ -178,8 +178,8 @@ export function DeleteAccountDialog({
               <Button
                 className={cn(classNames?.button, classNames?.destructiveButton)}
                 disabled={isSubmitting}
-                variant="destructive"
                 type="submit"
+                variant="destructive"
               >
                 {isSubmitting && <Loader2 className="animate-spin" />}
                 {isFresh ? t("DELETE_ACCOUNT") : t("SIGN_OUT")}

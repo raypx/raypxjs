@@ -28,7 +28,7 @@
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "typescript": "catalog:",
+    "typescript": "catalog:dev",
     "vitest": "catalog:"
   }
 }

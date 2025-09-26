@@ -14,7 +14,9 @@ export function SignOut() {
   });
 
   useEffect(() => {
-    if (signingOut.current) return;
+    if (signingOut.current) {
+      return;
+    }
     signingOut.current = true;
 
     authClient.signOut().finally(onSuccess);

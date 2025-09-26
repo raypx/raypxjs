@@ -28,7 +28,7 @@ async function getGitHash() {
     return await getHashFromProcess();
   } catch (error) {
     console.warn(
-      `[WARN] Could not find git hash: ${JSON.stringify(error)}. You may want to provide a fallback.`,
+      `[WARN] Could not find git hash: ${JSON.stringify(error)}. You may want to provide a fallback.`
     );
 
     return "";
@@ -40,7 +40,7 @@ async function getHashFromProcess() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     if (process.env.NODE_ENV !== "development") {
       console.warn(
-        `[WARN] Could not find git hash in environment variables. Falling back to git command. Supply a known git hash environment variable to avoid this warning.`,
+        "[WARN] Could not find git hash in environment variables. Falling back to git command. Supply a known git hash environment variable to avoid this warning."
       );
     }
 
@@ -50,6 +50,6 @@ async function getHashFromProcess() {
   }
 
   console.log(
-    `[INFO] Could not find git hash in environment variables. Falling back to git command. Supply a known git hash environment variable to avoid this warning.`,
+    "[INFO] Could not find git hash in environment variables. Falling back to git command. Supply a known git hash environment variable to avoid this warning."
   );
 }

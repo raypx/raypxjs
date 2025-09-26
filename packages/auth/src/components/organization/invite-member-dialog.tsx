@@ -76,7 +76,7 @@ export function InviteMemberDialog({
 
   const roles = [...builtInRoles, ...(organizationOptions?.customRoles || [])];
   const availableRoles = roles.filter(
-    (role) => membership?.role === "owner" || role.role !== "owner",
+    (role) => membership?.role === "owner" || role.role !== "owner"
   );
 
   const formSchema = z.object({
@@ -140,7 +140,7 @@ export function InviteMemberDialog({
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="email"
@@ -169,7 +169,7 @@ export function InviteMemberDialog({
                 <FormItem>
                   <FormLabel className={classNames?.label}>{t("ROLE")}</FormLabel>
 
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select defaultValue={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue />
@@ -192,18 +192,18 @@ export function InviteMemberDialog({
 
             <DialogFooter className={classNames?.dialog?.footer}>
               <Button
+                className={cn(classNames?.button, classNames?.outlineButton)}
+                onClick={() => onOpenChange?.(false)}
                 type="button"
                 variant="outline"
-                onClick={() => onOpenChange?.(false)}
-                className={cn(classNames?.button, classNames?.outlineButton)}
               >
                 {t("CANCEL")}
               </Button>
 
               <Button
-                type="submit"
                 className={cn(classNames?.button, classNames?.primaryButton)}
                 disabled={isSubmitting}
+                type="submit"
               >
                 {isSubmitting && <Loader2 className="animate-spin" />}
 

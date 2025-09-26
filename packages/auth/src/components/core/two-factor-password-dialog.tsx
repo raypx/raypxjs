@@ -120,8 +120,8 @@ export function TwoFactorPasswordDialog({
 
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(isTwoFactorEnabled ? disableTwoFactor : enableTwoFactor)}
               className="grid gap-4"
+              onSubmit={form.handleSubmit(isTwoFactorEnabled ? disableTwoFactor : enableTwoFactor)}
             >
               <FormField
                 control={form.control}
@@ -131,9 +131,9 @@ export function TwoFactorPasswordDialog({
                     <FormLabel className={classNames?.label}>{t("PASSWORD")}</FormLabel>
                     <FormControl>
                       <PasswordField
+                        autoComplete="current-password"
                         className={classNames?.input}
                         placeholder={t("PASSWORD_PLACEHOLDER")}
-                        autoComplete="current-password"
                         {...field}
                       />
                     </FormControl>
@@ -144,18 +144,18 @@ export function TwoFactorPasswordDialog({
 
               <DialogFooter className={classNames?.dialog?.footer}>
                 <Button
+                  className={cn(classNames?.button, classNames?.secondaryButton)}
+                  onClick={() => onOpenChange?.(false)}
                   type="button"
                   variant="secondary"
-                  onClick={() => onOpenChange?.(false)}
-                  className={cn(classNames?.button, classNames?.secondaryButton)}
                 >
                   {t("CANCEL")}
                 </Button>
 
                 <Button
-                  type="submit"
-                  disabled={isSubmitting}
                   className={cn(classNames?.button, classNames?.primaryButton)}
+                  disabled={isSubmitting}
+                  type="submit"
                 >
                   {isSubmitting && <Loader2 className="animate-spin" />}
                   {isTwoFactorEnabled ? t("DISABLE_TWO_FACTOR") : t("ENABLE_TWO_FACTOR")}
@@ -167,8 +167,8 @@ export function TwoFactorPasswordDialog({
       </Dialog>
 
       <BackupCodesDialog
+        backupCodes={backupCodes}
         classNames={classNames}
-        open={showBackupCodesDialog}
         onOpenChange={(open) => {
           setShowBackupCodesDialog(open);
 
@@ -177,7 +177,7 @@ export function TwoFactorPasswordDialog({
             navigate(twoFactor?.includes("totp") && totpURI ? `${url}?totpURI=${totpURI}` : url);
           }
         }}
-        backupCodes={backupCodes}
+        open={showBackupCodesDialog}
       />
     </>
   );

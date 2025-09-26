@@ -96,7 +96,7 @@ export default function UsersPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Users</h1>
+          <h1 className="font-bold text-3xl tracking-tight">Users</h1>
           <p className="text-muted-foreground">
             Manage your organization's users and their permissions.
           </p>
@@ -111,42 +111,42 @@ export default function UsersPage() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <CardTitle className="font-medium text-sm">Total Users</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2,847</div>
-            <p className="text-xs text-muted-foreground">+12.5% from last month</p>
+            <div className="font-bold text-2xl">2,847</div>
+            <p className="text-muted-foreground text-xs">+12.5% from last month</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
+            <CardTitle className="font-medium text-sm">Active Users</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2,341</div>
-            <p className="text-xs text-muted-foreground">82.2% of total users</p>
+            <div className="font-bold text-2xl">2,341</div>
+            <p className="text-muted-foreground text-xs">82.2% of total users</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New This Month</CardTitle>
+            <CardTitle className="font-medium text-sm">New This Month</CardTitle>
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">156</div>
-            <p className="text-xs text-muted-foreground">+8.2% from last month</p>
+            <div className="font-bold text-2xl">156</div>
+            <p className="text-muted-foreground text-xs">+8.2% from last month</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Admins</CardTitle>
+            <CardTitle className="font-medium text-sm">Admins</CardTitle>
             <Shield className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">23</div>
-            <p className="text-xs text-muted-foreground">0.8% of total users</p>
+            <div className="font-bold text-2xl">23</div>
+            <p className="text-muted-foreground text-xs">0.8% of total users</p>
           </CardContent>
         </Card>
       </div>
@@ -160,8 +160,8 @@ export default function UsersPage() {
         <CardContent>
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder="Search users..." className="pl-10" />
+              <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground" />
+              <Input className="pl-10" placeholder="Search users..." />
             </div>
             <Button variant="outline">
               <Filter className="mr-2 h-4 w-4" />
@@ -181,12 +181,12 @@ export default function UsersPage() {
           <div className="space-y-4">
             {users.map((user) => (
               <div
+                className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
                 key={user.id}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
               >
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-10 w-10">
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage alt={user.name} src={user.avatar} />
                     <AvatarFallback>
                       {user.name
                         .split(" ")
@@ -196,13 +196,13 @@ export default function UsersPage() {
                   </Avatar>
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
-                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="font-medium text-sm leading-none">{user.name}</p>
                       <Badge className={getStatusColor(user.status)}>{user.status}</Badge>
-                      <Badge variant="outline" className={getRoleColor(user.role)}>
+                      <Badge className={getRoleColor(user.role)} variant="outline">
                         {user.role}
                       </Badge>
                     </div>
-                    <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                    <div className="flex items-center space-x-4 text-muted-foreground text-xs">
                       <div className="flex items-center space-x-1">
                         <Mail className="h-3 w-3" />
                         <span>{user.email}</span>
@@ -219,10 +219,10 @@ export default function UsersPage() {
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Button variant="outline" size="sm">
+                  <Button size="sm" variant="outline">
                     Edit
                   </Button>
-                  <Button variant="ghost" size="icon">
+                  <Button size="icon" variant="ghost">
                     <MoreHorizontal className="h-4 w-4" />
                   </Button>
                 </div>

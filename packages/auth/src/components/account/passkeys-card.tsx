@@ -12,10 +12,10 @@ import { getLocalizedError } from "../../core/lib/utils";
 import { SessionFreshnessDialog } from "../core/session-freshness-dialog";
 import { PasskeyCell } from "./passkey-cell";
 
-export interface PasskeysCardProps {
+export type PasskeysCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function PasskeysCard({ className, classNames }: PasskeysCardProps) {
   const {
@@ -61,17 +61,17 @@ export function PasskeysCard({ className, classNames }: PasskeysCardProps) {
   return (
     <>
       <SessionFreshnessDialog
-        open={showFreshnessDialog}
-        onOpenChange={setShowFreshnessDialog}
         classNames={classNames}
+        onOpenChange={setShowFreshnessDialog}
+        open={showFreshnessDialog}
       />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(addPasskey)}>
           <SettingsCard
+            actionLabel={t("ADD_PASSKEY")}
             className={className}
             classNames={classNames}
-            actionLabel={t("ADD_PASSKEY")}
             description={t("PASSKEYS_DESCRIPTION")}
             instructions={t("PASSKEYS_INSTRUCTIONS")}
             isPending={isPending}
@@ -80,7 +80,7 @@ export function PasskeysCard({ className, classNames }: PasskeysCardProps) {
             {passkeys && passkeys.length > 0 && (
               <CardContent className={cn("grid gap-4", classNames?.content)}>
                 {passkeys?.map((passkey) => (
-                  <PasskeyCell key={passkey.id} classNames={classNames} passkey={passkey} />
+                  <PasskeyCell classNames={classNames} key={passkey.id} passkey={passkey} />
                 ))}
               </CardContent>
             )}

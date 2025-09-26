@@ -12,9 +12,6 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "next-intl": "catalog:"
-  },
   "peerDependencies": {
     "next-intl": "catalog:"
   },
@@ -29,6 +26,6 @@
     "next": "catalog:",
     "tsx": "^4.20.5",
     "type-fest": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:dev"
   }
 }

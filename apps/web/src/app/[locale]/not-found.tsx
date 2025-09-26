@@ -17,11 +17,11 @@ export default function NotFound() {
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <Logo className="size-12" />
 
-      <h1 className="text-4xl font-bold">{t("title")}</h1>
+      <h1 className="font-bold text-4xl">{t("title")}</h1>
 
-      <p className="text-balance text-center text-xl font-medium px-4">{t("message")}</p>
+      <p className="text-balance px-4 text-center font-medium text-xl">{t("message")}</p>
 
-      <Button asChild size="lg" variant="default" className="cursor-pointer">
+      <Button asChild className="cursor-pointer" size="lg" variant="default">
         <LocaleLink href="/">{t("backToHome")}</LocaleLink>
       </Button>
     </div>

@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
   const topPages = [
     {
       page: "/dashboard",
-      views: 12456,
+      views: 12_456,
       change: "+15.2%",
       changeType: "positive" as const,
     },
@@ -118,7 +118,7 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
+          <h1 className="font-bold text-3xl tracking-tight">Analytics</h1>
           <p className="text-muted-foreground">
             Track your application's performance and user behavior.
           </p>
@@ -147,11 +147,11 @@ export default function AnalyticsPage() {
         {metrics.map((metric) => (
           <Card key={metric.title}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
+              <CardTitle className="font-medium text-sm">{metric.title}</CardTitle>
               <metric.icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{metric.value}</div>
+              <div className="font-bold text-2xl">{metric.value}</div>
               <div className="flex items-center space-x-2">
                 {metric.changeType === "positive" ? (
                   <TrendingUp className="h-3 w-3 text-green-600" />
@@ -165,7 +165,7 @@ export default function AnalyticsPage() {
                 >
                   {metric.change}
                 </span>
-                <span className="text-xs text-muted-foreground">{metric.description}</span>
+                <span className="text-muted-foreground text-xs">{metric.description}</span>
               </div>
             </CardContent>
           </Card>
@@ -181,14 +181,14 @@ export default function AnalyticsPage() {
             <CardDescription>Daily page views and unique visitors</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-80 flex items-center justify-center bg-muted/50 rounded-lg">
+            <div className="flex h-80 items-center justify-center rounded-lg bg-muted/50">
               <div className="text-center">
-                <BarChart3 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <p className="text-lg font-medium text-muted-foreground mb-2">Traffic Chart</p>
-                <p className="text-sm text-muted-foreground">
+                <BarChart3 className="mx-auto mb-4 h-16 w-16 text-muted-foreground" />
+                <p className="mb-2 font-medium text-lg text-muted-foreground">Traffic Chart</p>
+                <p className="text-muted-foreground text-sm">
                   Interactive chart showing daily traffic patterns
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="mt-2 text-muted-foreground text-xs">
                   Chart component will be integrated here
                 </p>
               </div>
@@ -205,19 +205,19 @@ export default function AnalyticsPage() {
           <CardContent>
             <div className="space-y-4">
               {deviceStats.map((device) => (
-                <div key={device.device} className="flex items-center justify-between">
+                <div className="flex items-center justify-between" key={device.device}>
                   <div className="flex items-center space-x-3">
                     <device.icon className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium">{device.device}</span>
+                    <span className="font-medium text-sm">{device.device}</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-24 bg-muted rounded-full h-2">
+                    <div className="h-2 w-24 rounded-full bg-muted">
                       <div
                         className={`h-2 rounded-full ${device.color}`}
                         style={{ width: `${device.percentage}%` }}
                       />
                     </div>
-                    <span className="text-sm font-medium w-12 text-right">
+                    <span className="w-12 text-right font-medium text-sm">
                       {device.percentage}%
                     </span>
                   </div>
@@ -236,13 +236,13 @@ export default function AnalyticsPage() {
           <CardContent>
             <div className="space-y-4">
               {trafficSources.map((source) => (
-                <div key={source.source} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{source.source}</span>
+                <div className="flex items-center justify-between" key={source.source}>
+                  <span className="font-medium text-sm">{source.source}</span>
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm text-muted-foreground">{source.percentage}%</span>
+                    <span className="text-muted-foreground text-sm">{source.percentage}%</span>
                     <Badge
-                      variant={source.change.startsWith("+") ? "default" : "secondary"}
                       className="text-xs"
+                      variant={source.change.startsWith("+") ? "default" : "secondary"}
                     >
                       {source.change}
                     </Badge>
@@ -264,24 +264,24 @@ export default function AnalyticsPage() {
           <div className="space-y-4">
             {topPages.map((page, index) => (
               <div
+                className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/50"
                 key={page.page}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
               >
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted text-sm font-medium">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted font-medium text-sm">
                     {index + 1}
                   </div>
                   <div>
-                    <p className="text-sm font-medium">{page.page}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-medium text-sm">{page.page}</p>
+                    <p className="text-muted-foreground text-xs">
                       {page.views.toLocaleString()} views
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Badge
-                    variant={page.changeType === "positive" ? "default" : "secondary"}
                     className="text-xs"
+                    variant={page.changeType === "positive" ? "default" : "secondary"}
                   >
                     {page.change}
                   </Badge>
@@ -299,11 +299,11 @@ export default function AnalyticsPage() {
           <CardDescription>Live user activity and events</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-64 flex items-center justify-center bg-muted/50 rounded-lg">
+          <div className="flex h-64 items-center justify-center rounded-lg bg-muted/50">
             <div className="text-center">
-              <Activity className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-              <p className="text-sm text-muted-foreground">Real-time activity feed</p>
-              <p className="text-xs text-muted-foreground">Live updates and user actions</p>
+              <Activity className="mx-auto mb-2 h-12 w-12 text-muted-foreground" />
+              <p className="text-muted-foreground text-sm">Real-time activity feed</p>
+              <p className="text-muted-foreground text-xs">Live updates and user actions</p>
             </div>
           </div>
         </CardContent>

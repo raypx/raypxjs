@@ -6,13 +6,13 @@ import { cn } from "@raypx/ui/lib/utils";
 import type { ReactNode } from "react";
 import type { SettingsCardClassNames } from "./settings-card";
 
-export interface SettingsCardHeaderProps {
+export type SettingsCardHeaderProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   description?: ReactNode;
   isPending?: boolean;
   title: ReactNode;
-}
+};
 
 export function SettingsCardHeader({
   className,

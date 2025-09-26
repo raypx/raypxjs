@@ -5,35 +5,35 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="w-full border-gray-200 border-t bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">R</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600">
+                <span className="font-bold text-sm text-white">R</span>
               </div>
               <span className="font-bold text-xl dark:text-white">Raypx</span>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+            <p className="text-gray-600 text-sm dark:text-gray-300">
               The complete platform for building AI-powered applications.
             </p>
             <div className="flex items-center gap-4">
               <Link
+                className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                 href="#"
-                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
               >
                 <Twitter className="h-5 w-5" />
               </Link>
               <Link
+                className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                 href="#"
-                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
               >
                 <Github className="h-5 w-5" />
               </Link>
               <Link
+                className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                 href="#"
-                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
               >
                 <Globe className="h-5 w-5" />
               </Link>
@@ -44,26 +44,26 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900 dark:text-white">Product</h3>
             <div className="space-y-2">
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Features
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Pricing
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Documentation
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 API Reference
               </Link>
@@ -74,26 +74,26 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900 dark:text-white">Company</h3>
             <div className="space-y-2">
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 About
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Blog
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Careers
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Contact
               </Link>
@@ -104,26 +104,26 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900 dark:text-white">Legal</h3>
             <div className="space-y-2">
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="/privacy"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Privacy
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="/terms"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Terms
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Security
               </Link>
               <Link
+                className="block text-gray-600 text-sm transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 href="#"
-                className="block text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white text-sm transition-colors"
               >
                 Status
               </Link>
@@ -131,7 +131,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-600 dark:text-gray-300">
+        <div className="mt-12 border-gray-200 border-t pt-8 text-center text-gray-600 text-sm dark:border-gray-800 dark:text-gray-300">
           <p>© 2025 Raypx. All rights reserved.</p>
         </div>
       </div>

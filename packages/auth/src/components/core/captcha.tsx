@@ -22,16 +22,18 @@ type CaptchaRef =
   | RefObject<TurnstileInstance | null>
   | RefObject<HCaptcha | null>;
 
-interface CaptchaProps {
+type CaptchaProps = {
   /** Ref to the captcha component instance - must match the provider type */
   ref: CaptchaRef;
   /** Optional action to check if it's in the captcha-enabled endpoints list */
   action?: CaptchaEndpoint | string;
-}
+};
 
 export function Captcha({ ref, action }: CaptchaProps) {
   const { captcha } = useAuth();
-  if (!captcha) return null;
+  if (!captcha) {
+    return null;
+  }
 
   // If action is provided, check if it's in the list of captcha-enabled endpoints
   if (action) {
@@ -62,12 +64,12 @@ export function Captcha({ ref, action }: CaptchaProps) {
       {showTurnstile && (
         <Turnstile
           className="mx-auto"
-          ref={ref as RefObject<TurnstileInstance | null>}
-          siteKey={captcha.siteKey}
           options={{
             theme: resolvedTheme,
             size: "flexible",
           }}
+          ref={ref as RefObject<TurnstileInstance | null>}
+          siteKey={captcha.siteKey}
         />
       )}
       {showHCaptcha && (

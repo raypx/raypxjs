@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 import appConfig from "@/config/app.config";
 import { blogSource } from "@/lib/source";
 
-interface BlogPageProps {
+type BlogPageProps = {
   params: Promise<{ lang: string }>;
-}
+};
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { lang } = await params;
@@ -42,8 +42,8 @@ export default async function BlogPage({ params }: BlogPageProps) {
   return (
     <div className="container max-w-6xl py-12">
       <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold">{title}</h1>
-        <p className="text-xl text-muted-foreground">{description}</p>
+        <h1 className="mb-4 font-bold text-4xl">{title}</h1>
+        <p className="text-muted-foreground text-xl">{description}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -51,14 +51,14 @@ export default async function BlogPage({ params }: BlogPageProps) {
           const formattedDate = dayjs(post.data.date).locale(lang).format("LL");
           return (
             <Link
-              key={post.url}
-              href={post.url}
               className="block transition-transform hover:scale-105"
+              href={post.url}
+              key={post.url}
             >
               <Card className="h-full">
                 <CardHeader>
                   <CardTitle className="line-clamp-2">{post.data.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{formattedDate}</p>
+                  <p className="text-muted-foreground text-sm">{formattedDate}</p>
                 </CardHeader>
                 {post.data.description && (
                   <CardContent>

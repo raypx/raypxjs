@@ -6,22 +6,22 @@ import type { Organization } from "better-auth/plugins/organization";
 import { useAuth } from "../../core/hooks/use-auth";
 import { OrganizationLogo, type OrganizationLogoClassNames } from "./organization-logo";
 
-export interface OrganizationViewClassNames {
+export type OrganizationViewClassNames = {
   base?: string;
   avatar?: OrganizationLogoClassNames;
   content?: string;
   title?: string;
   subtitle?: string;
   skeleton?: string;
-}
+};
 
-export interface OrganizationViewProps {
+export type OrganizationViewProps = {
   className?: string;
   classNames?: OrganizationViewClassNames;
   isPending?: boolean;
   size?: "sm" | "default" | "lg" | null;
   organization?: Organization | null;
-}
+};
 
 export function OrganizationCellView({
   className,
@@ -49,7 +49,7 @@ export function OrganizationCellView({
                 "max-w-full",
                 size === "lg" ? "h-4.5 w-32" : "h-3.5 w-24",
                 classNames?.title,
-                classNames?.skeleton,
+                classNames?.skeleton
               )}
             />
 
@@ -59,7 +59,7 @@ export function OrganizationCellView({
                   "mt-1.5 max-w-full",
                   size === "lg" ? "h-3.5 w-24" : "h-3 w-16",
                   classNames?.subtitle,
-                  classNames?.skeleton,
+                  classNames?.skeleton
                 )}
               />
             )}
@@ -70,7 +70,7 @@ export function OrganizationCellView({
               className={cn(
                 "truncate font-semibold",
                 size === "lg" ? "text-base" : "text-sm",
-                classNames?.title,
+                classNames?.title
               )}
             >
               {organization?.name || t("ORGANIZATION")}
@@ -81,7 +81,7 @@ export function OrganizationCellView({
                 className={cn(
                   "truncate opacity-70",
                   size === "lg" ? "text-sm" : "text-xs",
-                  classNames?.subtitle,
+                  classNames?.subtitle
                 )}
               >
                 {organization.slug}

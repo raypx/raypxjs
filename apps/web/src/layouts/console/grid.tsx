@@ -2,13 +2,13 @@
 
 import type { ReactNode } from "react";
 
-export interface ConsoleGridProps {
+export type ConsoleGridProps = {
   children: ReactNode;
   cols?: 1 | 2 | 3 | 4;
   lgCols?: 1 | 2 | 3 | 4;
   gap?: 4 | 6 | 8;
   className?: string;
-}
+};
 
 export function ConsoleGrid({
   children,

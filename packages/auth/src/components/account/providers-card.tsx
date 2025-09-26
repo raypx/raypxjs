@@ -10,14 +10,14 @@ import type { Refetch } from "../../types";
 import { ProviderCell } from "./provider-cell";
 import { SettingsCellSkeleton } from "./settings-cell-skeleton";
 
-export interface ProvidersCardProps {
+export type ProvidersCardProps = {
   className?: string;
   classNames?: SettingsCardClassNames;
   accounts?: { accountId: string; provider: string }[] | null;
   isPending?: boolean;
   skipHook?: boolean;
   refetch?: Refetch;
-}
+};
 
 export function ProvidersCard({
   className,
@@ -45,29 +45,31 @@ export function ProvidersCard({
     <SettingsCard
       className={className}
       classNames={classNames}
-      title={t("PROVIDERS")}
       description={t("PROVIDERS_DESCRIPTION")}
       isPending={isPending}
+      title={t("PROVIDERS")}
     >
       <CardContent className={cn("grid gap-4", classNames?.content)}>
         {isPending ? (
           social?.providers?.map((provider) => (
-            <SettingsCellSkeleton key={provider} classNames={classNames} />
+            <SettingsCellSkeleton classNames={classNames} key={provider} />
           ))
         ) : (
           <>
             {social?.providers?.map((provider) => {
               const socialProvider = socialProviders.find(
-                (socialProvider) => socialProvider.provider === provider,
+                (socialProvider) => socialProvider.provider === provider
               );
 
-              if (!socialProvider) return null;
+              if (!socialProvider) {
+                return null;
+              }
 
               return (
                 <ProviderCell
-                  key={provider}
-                  classNames={classNames}
                   account={accounts?.find((acc) => acc.provider === provider)}
+                  classNames={classNames}
+                  key={provider}
                   provider={socialProvider}
                   refetch={refetch}
                 />
@@ -76,12 +78,12 @@ export function ProvidersCard({
 
             {genericOAuth?.providers?.map((provider) => (
               <ProviderCell
-                key={provider.provider}
-                classNames={classNames}
                 account={accounts?.find((acc) => acc.provider === provider.provider)}
+                classNames={classNames}
+                key={provider.provider}
+                other
                 provider={provider}
                 refetch={refetch}
-                other
               />
             ))}
           </>

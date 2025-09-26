@@ -9,7 +9,9 @@ import type { GravatarOptions } from "../../../types";
  * @returns Gravatar URL or null if email is invalid
  */
 export function getGravatarUrl(email?: string | null, options?: GravatarOptions): string | null {
-  if (!email) return null;
+  if (!email) {
+    return null;
+  }
 
   try {
     // Normalize email: trim and lowercase

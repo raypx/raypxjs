@@ -94,7 +94,7 @@ export const updateUserStatus = async (
     banReason?: string;
     banExpires?: Date;
     role?: string;
-  },
+  }
 ) => {
   const result = await db
     .update(user)
@@ -115,8 +115,8 @@ export const getUserStats = async () => {
         and(
           eq(user.banned, false),
           // Users created in the last 30 days
-          gt(user.createdAt, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)),
-        ),
+          gt(user.createdAt, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))
+        )
       ),
   ]);
 
@@ -152,7 +152,7 @@ export const getImpersonationSession = async (token: string) => {
   const data = await db.query.session.findFirst({
     where: and(
       eq(session.token, token),
-      isNotNull(session.impersonatedBy), // For impersonation sessions
+      isNotNull(session.impersonatedBy) // For impersonation sessions
     ),
     with: {
       user: {
@@ -175,8 +175,8 @@ export const endImpersonationSession = async (token: string) => {
     .where(
       and(
         eq(session.token, token),
-        isNotNull(session.impersonatedBy), // For impersonation sessions
-      ),
+        isNotNull(session.impersonatedBy) // For impersonation sessions
+      )
     )
     .returning();
   return result[0];
@@ -209,7 +209,7 @@ export const getKnowledgeBasesByUserId = async (
     search?: string;
     sortBy?: "name" | "createdAt" | "updatedAt";
     sortOrder?: "asc" | "desc";
-  },
+  }
 ) => {
   const {
     limit = 10,
@@ -272,7 +272,7 @@ export const updateKnowledgeBase = async (
     description?: string;
     status?: string;
     settings?: Record<string, unknown>;
-  },
+  }
 ) => {
   const result = await db
     .update(knowledges)
@@ -296,7 +296,7 @@ export const getKnowledgeBaseChunks = async (
   options?: {
     limit?: number;
     offset?: number;
-  },
+  }
 ) => {
   const { limit = 50, offset = 0 } = options ?? {};
 
@@ -336,7 +336,7 @@ export const createChunks = async (
     documentId?: string;
     knowledgeBaseId: string;
     userId: string;
-  }>,
+  }>
 ) => {
   const result = await db.insert(chunks).values(chunksData).returning();
   return result;
@@ -362,7 +362,7 @@ export const getDocumentsByKnowledgeBase = async (
   options?: {
     limit?: number;
     offset?: number;
-  },
+  }
 ) => {
   const { limit = 20, offset = 0 } = options ?? {};
 

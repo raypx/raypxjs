@@ -79,7 +79,9 @@ export function ChangeEmailCard({ className, classNames, ...props }: SettingsCar
   };
 
   const resendVerification = async () => {
-    if (!sessionData) return;
+    if (!sessionData) {
+      return;
+    }
     const email = sessionData.user.email;
 
     setResendDisabled(true);
@@ -109,13 +111,13 @@ export function ChangeEmailCard({ className, classNames, ...props }: SettingsCar
       <Form {...form}>
         <form noValidate onSubmit={form.handleSubmit(changeEmail)}>
           <SettingsCard
+            actionLabel={t("SAVE")}
             className={className}
             classNames={classNames}
             description={t("EMAIL_DESCRIPTION")}
             instructions={t("EMAIL_INSTRUCTIONS")}
             isPending={isPending}
             title={t("EMAIL")}
-            actionLabel={t("SAVE")}
             {...props}
           >
             <CardContent className={classNames?.content}>
@@ -130,9 +132,9 @@ export function ChangeEmailCard({ className, classNames, ...props }: SettingsCar
                       <FormControl>
                         <Input
                           className={classNames?.input}
+                          disabled={isSubmitting}
                           placeholder={t("EMAIL_PLACEHOLDER")}
                           type="email"
-                          disabled={isSubmitting}
                           {...field}
                         />
                       </FormControl>
@@ -151,12 +153,12 @@ export function ChangeEmailCard({ className, classNames, ...props }: SettingsCar
         <Form {...resendForm}>
           <form onSubmit={resendForm.handleSubmit(resendVerification)}>
             <SettingsCard
+              actionLabel={t("RESEND_VERIFICATION_EMAIL")}
               className={className}
               classNames={classNames}
-              title={t("VERIFY_YOUR_EMAIL")}
               description={t("VERIFY_YOUR_EMAIL_DESCRIPTION")}
-              actionLabel={t("RESEND_VERIFICATION_EMAIL")}
               disabled={resendDisabled}
+              title={t("VERIFY_YOUR_EMAIL")}
               {...props}
             />
           </form>

@@ -48,7 +48,8 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
-  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s) infinite;
+  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
+    infinite;
   --animate-pulse: pulse var(--duration) ease-out infinite;
   --animate-meteor: meteor 5s linear infinite;
   --animate-gradient: gradient 8s linear infinite;

@@ -32,7 +32,8 @@ function transformError(error: unknown): {
       message: fetchError.error.message,
       statusText: fetchError.error.statusText || fetchError.statusText,
     };
-  } else if (error instanceof Error) {
+  }
+  if (error instanceof Error) {
     const err = error as Error;
     return {
       code: err.name,
@@ -100,7 +101,7 @@ export function getViewByPath<T extends object>(viewPaths: T, path?: string) {
 
 export function getKeyByValue<T extends Record<string, unknown>>(
   object: T,
-  value?: T[keyof T],
+  value?: T[keyof T]
 ): keyof T | undefined {
   return (Object.keys(object) as Array<keyof T>).find((key) => object[key] === value);
 }
@@ -112,7 +113,7 @@ export function getPasswordSchema(
     PASSWORD_TOO_SHORT: string;
     PASSWORD_TOO_LONG: string;
     INVALID_PASSWORD: string;
-  },
+  }
 ) {
   let schema = z.string().min(1, {
     message: localization.PASSWORD_REQUIRED,
