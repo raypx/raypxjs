@@ -7,7 +7,7 @@ import { safeExec } from "../utils";
  */
 function createFormatTask(): ListrTask {
   return createTask("Code formatting", (_, task) => {
-    const success = safeExec("pnpm exec biome check --write");
+    const success = safeExec("pnpm exec ultracite fix");
 
     if (success) {
       task.title = "Formatted code with Biome";
