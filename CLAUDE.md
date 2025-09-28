@@ -14,6 +14,9 @@ pnpm dev
 # Run tests
 pnpm test
 
+# Run E2E tests
+pnpm test:e2e
+
 # Build for production
 pnpm build
 ```
@@ -23,6 +26,7 @@ pnpm build
 raypx/
 ├── apps/web/          # Main Next.js application
 ├── apps/docs/         # Documentation site
+├── apps/e2e/          # End-to-end tests with Playwright
 ├── packages/          # Shared packages (consumed as TypeScript source)
 │   ├── ui/           # UI components with shadcn/ui
 │   ├── db/           # Database layer with Drizzle ORM
@@ -50,9 +54,17 @@ All packages under `packages/` are consumed directly as TypeScript source files 
 
 ## Testing
 
+### Unit Testing
 - Use `vitest` package for consistent testing setup across the monorepo
 - Test runner: Vitest (pnpm has excellent support for Vitest)
 - Run tests: `pnpm test` or `vitest`
+
+### End-to-End Testing
+- Use `@playwright/test` for E2E testing
+- Test runner: Playwright with multi-browser support
+- Run E2E tests: `pnpm test:e2e`
+- Feature flags for conditional testing (auth, AI, billing)
+- Tests located in `apps/e2e/tests/`
 
 ## Dependency Management
 

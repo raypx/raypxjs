@@ -4,6 +4,7 @@ packages:
   - tooling/*
 
 catalog:
+  '@playwright/test': ^1.55.0
   '@types/node': ^24.5.2
   '@types/react': ^19.1.14
   drizzle-kit: ^0.31.5
