@@ -7,6 +7,7 @@ import { safeExec } from "../utils";
  */
 function createFormatTask(): ListrTask {
   return createTask("Code formatting", (_, task) => {
+    // Suppress npm warnings when using pnpm in mixed environment
     const success = safeExec("pnpm exec ultracite fix");
 
     if (success) {

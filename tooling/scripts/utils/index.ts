@@ -103,6 +103,11 @@ export function safeExec(command: string, options?: ExecSyncOptions): boolean {
       timeout: 180_000, // 3 minutes default
       ...SILENT_EXEC_OPTIONS,
       ...options,
+      env: {
+        ...process.env,
+        NPM_CONFIG_LOGLEVEL: "error",
+        ...options?.env,
+      },
     });
     return true;
   } catch (error) {

@@ -16,6 +16,6 @@
     "@playwright/test": "^1.55.0",
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "dotenv": "^16.6.1"
+    "dotenv": "catalog:"
   }
 }

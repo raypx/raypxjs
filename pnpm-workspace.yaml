@@ -7,6 +7,7 @@ catalog:
   '@playwright/test': ^1.55.0
   '@types/node': ^24.5.2
   '@types/react': ^19.1.14
+  dotenv: ^17.2.2
   drizzle-kit: ^0.31.5
   fumadocs-core: ^15.8.1
   fumadocs-ui: ^15.8.1
