@@ -19,6 +19,7 @@ catalog:
   vitest: ^3.2.4
   zod: ^4.1.11
   zod-openapi: ^5.4.2
+  zustand: ^5.0.8
 
 catalogMode: prefer
 

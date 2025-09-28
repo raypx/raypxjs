@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@raypx/next-config": "workspace:*",
+    "@raypx/tsconfig": "workspace:*",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/mdx": "^2.0.13",
     "@types/node": "catalog:",

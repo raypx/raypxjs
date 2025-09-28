@@ -5,7 +5,12 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./server": "./src/server.ts"
+    "./plugin": "./src/plugin.ts",
+    "./server": "./src/server.ts",
+    "./routing": "./src/routing.ts",
+    "./middleware": "./src/middleware.ts",
+    "./navigation": "./src/navigation.ts",
+    "./messages/*": "./src/messages/*.json"
   },
   "scripts": {
     "clean": "rimraf dist .turbo tsconfig.tsbuildinfo",

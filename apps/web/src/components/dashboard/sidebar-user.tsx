@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@raypx/auth/core";
+import { localeConfig, locales } from "@raypx/i18n/routing";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,7 +28,6 @@ import { type Locale, useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useTransition } from "react";
 import { useLocalePathname, useLocaleRouter } from "@/components/link";
-import { localeConfig, locales } from "../../config/i18n.config";
 import { UserAvatar } from "../layout/user-avatar";
 
 type SidebarUserProps = {

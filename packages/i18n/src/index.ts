@@ -1,2 +1,2 @@
-export * from "./config";
-export * from "./services/locale";
+export * from "next-intl";
+export type { Locale } from "./routing";

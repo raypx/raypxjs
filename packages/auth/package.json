@@ -45,7 +45,6 @@
     "next": "catalog:"
   },
   "devDependencies": {
-    "@raypx/testing": "workspace:*",
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

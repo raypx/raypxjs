@@ -1,6 +1,6 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import createNextIntlPlugin from "@raypx/i18n/plugin";
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
 
 type I18nConfig = boolean | Parameters<typeof createNextIntlPlugin>[0];
 
@@ -36,8 +36,8 @@ export function createConfig(options: CreateConfigOptions = {}): NextConfig {
     withMDX,
     override = {},
     bundleAnalyzer = false,
-    i18n = false,
     output,
+    i18n = true,
   } = options;
 
   // Determine output mode: use provided option, environment variable, or default
@@ -75,7 +75,7 @@ export function createConfig(options: CreateConfigOptions = {}): NextConfig {
   }
 
   if (i18n) {
-    const withNextIntl = createNextIntlPlugin(typeof i18n === "boolean" ? undefined : i18n);
+    const withNextIntl = createNextIntlPlugin();
     nextConfig = withNextIntl(nextConfig);
   }
 

@@ -1,6 +1,6 @@
+import createMiddleware from "@raypx/i18n/middleware";
+import { routing } from "@raypx/i18n/routing";
 import type { NextRequest } from "next/server";
-import createMiddleware from "next-intl/middleware";
-import { routing } from "@/config/i18n.config";
 
 const intlMiddleware = createMiddleware(routing);
 

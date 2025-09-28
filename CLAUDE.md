@@ -50,7 +50,7 @@ All packages under `packages/` are consumed directly as TypeScript source files 
 
 ## Testing
 
-- Use `@raypx/testing` package for consistent testing setup across the monorepo
+- Use `vitest` package for consistent testing setup across the monorepo
 - Test runner: Vitest (pnpm has excellent support for Vitest)
 - Run tests: `pnpm test` or `vitest`
 

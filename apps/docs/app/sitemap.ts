@@ -1,6 +1,6 @@
+import { locales } from "@raypx/i18n/routing";
 import type { MetadataRoute } from "next";
 import appConfig from "@/config/app.config";
-import { locales } from "@/config/i18n.config";
 import { blogSource, changelogSource, pagesSource, source } from "@/lib/source";
 
 export const revalidate = false;

@@ -3,7 +3,8 @@ import { createMDX } from "fumadocs-mdx/next";
 
 const withMDX = createMDX();
 
-export default createConfig({
+const config = createConfig({
   withMDX,
-  i18n: "./config/i18n.config.ts",
 });
+
+export default config;

@@ -1,5 +1,5 @@
+import { routing } from "@raypx/i18n/routing";
 import { createNavigation } from "next-intl/navigation";
-import { routing } from "@/config/i18n.config";
 
 /**
  * Navigation APIs

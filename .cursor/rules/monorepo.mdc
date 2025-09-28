@@ -225,20 +225,6 @@ export default defineConfig({
 })
 ```
 
-### Cross-Package Testing
-```typescript
-// ✅ Good - Test utilities from shared package
-import { render, screen } from '@raypx/testing'
-import { Button } from '@raypx/ui/components/button'
-
-describe('Button Component', () => {
-  it('renders correctly', () => {
-    render(<Button>Click me</Button>)
-    expect(screen.getByRole('button')).toBeInTheDocument()
-  })
-})
-```
-
 ## Build and Deployment
 
 ### Build Pipeline

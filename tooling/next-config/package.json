@@ -22,6 +22,7 @@
   },
   "peerDependencies": {
     "next": "catalog:",
-    "next-intl": "catalog:"
+    "next-intl": "catalog:",
+    "@raypx/i18n": "workspace:*"
   }
 }

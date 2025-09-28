@@ -1,6 +1,7 @@
 "use client";
 
-import { setUserLocale } from "@raypx/i18n";
+import { type Locale, useLocale, useTranslations } from "@raypx/i18n";
+import { usePathname, useRouter } from "@raypx/i18n/navigation";
 import { Button } from "@raypx/ui/components/button";
 import {
   DropdownMenu,
@@ -10,8 +11,9 @@ import {
 } from "@raypx/ui/components/dropdown-menu";
 import { cn } from "@raypx/ui/lib/utils";
 import { Check, Languages } from "lucide-react";
-import { useLocale } from "next-intl";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useTransition } from "react";
+import { useLocaleStore } from "@/stores/locale-store";
 
 const locales = [
   { code: "en", name: "English", flag: "🇺🇸", nativeName: "English" },
@@ -19,22 +21,35 @@ const locales = [
 ] as const;
 
 export const LangSwitcher = () => {
+  // Return null if there's only one locale available
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
   const locale = useLocale();
-  const [isOpen, setIsOpen] = useState(false);
+  const { setCurrentLocale } = useLocaleStore();
+  const [, startTransition] = useTransition();
+  const t = useTranslations("common");
 
-  const currentLocale = locales.find((l) => l.code === locale);
+  useEffect(() => {
+    setCurrentLocale(locale);
+  }, [locale, setCurrentLocale]);
 
-  const handleLocaleChange = (newLocale: string) => {
-    if (newLocale === locale) {
-      return;
-    }
+  const setLocale = (nextLocale: Locale) => {
+    setCurrentLocale(nextLocale);
 
-    setIsOpen(false);
-    setUserLocale(newLocale);
+    startTransition(() => {
+      router.replace(
+        // @ts-expect-error -- TypeScript will validate that only known `params`
+        // are used in combination with a given `pathname`. Since the two will
+        // always match for the current route, we can skip runtime checks.
+        { pathname, params },
+        { locale: nextLocale }
+      );
+    });
   };
 
   return (
-    <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           className="size-8 cursor-pointer rounded-full border border-border p-0.5"
@@ -42,7 +57,7 @@ export const LangSwitcher = () => {
           variant="ghost"
         >
           <Languages className="size-3" />
-          <span className="sr-only">{currentLocale?.name}</span>
+          <span className="sr-only">{t("language")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
@@ -53,7 +68,7 @@ export const LangSwitcher = () => {
               locale === loc.code && "bg-accent"
             )}
             key={loc.code}
-            onClick={() => handleLocaleChange(loc.code)}
+            onClick={() => setLocale(loc.code)}
           >
             <div className="flex items-center gap-3">
               <span className="text-lg">{loc.flag}</span>

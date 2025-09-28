@@ -1,5 +1,5 @@
+import { defaultLocale, locales } from "@raypx/i18n/routing";
 import type { I18nConfig } from "fumadocs-core/i18n";
-import { defaultLocale, locales } from "@/config/i18n.config";
 
 /**
  * Internationalization configuration for FumaDocs

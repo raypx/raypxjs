@@ -7,8 +7,9 @@
     "defaultBranch": "main"
   },
   "files": {
+    "ignoreUnknown": true,
     "includes": [
-      "**",
+      "**/*.{tsx,ts}",
       "!**/.claude",
       "!**/dist",
       "!**/node_modules",
