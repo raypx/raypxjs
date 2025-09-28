@@ -143,61 +143,6 @@ importers:
         specifier: 'catalog:'
         version: 4.1.11
 
-  apps/api:
-    dependencies:
-      '@raypx/auth':
-        specifier: workspace:*
-        version: link:../../packages/auth
-      '@raypx/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@raypx/redis':
-        specifier: workspace:*
-        version: link:../../packages/redis
-      '@raypx/server':
-        specifier: workspace:*
-        version: link:../../packages/server
-      '@raypx/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      next:
-        specifier: 'catalog:'
-        version: 15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react:
-        specifier: catalog:react19
-        version: 19.1.1
-      react-dom:
-        specifier: catalog:react19
-        version: 19.1.1(react@19.1.1)
-      zod:
-        specifier: 'catalog:'
-        version: 4.1.11
-    devDependencies:
-      '@raypx/next-config':
-        specifier: workspace:*
-        version: link:../../tooling/next-config
-      '@raypx/tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.1.15
-      '@types/react-dom':
-        specifier: catalog:react19
-        version: 19.1.9(@types/react@19.1.15)
-      dotenv-cli:
-        specifier: ^10.0.0
-        version: 10.0.0
-      typescript:
-        specifier: catalog:dev
-        version: 5.9.2
-      vitest:
-        specifier: 'catalog:'
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6)
-
   apps/dev-tool:
     dependencies:
       '@raypx/db':
