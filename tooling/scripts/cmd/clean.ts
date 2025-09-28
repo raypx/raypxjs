@@ -1,5 +1,5 @@
 import type { ListrTask } from "listr2";
-import * as rimraf from "rimraf";
+import { rimraf } from "rimraf";
 import { createTask, definedCmd } from "../lib/task";
 import { PROJECT_ROOT } from "../utils";
 
@@ -31,7 +31,7 @@ function createWorkspaceCleanTask(): ListrTask {
 function createFileCleanTask(): ListrTask {
   return createTask("Cleaning files and directories", async (_, task) => {
     try {
-      await rimraf.rimraf(CLEAN_PATTERNS, {
+      await rimraf(CLEAN_PATTERNS, {
         glob: {
           cwd: PROJECT_ROOT,
         },

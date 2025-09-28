@@ -36,7 +36,7 @@ export const SILENT_EXEC_OPTIONS: ExecSyncOptions = {
 /**
  * Allowed command prefixes for this project
  */
-const ALLOWED_COMMANDS = ["pnpm", "node", "tsx", "tsc", "biome", "git"] as const;
+const ALLOWED_COMMANDS = ["pnpm", "node", "tsx", "tsc", "biome", "git", "du"] as const;
 
 /**
  * Additional dangerous patterns to block

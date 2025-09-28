@@ -3,35 +3,36 @@ packages:
   - packages/**
   - tooling/*
 
-# minimumReleaseAge: 1440
-
 catalog:
-  hono: ^4.9.8
+  '@types/node': ^24.5.2
+  '@types/react': ^19.1.14
+  drizzle-kit: ^0.31.5
+  fumadocs-core: ^15.8.1
+  fumadocs-ui: ^15.8.1
+  hono: ^4.9.9
   lucide-react: ^0.544.0
   next: ^15.5.4
   next-intl: ^4.3.9
+  posthog-js: ^1.268.6
   type-fest: ^5.0.1
   vite: ^7.1.7
-  '@types/node': ^24.5.2
   vitest: ^3.2.4
   zod: ^4.1.11
+  zod-openapi: ^5.4.2
+
+catalogMode: prefer
 
 catalogs:
+  dev:
+    '@biomejs/biome': ^2.2.4
+    lefthook: ^1.8.3
+    typescript: ^5.9.2
+    ultracite: ^5.1.2
   react19:
     '@types/react': ^19.1.13
     '@types/react-dom': ^19.1.9
     react: ^19.1.1
     react-dom: ^19.1.1
-  dev:
-    '@biomejs/biome': ^2.2.4
-    typescript: ^5.9.2
-    lefthook: ^1.8.3
-    ultracite: ^5.1.2
-
-catalogMode: prefer
-
-publicHoistPattern:
-  - '*prettier*'
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
@@ -41,3 +42,6 @@ onlyBuiltDependencies:
 
 overrides:
   esbuild: ^0.25.10
+
+publicHoistPattern:
+  - '*prettier*'

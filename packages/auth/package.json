@@ -48,7 +48,7 @@
     "@raypx/testing": "workspace:*",
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "@types/react": "catalog:react19",
+    "@types/react": "catalog:",
     "@types/react-google-recaptcha": "^2.1.9",
     "dotenv-cli": "^10.0.0",
     "next": "catalog:",

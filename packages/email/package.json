@@ -32,7 +32,7 @@
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/nodemailer": "^7.0.1",
-    "@types/react": "catalog:react19",
+    "@types/react": "catalog:",
     "@types/react-dom": "catalog:react19",
     "typescript": "catalog:dev"
   }
