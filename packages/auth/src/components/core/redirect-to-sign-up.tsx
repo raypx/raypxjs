@@ -1,6 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useAuthenticate } from "../../core/hooks/use-authenticate";
 /**
  * Redirects the user to the sign-up page
@@ -9,7 +8,7 @@ import { useAuthenticate } from "../../core/hooks/use-authenticate";
  * sign-up page. Useful for directing new users to create an account or
  * for redirecting from marketing pages to the registration flow.
  */
-export function RedirectToSignUp(): ReactNode {
+export function RedirectToSignUp(): null {
   useAuthenticate({ authView: "SIGN_UP" });
   return null;
 }

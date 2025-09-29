@@ -1,6 +1,6 @@
 import { Button, Text } from "@react-email/components";
+import { EmailLayout } from "../components/layout";
 import type { EmailTemplateProps } from "../types";
-import { EmailLayout } from "./layout-email";
 
 /**
  * Props for the verify email component
@@ -31,4 +31,4 @@ VerifyEmail.PreviewProps = {
   username: "Raypx",
 };
 
-export { VerifyEmail };
+export default VerifyEmail;

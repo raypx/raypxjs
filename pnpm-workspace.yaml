@@ -15,7 +15,7 @@ catalog:
   next: ^15.5.4
   next-intl: ^4.3.9
   react-hook-form: ^7.63.0
-  type-fest: ^5.0.1
+  type-fest: 5.0.1
   vite: ^7.1.7
   vitest: ^3.2.4
   zod: ^4.1.11
@@ -24,7 +24,7 @@ catalog:
 catalogs:
   dev:
     '@biomejs/biome': ^2.2.4
-    lefthook: ^1.8.3
+    lefthook: ^1.13.5
     typescript: ^5.9.2
     ultracite: ^5.1.2
   react19:

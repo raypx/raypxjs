@@ -3,19 +3,15 @@ import { createMetadata } from "@raypx/seo";
 import { ChevronRight, Home } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type React from "react";
 import { Header } from "@/layouts/console/header";
-
-type AccountLayoutProps = {
-  children: ReactNode;
-};
 
 export const generateMetadata = async (): Promise<Metadata> =>
   createMetadata({
     title: "Account",
   });
 
-export default function AccountLayout({ children }: AccountLayoutProps) {
+export default function AccountLayout(props: React.PropsWithChildren) {
   return (
     <>
       <RedirectToSignIn />
@@ -41,7 +37,7 @@ export default function AccountLayout({ children }: AccountLayoutProps) {
             </nav>
           </div>
         </div>
-        <main className="container mx-auto px-6 py-8">{children}</main>
+        <main className="container mx-auto px-6 py-8">{props.children}</main>
       </div>
     </>
   );

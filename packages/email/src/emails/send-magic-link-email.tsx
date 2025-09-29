@@ -1,5 +1,5 @@
 import { Button, Text } from "@react-email/components";
-import { EmailLayout } from "./layout-email";
+import { EmailLayout } from "../components/layout";
 
 const SendMagicLinkEmail = ({
   username,
@@ -34,4 +34,4 @@ SendMagicLinkEmail.PreviewProps = {
   token: "123456",
 };
 
-export { SendMagicLinkEmail };
+export default SendMagicLinkEmail;

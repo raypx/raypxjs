@@ -1,12 +1,13 @@
 import { db, nanoid, schemas, uuidv7 } from "@raypx/db";
+import { getMailer } from "@raypx/email";
 import {
   ResetPasswordEmail,
   SendMagicLinkEmail,
-  SendVerificationOTP,
-  sendEmail,
+  SendVerificationOTPEmail,
   VerifyEmail,
   WelcomeEmail,
-} from "@raypx/email";
+} from "@raypx/email/emails";
+import { EMAIL_ADDRESSES } from "@raypx/shared";
 import { type BetterAuthOptions, type BetterAuthPlugin, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import {
@@ -53,8 +54,10 @@ const buildServerPlugins = () => {
     plugins.push(
       magicLink({
         sendMagicLink: async ({ email, token, url }) => {
-          await sendEmail({
+          const mailer = await getMailer();
+          await mailer.sendEmail({
             subject: "Magic Link",
+            from: "noreply@raypx.com",
             template: SendMagicLinkEmail({
               username: email,
               url,
@@ -95,10 +98,12 @@ const buildServerPlugins = () => {
       emailOTP({
         sendVerificationOTP: async (data, _request) => {
           const { email, otp } = data;
-          await sendEmail({
+          const mailer = await getMailer();
+          await mailer.sendEmail({
             to: email,
+            from: EMAIL_ADDRESSES.HELLO,
             subject: "Verify your email",
-            template: SendVerificationOTP({
+            template: SendVerificationOTPEmail({
               otp,
             }),
           });
@@ -118,9 +123,11 @@ const createConfig = (): BetterAuthOptions => {
       enabled: true,
       requireEmailVerification: false,
       sendResetPassword: async ({ user, url }) => {
-        await sendEmail({
+        const mailer = await getMailer();
+        await mailer.sendEmail({
           to: user.email,
           subject: "Reset your password",
+          from: EMAIL_ADDRESSES.HELLO,
           template: ResetPasswordEmail({
             resetLink: url,
             username: user.name || user.email,
@@ -130,8 +137,10 @@ const createConfig = (): BetterAuthOptions => {
     },
     emailVerification: {
       sendVerificationEmail: async ({ url, user }) => {
-        await sendEmail({
+        const mailer = await getMailer();
+        await mailer.sendEmail({
           subject: "Verify your email",
+          from: EMAIL_ADDRESSES.HELLO,
           template: VerifyEmail({
             url,
             username: user.email,
@@ -188,8 +197,10 @@ const createConfig = (): BetterAuthOptions => {
             });
           },
           after: async (user) => {
-            await sendEmail({
+            const mailer = await getMailer();
+            await mailer.sendEmail({
               subject: "Welcome to Raypx",
+              from: EMAIL_ADDRESSES.HELLO,
               template: WelcomeEmail({
                 username: user.name || user.email,
               }),

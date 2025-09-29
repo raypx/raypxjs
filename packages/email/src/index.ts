@@ -1,60 +1,25 @@
-/**
- * Email package main exports
- */
+import z from "zod";
 
-export { EmailAnalytics } from "./analytics";
-// Client utilities
-export type { EmailClientOptions, EmailClientResponse } from "./client";
-export { DEFAULT_EMAIL_CLIENT_OPTIONS } from "./client";
-// Environment configuration
-export { envs } from "./envs";
-// Core services
-export {
-  getEmailById,
-  getEmailEvents,
-  sendEmail,
-  trackEmailEvent,
-} from "./server";
-export * from "./templates";
-// Core types
-export type {
-  EmailAnalyticsFilter,
-  EmailDashboardData,
-  EmailDeliveryStats,
-  EmailEventData,
-  EmailTemplateProps,
-  ResendWebhookEvent,
-  SendEmailOptions,
-  SendEmailResult,
-  WebhookEvent,
-} from "./types";
-// Core enums
-// Utility functions and constants
-export {
-  EMAIL_EVENT_TYPES,
-  EMAIL_PROVIDERS,
-  EMAIL_STATUSES,
-  EmailEventType,
-  EmailProvider,
-  EmailStatus,
-  getEmailProviderDisplayName,
-  getEmailStatusDisplayName,
-  isValidEmailEventType,
-  isValidEmailProvider,
-  isValidEmailStatus,
-  RESEND_WEBHOOK_EVENT_TYPES,
-  ResendWebhookEventType,
-} from "./types";
-// Additional utility functions
-export {
-  EVENT_TYPE_MAP,
-  getEventTypeValue,
-  getProviderValue,
-  getStatusValue,
-  isValidEventType,
-  isValidProvider,
-  isValidStatus,
-  PROVIDER_MAP,
-  STATUS_MAP,
-} from "./utils";
-export { EmailWebhookHandler } from "./webhooks";
+const MAILER_PROVIDERS = [
+  "nodemailer",
+  "resend",
+  // add more providers here
+] as const satisfies readonly EmailProvider[];
+
+const MAILER_PROVIDER = z
+  .enum(MAILER_PROVIDERS)
+  .default("nodemailer")
+  .parse(process.env.MAILER_PROVIDER);
+
+import { mailerRegistry } from "./registry";
+import type { EmailProvider } from "./types";
+
+/**
+ * @name getMailer
+ * @description Get the mailer based on the environment variable using the registry internally.
+ */
+export function getMailer() {
+  return mailerRegistry.get(MAILER_PROVIDER);
+}
+
+export { MAILER_PROVIDER };

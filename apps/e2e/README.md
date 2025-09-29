@@ -41,7 +41,7 @@ PLAYWRIGHT_BASE_URL=http://localhost:3000
 PLAYWRIGHT_SERVER_COMMAND=pnpm dev --filter @raypx/web
 
 # Test credentials (for auth tests)
-TEST_USER_EMAIL=test@raypx.com
+TEST_USER_EMAIL=test@raypx.com  # Use your configured domain
 TEST_USER_PASSWORD=testpassword123
 ```
 

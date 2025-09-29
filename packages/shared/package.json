@@ -8,7 +8,7 @@
     "./config": "./src/config/index.ts",
     "./utils": "./src/utils/index.ts",
     "./logger": "./src/logger/index.ts",
-    "./server": "./src/server.ts"
+    "./registry": "./src/registry/index.ts"
   },
   "scripts": {
     "clean": "rimraf dist .turbo",

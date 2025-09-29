@@ -1,5 +1,5 @@
 import { Button, Text } from "@react-email/components";
-import { EmailLayout } from "./layout-email";
+import { EmailLayout } from "../components/layout";
 
 export type ApiKeyCreatedEmailProps = {
   username: string;
@@ -113,4 +113,4 @@ ApiKeyCreatedEmail.PreviewProps = {
   },
 };
 
-export { ApiKeyCreatedEmail };
+export default ApiKeyCreatedEmail;

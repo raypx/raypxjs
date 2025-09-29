@@ -1,6 +1,6 @@
 import { Text } from "@react-email/components";
+import { EmailLayout } from "../components/layout";
 import type { EmailTemplateProps } from "../types";
-import { EmailLayout } from "./layout-email";
 
 /**
  * Props for the send verification OTP component
@@ -10,7 +10,7 @@ interface SendVerificationOTPProps extends Pick<EmailTemplateProps, "username" |
 /**
  * OTP verification email template
  */
-const SendVerificationOTP = ({ username, otp }: SendVerificationOTPProps) => (
+const SendVerificationOTPEmail = ({ username, otp }: SendVerificationOTPProps) => (
   <EmailLayout preview="Your verification code">
     <Text className="font-bold text-2xl text-gray-800">Verify your email</Text>
     <Text className="text-gray-600">Hi {username},</Text>
@@ -24,9 +24,9 @@ const SendVerificationOTP = ({ username, otp }: SendVerificationOTPProps) => (
   </EmailLayout>
 );
 
-SendVerificationOTP.PreviewProps = {
+SendVerificationOTPEmail.PreviewProps = {
   username: "Raypx",
   otp: "596853",
 };
 
-export { SendVerificationOTP };
+export default SendVerificationOTPEmail;

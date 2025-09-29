@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { EMAIL_ADDRESSES } from "@raypx/shared";
 
 /**
  * Common test utilities and helpers
@@ -125,7 +126,7 @@ export class TestHelpers {
 export function createTestUser() {
   const timestamp = Date.now();
   return {
-    email: `test-${timestamp}@raypx.com`,
+    email: `test-${timestamp}@${EMAIL_ADDRESSES.TEST.split("@")[1]}`,
     password: "TestPassword123!",
     name: `Test User ${timestamp}`,
   };

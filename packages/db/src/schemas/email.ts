@@ -23,12 +23,7 @@ export const emailStatusEnum = pgEnum("email_status", [
   "failed",
 ]);
 
-export const emailProviderEnum = pgEnum("email_provider", [
-  "resend",
-  "nodemailer",
-  "ses",
-  "sendgrid",
-]);
+export const emailProviderEnum = pgEnum("email_provider", ["resend", "nodemailer"]);
 
 export const emails = pgTable(
   "emails",

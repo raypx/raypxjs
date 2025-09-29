@@ -1,5 +1,5 @@
 import { Button, Text } from "@react-email/components";
-import { EmailLayout } from "./layout-email";
+import { EmailLayout } from "../components/layout";
 
 export type OrganizationInviteEmailProps = {
   inviterName: string;
@@ -32,10 +32,7 @@ const OrganizationInviteEmail = ({
       Click the button below to accept the invitation and get started:
     </Text>
 
-    <Button
-      className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
-      href={inviteUrl}
-    >
+    <Button className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white" href={inviteUrl}>
       Accept Invitation
     </Button>
 
@@ -60,4 +57,4 @@ OrganizationInviteEmail.PreviewProps = {
   inviteUrl: "https://example.com/invite",
 };
 
-export { OrganizationInviteEmail };
+export default OrganizationInviteEmail;

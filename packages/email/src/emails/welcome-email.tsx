@@ -1,6 +1,6 @@
 import { Text } from "@react-email/components";
+import { EmailLayout } from "../components/layout";
 import type { EmailTemplateProps } from "../types";
-import { EmailLayout } from "./layout-email";
 
 /**
  * Props for the welcome email component
@@ -27,4 +27,4 @@ WelcomeEmail.PreviewProps = {
   username: "Raypx",
 };
 
-export { WelcomeEmail };
+export default WelcomeEmail;
