@@ -32,9 +32,9 @@
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
-    "@types/react": "catalog:",
+    "@types/react": "catalog:react19",
     "next": "catalog:",
-    "posthog-js": "catalog:",
+    "posthog-js": "^1.268.7",
     "type-fest": "catalog:",
     "typescript": "catalog:dev"
   }

@@ -8,6 +8,7 @@
     "base.json"
   ],
   "devDependencies": {
+    "@types/node": "catalog:",
     "typescript": "catalog:dev"
   }
 }

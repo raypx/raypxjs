@@ -18,16 +18,16 @@
     "@raypx/db": "workspace:*",
     "@raypx/shared": "workspace:*",
     "@scalar/hono-api-reference": "^0.9.19",
-    "date-fns": "^4.1.0",
-    "drizzle-orm": "^0.44.5",
-    "drizzle-zod": "^0.8.3",
+    "date-fns": "catalog:",
+    "drizzle-orm": "catalog:",
+    "drizzle-zod": "catalog:",
     "hono": "catalog:",
     "zod": "catalog:",
-    "zod-openapi": "catalog:"
+    "zod-openapi": "^5.4.2"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "typescript": "catalog:dev",
     "vitest": "catalog:"
   }

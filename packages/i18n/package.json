@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
-    "@types/node": "catalog:",
     "next": "catalog:",
     "tsx": "^4.20.5",
     "type-fest": "catalog:",

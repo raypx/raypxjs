@@ -14,8 +14,8 @@
     "@next/bundle-analyzer": "^15.5.4"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "next-intl": "catalog:",
     "type-fest": "catalog:",
     "typescript": "catalog:dev"

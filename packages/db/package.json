@@ -23,19 +23,19 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
     "@raypx/shared": "workspace:*",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "catalog:",
     "drizzle-seed": "^0.3.1",
-    "drizzle-zod": "^0.8.3",
+    "drizzle-zod": "catalog:",
     "nanoid": "^5.1.6",
     "postgres": "^3.4.7",
     "uuid": "^13.0.0",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "dotenv-cli": "^10.0.0",
-    "drizzle-kit": "catalog:",
+    "drizzle-kit": "^0.31.5",
     "typescript": "catalog:dev"
   }
 }

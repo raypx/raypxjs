@@ -18,8 +18,8 @@
     "commander": "^14.0.1"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "typescript": "catalog:dev",
     "vitest": "catalog:"
   }

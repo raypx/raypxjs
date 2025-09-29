@@ -22,17 +22,17 @@
     "@raypx/shared": "workspace:*",
     "@react-email/components": "^0.5.5",
     "@react-email/render": "^1.3.1",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "catalog:",
     "nodemailer": "^7.0.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "resend": "^6.1.0"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "@types/nodemailer": "^7.0.1",
-    "@types/react": "catalog:",
+    "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
     "typescript": "catalog:dev"
   }

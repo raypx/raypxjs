@@ -22,9 +22,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
     "@raypx/tsconfig": "workspace:*",
-    "@types/react": "catalog:",
+    "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
     "typescript": "catalog:dev"
   }

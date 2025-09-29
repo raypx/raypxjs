@@ -19,8 +19,8 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "@raypx/tsconfig": "workspace:*",
     "typescript": "catalog:dev"
   }
 }

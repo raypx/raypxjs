@@ -23,9 +23,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@raypx/tsconfig": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "catalog:",
     "typescript": "catalog:dev"
   }
 }

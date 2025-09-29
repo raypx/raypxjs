@@ -13,9 +13,9 @@
     "clean": "rimraf test-results playwright-report"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@playwright/test": "^1.55.0",
     "@raypx/tsconfig": "workspace:*",
-    "@types/node": "catalog:",
-    "dotenv": "catalog:"
+    "dotenv": "^17.2.2"
   }
 }

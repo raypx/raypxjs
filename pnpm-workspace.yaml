@@ -4,26 +4,22 @@ packages:
   - tooling/*
 
 catalog:
-  '@playwright/test': ^1.55.0
+  '@hookform/resolvers': ^5.2.2
+  '@tanstack/react-query': ^5.90.2
   '@types/node': ^24.5.2
-  '@types/react': ^19.1.14
-  dotenv: ^17.2.2
-  drizzle-kit: ^0.31.5
-  fumadocs-core: ^15.8.1
-  fumadocs-ui: ^15.8.1
+  date-fns: ^4.1.0
+  drizzle-orm: ^0.44.5
+  drizzle-zod: ^0.8.3
   hono: ^4.9.9
   lucide-react: ^0.544.0
   next: ^15.5.4
   next-intl: ^4.3.9
-  posthog-js: ^1.268.6
+  react-hook-form: ^7.63.0
   type-fest: ^5.0.1
   vite: ^7.1.7
   vitest: ^3.2.4
   zod: ^4.1.11
-  zod-openapi: ^5.4.2
-  zustand: ^5.0.8
-
-catalogMode: prefer
+  zustand: ^5.0.2
 
 catalogs:
   dev:

@@ -6,24 +6,24 @@ settings:
 
 catalogs:
   default:
+    '@hookform/resolvers':
+      specifier: ^5.2.2
+      version: 5.2.2
+    '@tanstack/react-query':
+      specifier: ^5.90.2
+      version: 5.90.2
     '@types/node':
       specifier: ^24.5.2
       version: 24.5.2
-    '@types/react':
-      specifier: ^19.1.14
-      version: 19.1.15
-    dotenv:
-      specifier: ^17.2.2
-      version: 17.2.2
-    drizzle-kit:
-      specifier: ^0.31.5
-      version: 0.31.5
-    fumadocs-core:
-      specifier: ^15.8.1
-      version: 15.8.1
-    fumadocs-ui:
-      specifier: ^15.8.1
-      version: 15.8.1
+    date-fns:
+      specifier: ^4.1.0
+      version: 4.1.0
+    drizzle-orm:
+      specifier: ^0.44.5
+      version: 0.44.5
+    drizzle-zod:
+      specifier: ^0.8.3
+      version: 0.8.3
     hono:
       specifier: ^4.9.9
       version: 4.9.9
@@ -36,9 +36,9 @@ catalogs:
     next-intl:
       specifier: ^4.3.9
       version: 4.3.9
-    posthog-js:
-      specifier: ^1.268.6
-      version: 1.268.6
+    react-hook-form:
+      specifier: ^7.63.0
+      version: 7.63.0
     type-fest:
       specifier: ^5.0.1
       version: 5.0.1
@@ -51,11 +51,8 @@ catalogs:
     zod:
       specifier: ^4.1.11
       version: 4.1.11
-    zod-openapi:
-      specifier: ^5.4.2
-      version: 5.4.2
     zustand:
-      specifier: ^5.0.8
+      specifier: ^5.0.2
       version: 5.0.8
   dev:
     '@biomejs/biome':
@@ -71,6 +68,9 @@ catalogs:
       specifier: ^5.1.2
       version: 5.4.5
   react19:
+    '@types/react':
+      specifier: ^19.1.13
+      version: 19.1.15
     '@types/react-dom':
       specifier: ^19.1.9
       version: 19.1.9
@@ -179,11 +179,8 @@ importers:
       '@raypx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-dom':
         specifier: catalog:react19
@@ -219,7 +216,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       date-fns:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       dayjs:
         specifier: ^1.11.18
@@ -228,13 +225,13 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       fumadocs-core:
-        specifier: 'catalog:'
+        specifier: ^15.8.1
         version: 15.8.1(@types/react@19.1.15)(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       fumadocs-mdx:
         specifier: ^12.0.1
         version: 12.0.1(fumadocs-core@15.8.1(@types/react@19.1.15)(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(vite@7.1.7(@types/node@24.5.2)(jiti@2.6.0)(lightningcss@1.30.1)(tsx@4.20.6))
       fumadocs-ui:
-        specifier: 'catalog:'
+        specifier: ^15.8.1
         version: 15.8.1(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.13)
       lucide-react:
         specifier: 'catalog:'
@@ -267,11 +264,8 @@ importers:
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-dom':
         specifier: catalog:react19
@@ -307,13 +301,13 @@ importers:
         specifier: 'catalog:'
         version: 24.5.2
       dotenv:
-        specifier: 'catalog:'
+        specifier: ^17.2.2
         version: 17.2.2
 
   apps/web:
     dependencies:
       '@hookform/resolvers':
-        specifier: ^5.2.2
+        specifier: 'catalog:'
         version: 5.2.2(react-hook-form@7.63.0(react@19.1.1))
       '@raypx/analytics':
         specifier: workspace:*
@@ -352,10 +346,10 @@ importers:
         specifier: ^1.23.4
         version: 1.23.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@tanstack/react-query':
-        specifier: ^5.90.2
+        specifier: 'catalog:'
         version: 5.90.2(react@19.1.1)
       date-fns:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       lucide-react:
         specifier: 'catalog:'
@@ -379,7 +373,7 @@ importers:
         specifier: catalog:react19
         version: 19.1.1(react@19.1.1)
       react-hook-form:
-        specifier: ^7.63.0
+        specifier: 'catalog:'
         version: 7.63.0(react@19.1.1)
       react-remove-scroll:
         specifier: ^2.7.1
@@ -403,11 +397,8 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.13
         version: 4.1.13
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-dom':
         specifier: catalog:react19
@@ -441,14 +432,14 @@ importers:
         specifier: 'catalog:'
         version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       next:
         specifier: 'catalog:'
         version: 15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       posthog-js:
-        specifier: 'catalog:'
-        version: 1.268.6
+        specifier: ^1.268.7
+        version: 1.268.7
       type-fest:
         specifier: 'catalog:'
         version: 5.0.1
@@ -465,7 +456,7 @@ importers:
         specifier: ^1.12.1
         version: 1.12.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@hookform/resolvers':
-        specifier: ^5.2.2
+        specifier: 'catalog:'
         version: 5.2.2(react-hook-form@7.63.0(react@19.1.1))
       '@marsidev/react-turnstile':
         specifier: ^1.3.1
@@ -492,8 +483,8 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4(@types/react@19.1.15)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       better-auth:
-        specifier: ^1.3.17
-        version: 1.3.18(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: ^1.3.23
+        version: 1.3.23(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       next-intl:
         specifier: 'catalog:'
         version: 4.3.9(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
@@ -504,7 +495,7 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(react@19.1.1)
       react-hook-form:
-        specifier: ^7.63.0
+        specifier: 'catalog:'
         version: 7.63.0(react@19.1.1)
       react-qr-code:
         specifier: ^2.0.18
@@ -517,7 +508,7 @@ importers:
         specifier: 'catalog:'
         version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-google-recaptcha':
         specifier: ^2.1.9
@@ -585,13 +576,13 @@ importers:
         specifier: workspace:*
         version: link:../shared
       drizzle-orm:
-        specifier: ^0.44.5
+        specifier: 'catalog:'
         version: 0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7)
       drizzle-seed:
         specifier: ^0.3.1
         version: 0.3.1(drizzle-orm@0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7))
       drizzle-zod:
-        specifier: ^0.8.3
+        specifier: 'catalog:'
         version: 0.8.3(drizzle-orm@0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7))(zod@4.1.11)
       nanoid:
         specifier: ^5.1.6
@@ -616,7 +607,7 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       drizzle-kit:
-        specifier: 'catalog:'
+        specifier: ^0.31.5
         version: 0.31.5
       typescript:
         specifier: catalog:dev
@@ -637,7 +628,7 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       drizzle-orm:
-        specifier: ^0.44.5
+        specifier: 'catalog:'
         version: 0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7)
       nodemailer:
         specifier: ^7.0.6
@@ -662,7 +653,7 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-dom':
         specifier: catalog:react19
@@ -680,9 +671,6 @@ importers:
       '@raypx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       next:
         specifier: 'catalog:'
         version: 15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -724,11 +712,8 @@ importers:
       '@raypx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       next:
         specifier: 'catalog:'
@@ -758,13 +743,13 @@ importers:
         specifier: ^0.9.19
         version: 0.9.19(hono@4.9.9)
       date-fns:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       drizzle-orm:
-        specifier: ^0.44.5
+        specifier: 'catalog:'
         version: 0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7)
       drizzle-zod:
-        specifier: ^0.8.3
+        specifier: 'catalog:'
         version: 0.8.3(drizzle-orm@0.44.5(@neondatabase/serverless@1.0.1)(@types/pg@8.15.5)(kysely@0.28.7)(postgres@3.4.7))(zod@4.1.11)
       hono:
         specifier: 'catalog:'
@@ -773,7 +758,7 @@ importers:
         specifier: 'catalog:'
         version: 4.1.11
       zod-openapi:
-        specifier: 'catalog:'
+        specifier: ^5.4.2
         version: 5.4.2(zod@4.1.11)
     devDependencies:
       '@raypx/tsconfig':
@@ -823,7 +808,7 @@ importers:
   packages/ui:
     dependencies:
       '@hookform/resolvers':
-        specifier: ^5.2.2
+        specifier: 'catalog:'
         version: 5.2.2(react-hook-form@7.63.0(react@19.1.1))
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
@@ -910,7 +895,7 @@ importers:
         specifier: ^3.35.0
         version: 3.35.0(react@19.1.1)
       '@tanstack/react-query':
-        specifier: ^5.90.2
+        specifier: 'catalog:'
         version: 5.90.2(react@19.1.1)
       class-variance-authority:
         specifier: ^0.7.1
@@ -922,7 +907,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.1.9(@types/react@19.1.15))(@types/react@19.1.15)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       date-fns:
-        specifier: ^4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       embla-carousel-react:
         specifier: ^8.6.0
@@ -946,7 +931,7 @@ importers:
         specifier: catalog:react19
         version: 19.1.1(react@19.1.1)
       react-hook-form:
-        specifier: ^7.63.0
+        specifier: 'catalog:'
         version: 7.63.0(react@19.1.1)
       react-resizable-panels:
         specifier: ^3.0.6
@@ -973,11 +958,8 @@ importers:
       '@raypx/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.5.2
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:react19
         version: 19.1.15
       '@types/react-dom':
         specifier: catalog:react19
@@ -1071,6 +1053,9 @@ importers:
 
   tooling/tsconfig:
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.5.2
       typescript:
         specifier: catalog:dev
         version: 5.9.2
@@ -1243,8 +1228,8 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
-  '@better-auth/core@1.3.18':
-    resolution: {integrity: sha512-eVTpiyFOA70SecGuiXs2qxQq1oWbEiLJMpyOYF8HAHFXHH+iK0Ab8F0stdyJTTYOc9ydjFQgYXmbENG6JqQ3UA==}
+  '@better-auth/core@1.3.23':
+    resolution: {integrity: sha512-l0ICSSu8N4tOcdbDX6DRetFaX/wBHLwB4mSp9LD9DfjgDywKWWbzTFr3GP+T5HfvNq+vmH4NKjr2MJtI+sTqIw==}
 
   '@better-auth/utils@0.3.0':
     resolution: {integrity: sha512-W+Adw6ZA6mgvnSnhOki270rwJ42t4XzSK6YWGF//BbVXL6SwCLWfyzBc1lN2m/4RM28KubdBKQ4X5VMoLRNPQw==}
@@ -3624,17 +3609,17 @@ packages:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
 
-  better-auth@1.3.18:
-    resolution: {integrity: sha512-d4/Wlvvg8irDSblQP1KiLEWYppTlDiNXV9U4oP6D463MlMbMn7kbBcJvM6Us7M//rgi/mAzg5xKzuE3Y5B2NrQ==}
+  better-auth@1.3.23:
+    resolution: {integrity: sha512-wskWRCUu9pCmGzVMht2+ZkO33CzztJUdtuBttq7YDxBSR5/gaa3WaTx9TLLgUz/wBNCqyAW71uCqeArI5M6Fpg==}
     peerDependencies:
       '@lynx-js/react': '*'
-      '@sveltejs/kit': ^2.0.0
-      next: ^14.0.0 || ^15.0.0
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-      solid-js: ^1.0.0
-      svelte: ^4.0.0 || ^5.0.0
-      vue: ^3.0.0
+      '@sveltejs/kit': '*'
+      next: '*'
+      react: '*'
+      react-dom: '*'
+      solid-js: '*'
+      svelte: '*'
+      vue: '*'
     peerDependenciesMeta:
       '@lynx-js/react':
         optional: true
@@ -5687,8 +5672,8 @@ packages:
     resolution: {integrity: sha512-Jtc2612XINuBjIl/QTWsV5UvE8UHuNblcO3vVADSrKsrc6RqGX6lOW1cEo3CM2v0XG4Nat8nI+YM7/f26VxXLw==}
     engines: {node: '>=12'}
 
-  posthog-js@1.268.6:
-    resolution: {integrity: sha512-3IWd5dbs/Bs6akesiDNn+QhN7QBU6xdYV31KG8ive/6srSV7DBcH0W+UgclNvlZanVqpwPTg3mbOgNKa7mEPrQ==}
+  posthog-js@1.268.7:
+    resolution: {integrity: sha512-1KtdqykQ/EftFbBDbDgpdmViQ7AdRuEnDjpk4SNvNx4TtTC2JKQkDVBr+N4NDvoBbEKDO+Tn8mTEV/cMstpMSw==}
     peerDependencies:
       '@rrweb/types': 2.0.0-alpha.17
       rrweb-snapshot: 2.0.0-alpha.17
@@ -7166,7 +7151,7 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@better-auth/core@1.3.18': {}
+  '@better-auth/core@1.3.23': {}
 
   '@better-auth/utils@0.3.0': {}
 
@@ -9711,9 +9696,9 @@ snapshots:
 
   basic-ftp@5.0.5: {}
 
-  better-auth@1.3.18(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  better-auth@1.3.23(next@15.5.4(@playwright/test@1.55.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
-      '@better-auth/core': 1.3.18
+      '@better-auth/core': 1.3.23
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.18
       '@noble/ciphers': 2.0.1
@@ -11995,7 +11980,7 @@ snapshots:
 
   postgres@3.4.7: {}
 
-  posthog-js@1.268.6:
+  posthog-js@1.268.7:
     dependencies:
       '@posthog/core': 1.2.1
       core-js: 3.45.1
