@@ -63,7 +63,7 @@ export class KnowledgeService {
   /**
    * Get knowledge base by ID (with ownership check)
    */
-  async getKnowledgeBase(id: string, userId: string) {
+  async getKnowledgeBase(id: string, userId: string): Promise<Knowledge> {
     const knowledgeBase = await getKnowledgeBaseById(id, userId);
     if (!knowledgeBase) {
       throw new Error("Knowledge base not found");
@@ -123,7 +123,11 @@ export class KnowledgeService {
   /**
    * Create a new document in a knowledge base
    */
-  async createDocument(knowledgeBaseId: string, userId: string, data: CreateDocumentData) {
+  async createDocument(
+    knowledgeBaseId: string,
+    userId: string,
+    data: CreateDocumentData
+  ): Promise<Document> {
     // First verify the user owns this knowledge base
     await this.getKnowledgeBase(knowledgeBaseId, userId);
 

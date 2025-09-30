@@ -25,7 +25,7 @@
     "dev": "turbo dev",
     "web:dev": "pnpm --filter web run dev",
     "format": "raypx-scripts format",
-    "knip": "pnpm with-env knip || true",
+    "knip": "pnpm with-env knip",
     "knip:strict": "pnpm with-env knip",
     "knip:fix": "pnpm with-env knip --fix || true",
     "with-env": "dotenv -e ./.env --",

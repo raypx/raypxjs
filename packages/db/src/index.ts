@@ -1,23 +1,50 @@
 export { alias } from "drizzle-orm/pg-core";
 export * from "drizzle-orm/sql";
 
-import { createClient } from "./adapters/postgres";
 import { envs } from "./envs";
+import { databaseRegistry } from "./registry";
 import * as schemas from "./schemas";
 
-export * from "./query";
+export * from "./types";
 export * from "./utils";
 
 const env = envs();
 
-export const db = createClient<typeof schemas>({
-  databaseUrl: env.DATABASE_URL,
-  schema: schemas,
-});
+/**
+ * Database client type from Drizzle
+ */
+import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
-export type Database = typeof db;
+export type Database = PostgresJsDatabase<typeof schemas>;
 
-export { schemas };
+/**
+ * Get database client instance lazily
+ * Uses registry to select provider based on DATABASE_PROVIDER env var
+ */
+let _cachedDb: Database | null = null;
+
+export const getDatabase = async (): Promise<Database> => {
+  if (!_cachedDb) {
+    _cachedDb = (await databaseRegistry.get(env.DATABASE_PROVIDER)) as Database;
+  }
+  return _cachedDb;
+};
+
+/**
+ * Synchronous database client instance
+ * Initialized on first module import using top-level await
+ *
+ * @example
+ * ```ts
+ * import { db } from "@raypx/db";
+ *
+ * // Direct usage (provider selected based on DATABASE_PROVIDER env)
+ * await db.select().from(users);
+ * ```
+ */
+export const db = await getDatabase();
+
+export { schemas, databaseRegistry };
 export type {
   AnyColumn,
   SQL,
@@ -29,4 +56,5 @@ export type {
   TableConfig,
   TableLikeHasEmptySelection,
 } from "drizzle-orm/pg-core";
-export { emailEvents, emails, emailTemplates } from "./schemas/email";
+// Export query functions after db is initialized
+export * from "./query";

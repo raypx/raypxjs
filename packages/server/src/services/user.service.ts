@@ -1,7 +1,4 @@
-import { getUserStats, getUsersList, type schemas, updateUserStatus } from "@raypx/db";
-import type { InferSelectModel } from "drizzle-orm";
-
-export type User = InferSelectModel<typeof schemas.user>;
+import { getUserStats, getUsersList, updateUserStatus } from "@raypx/db";
 
 export type UserListOptions = {
   limit?: number;

@@ -1,6 +1,8 @@
+import type { InferSelectModel } from "drizzle-orm";
 import { and, asc, count, db, desc, eq, gt, isNotNull, like, type SQL } from "../index";
 import { chunks, documents, knowledges, session, user } from "../schemas";
 
+export type User = InferSelectModel<typeof user>;
 export const getUser = async (id: string) => {
   const data = await db.query.user.findFirst({
     where: eq(user.id, id),
@@ -17,7 +19,12 @@ export const getUsersList = async (options?: {
   sortOrder?: "asc" | "desc";
   role?: string;
   status?: "active" | "banned";
-}) => {
+}): Promise<{
+  data: User[];
+  total: number;
+  page: number;
+  totalPages: number;
+}> => {
   const {
     limit = 20,
     offset = 0,
