@@ -163,10 +163,10 @@ export function SiteSearch({ url, children }: SiteSearchProps) {
 }
 
 // Core SEO components from components.tsx
-export interface SEOProviderProps extends SEOConfig {
+export type SEOProviderProps = SEOConfig & {
   children?: ReactNode;
   structuredData?: StructuredDataType[];
-}
+};
 
 export function SEOProvider({ children, structuredData = [], ...seoConfig }: SEOProviderProps) {
   const seoProps = createSEOProps(seoConfig);
@@ -186,9 +186,9 @@ export function SEOProvider({ children, structuredData = [], ...seoConfig }: SEO
   );
 }
 
-export interface PageSEOProps extends NextSeoProps {
+export type PageSEOProps = NextSeoProps & {
   structuredData?: StructuredDataType[];
-}
+};
 
 export function PageSEO({ structuredData = [], ...seoProps }: PageSEOProps) {
   return (
@@ -205,13 +205,13 @@ export function PageSEO({ structuredData = [], ...seoProps }: PageSEOProps) {
   );
 }
 
-export interface ArticleSEOProps extends SEOConfig {
+export type ArticleSEOProps = SEOConfig & {
   structuredData?: StructuredDataType[];
   datePublished: string;
   dateModified?: string;
   author?: string;
   url: string;
-}
+};
 
 export function ArticleSEO({
   structuredData = [],

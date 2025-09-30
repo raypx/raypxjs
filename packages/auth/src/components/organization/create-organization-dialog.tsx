@@ -35,10 +35,10 @@ import { fileToBase64, resizeAndCropImage } from "../../core/lib/image-utils";
 import { cn, getLocalizedError } from "../../core/lib/utils";
 import { OrganizationLogo } from "./organization-logo";
 
-export interface CreateOrganizationDialogProps extends ComponentProps<typeof Dialog> {
+export type CreateOrganizationDialogProps = ComponentProps<typeof Dialog> & {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function CreateOrganizationDialog({
   className,

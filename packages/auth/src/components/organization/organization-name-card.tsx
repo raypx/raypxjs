@@ -14,9 +14,9 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { useCurrentOrganization } from "../../core/hooks/use-current-organization";
 import { getLocalizedError } from "../../core/lib/utils";
 
-export interface OrganizationNameCardProps extends SettingsCardProps {
+export type OrganizationNameCardProps = SettingsCardProps & {
   slug?: string;
-}
+};
 
 export function OrganizationNameCard({
   className,

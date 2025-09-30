@@ -20,11 +20,11 @@ import { useLang } from "../../core/hooks/use-lang";
 import { getLocalizedError } from "../../core/lib/utils";
 import type { ApiKey, Refetch } from "../../types";
 
-interface ApiKeyDeleteDialogProps extends ComponentProps<typeof Dialog> {
+type ApiKeyDeleteDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   apiKey: ApiKey;
   refetch?: Refetch;
-}
+};
 
 export function ApiKeyDeleteDialog({
   classNames,

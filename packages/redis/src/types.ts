@@ -89,11 +89,11 @@ export type CacheStats = {
 // Redis Specific Types
 // ============================================================================
 
-export interface RedisCacheStore extends CacheStore {
+export type RedisCacheStore = CacheStore & {
   getRedis(): RedisClientType;
   getConnectionInfo(): RedisConnectionInfo;
   executeCommand<T>(command: string, ...args: unknown[]): Promise<T>;
-}
+};
 
 export type RedisConnectionInfo = {
   host: string;

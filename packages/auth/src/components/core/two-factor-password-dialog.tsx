@@ -29,10 +29,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { BackupCodesDialog } from "./backup-codes-dialog";
 
-interface TwoFactorPasswordDialogProps extends ComponentProps<typeof Dialog> {
+type TwoFactorPasswordDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   isTwoFactorEnabled: boolean;
-}
+};
 
 export function TwoFactorPasswordDialog({
   classNames,

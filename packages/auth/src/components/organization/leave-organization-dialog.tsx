@@ -19,12 +19,12 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { OrganizationCellView } from "./organization-cell-view";
 
-export interface LeaveOrganizationDialogProps extends ComponentProps<typeof Dialog> {
+export type LeaveOrganizationDialogProps = ComponentProps<typeof Dialog> & {
   className?: string;
   classNames?: SettingsCardClassNames;
 
   organization: Organization;
-}
+};
 
 export function LeaveOrganizationDialog({
   organization,

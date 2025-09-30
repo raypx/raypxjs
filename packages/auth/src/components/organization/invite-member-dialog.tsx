@@ -36,10 +36,10 @@ import { z } from "zod/v4";
 import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 
-export interface InviteMemberDialogProps extends ComponentProps<typeof Dialog> {
+export type InviteMemberDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   organization: Organization;
-}
+};
 
 export function InviteMemberDialog({
   classNames,

@@ -20,11 +20,11 @@ import { fileToBase64, resizeAndCropImage } from "../../core/lib/image-utils";
 import { getLocalizedError } from "../../core/lib/utils";
 import { OrganizationLogo } from "./organization-logo";
 
-export interface OrganizationLogoCardProps extends ComponentProps<typeof Card> {
+export type OrganizationLogoCardProps = ComponentProps<typeof Card> & {
   className?: string;
   classNames?: SettingsCardClassNames;
   slug?: string;
-}
+};
 
 export function OrganizationLogoCard({
   className,

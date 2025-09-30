@@ -40,12 +40,12 @@ import type { Refetch } from "../../types";
 import { OrganizationCellView } from "../organization/organization-cell-view";
 import { PersonalAccountView } from "./personal-account-view";
 
-interface CreateApiKeyDialogProps extends ComponentProps<typeof Dialog> {
+type CreateApiKeyDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   onSuccess: (key: string) => void;
   refetch?: Refetch;
   organizationId?: string;
-}
+};
 
 export function CreateApiKeyDialog({
   classNames,

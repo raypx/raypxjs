@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import type { ComponentProps, ForwardedRef } from "react";
 import { forwardRef } from "react";
 
-export interface LinkProps extends ComponentProps<typeof NextLink> {
+export type LinkProps = ComponentProps<typeof NextLink> & {
   /**
    * Whether to open the link in a new tab
    */
@@ -13,7 +13,7 @@ export interface LinkProps extends ComponentProps<typeof NextLink> {
    * Custom className for styling
    */
   className?: string;
-}
+};
 
 /**
  * Link component that wraps Next.js Link with additional functionality

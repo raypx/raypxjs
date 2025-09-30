@@ -15,10 +15,10 @@ import { cn } from "@raypx/ui/lib/utils";
 import { type ComponentProps, useState } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
 
-interface BackupCodesDialogProps extends ComponentProps<typeof Dialog> {
+type BackupCodesDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   backupCodes: string[];
-}
+};
 
 export function BackupCodesDialog({
   classNames,

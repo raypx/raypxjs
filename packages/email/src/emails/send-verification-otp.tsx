@@ -5,7 +5,7 @@ import type { EmailTemplateProps } from "../types";
 /**
  * Props for the send verification OTP component
  */
-interface SendVerificationOTPProps extends Pick<EmailTemplateProps, "username" | "otp"> {}
+type SendVerificationOTPProps = Pick<EmailTemplateProps, "username" | "otp">;
 
 /**
  * OTP verification email template

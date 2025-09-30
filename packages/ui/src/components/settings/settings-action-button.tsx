@@ -7,12 +7,12 @@ import type { ComponentProps, ReactNode } from "react";
 import { useFormState } from "react-hook-form";
 import type { SettingsCardClassNames } from "./settings-card";
 
-interface SettingsActionButtonProps extends ComponentProps<typeof Button> {
+type SettingsActionButtonProps = ComponentProps<typeof Button> & {
   classNames?: SettingsCardClassNames;
   actionLabel: ReactNode;
   disabled?: boolean;
   isSubmitting?: boolean;
-}
+};
 
 export function SettingsActionButton({
   classNames,

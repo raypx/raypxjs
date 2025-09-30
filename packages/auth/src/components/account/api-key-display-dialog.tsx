@@ -15,10 +15,10 @@ import { cn } from "@raypx/ui/lib/utils";
 import { type ComponentProps, useState } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
 
-interface ApiKeyDisplayDialogProps extends ComponentProps<typeof Dialog> {
+type ApiKeyDisplayDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   apiKey: string;
-}
+};
 
 export function ApiKeyDisplayDialog({
   classNames,

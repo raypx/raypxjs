@@ -51,7 +51,7 @@ export type OrganizationSwitcherClassNames = {
   };
 };
 
-export interface OrganizationSwitcherProps extends Omit<ComponentProps<typeof Button>, "trigger"> {
+export type OrganizationSwitcherProps = Omit<ComponentProps<typeof Button>, "trigger"> & {
   classNames?: OrganizationSwitcherClassNames;
   align?: "center" | "start" | "end";
   trigger?: ReactNode;
@@ -64,7 +64,7 @@ export interface OrganizationSwitcherProps extends Omit<ComponentProps<typeof Bu
    * @default false
    */
   hidePersonal?: boolean;
-}
+};
 
 /**
  * Displays an interactive user button with dropdown menu functionality

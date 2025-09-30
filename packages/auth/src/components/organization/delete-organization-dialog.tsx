@@ -31,10 +31,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { OrganizationCellView } from "./organization-cell-view";
 
-export interface DeleteOrganizationDialogProps extends ComponentProps<typeof Dialog> {
+export type DeleteOrganizationDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   organization: Organization;
-}
+};
 
 export function DeleteOrganizationDialog({
   classNames,

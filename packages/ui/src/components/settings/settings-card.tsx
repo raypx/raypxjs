@@ -42,7 +42,7 @@ export type SettingsCardClassNames = {
   title?: string;
 };
 
-export interface SettingsCardProps extends Omit<ComponentProps<typeof Card>, "title"> {
+export type SettingsCardProps = Omit<ComponentProps<typeof Card>, "title"> & {
   children?: ReactNode;
   className?: string;
   classNames?: SettingsCardClassNames;
@@ -56,7 +56,7 @@ export interface SettingsCardProps extends Omit<ComponentProps<typeof Card>, "ti
   optimistic?: boolean;
   variant?: "default" | "destructive";
   action?: () => Promise<unknown> | unknown;
-}
+};
 
 export function SettingsCard({
   children,

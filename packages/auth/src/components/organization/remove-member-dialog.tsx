@@ -19,10 +19,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { MemberCell } from "./member-cell";
 
-export interface RemoveMemberDialogProps extends ComponentProps<typeof Dialog> {
+export type RemoveMemberDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   member: Member & { user?: Partial<User> | null };
-}
+};
 
 export function RemoveMemberDialog({
   member,

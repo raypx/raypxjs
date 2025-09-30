@@ -10,9 +10,9 @@ import { ApiKeyCell } from "./api-key-cell";
 import { ApiKeyDisplayDialog } from "./api-key-display-dialog";
 import { CreateApiKeyDialog } from "./create-api-key-dialog";
 
-export interface ApiKeysCardProps extends SettingsCardProps {
+export type ApiKeysCardProps = SettingsCardProps & {
   organizationId?: string;
-}
+};
 
 export function ApiKeysCard({ className, classNames, organizationId, ...props }: ApiKeysCardProps) {
   const {

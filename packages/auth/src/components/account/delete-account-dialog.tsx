@@ -30,10 +30,10 @@ import { useAuth } from "../../core/hooks/use-auth";
 import { getLocalizedError } from "../../core/lib/utils";
 import { UserView } from "./user-view";
 
-export interface DeleteAccountDialogProps extends ComponentProps<typeof Dialog> {
+export type DeleteAccountDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   accounts?: { provider: string }[] | null;
-}
+};
 
 export function DeleteAccountDialog({
   classNames,

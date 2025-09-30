@@ -18,10 +18,10 @@ import { fileToBase64, resizeAndCropImage } from "../../core/lib/image-utils";
 import { getLocalizedError } from "../../core/lib/utils";
 import { UserAvatar } from "./user-avatar";
 
-export interface UpdateAvatarCardProps extends ComponentProps<typeof Card> {
+export type UpdateAvatarCardProps = ComponentProps<typeof Card> & {
   className?: string;
   classNames?: SettingsCardClassNames;
-}
+};
 
 export function UpdateAvatarCard({ className, classNames, ...props }: UpdateAvatarCardProps) {
   const {

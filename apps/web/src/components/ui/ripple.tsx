@@ -3,11 +3,11 @@
 import { cn } from "@raypx/ui/lib/utils";
 import React, { type ComponentPropsWithoutRef, type CSSProperties } from "react";
 
-interface RippleProps extends ComponentPropsWithoutRef<"div"> {
+type RippleProps = ComponentPropsWithoutRef<"div"> & {
   mainCircleSize?: number;
   mainCircleOpacity?: number;
   numCircles?: number;
-}
+};
 
 export const Ripple = React.memo(function Ripple({
   mainCircleSize = 210,

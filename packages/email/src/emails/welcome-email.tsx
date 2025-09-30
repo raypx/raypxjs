@@ -5,7 +5,7 @@ import type { EmailTemplateProps } from "../types";
 /**
  * Props for the welcome email component
  */
-interface WelcomeEmailProps extends Pick<EmailTemplateProps, "username"> {}
+type WelcomeEmailProps = Pick<EmailTemplateProps, "username">;
 
 /**
  * Welcome email template for new users

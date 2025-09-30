@@ -12,11 +12,11 @@ import { cn } from "@raypx/ui/lib/utils";
 import type { ComponentProps } from "react";
 import { useAuth } from "../../core/hooks/use-auth";
 
-export interface SessionFreshnessDialogProps extends ComponentProps<typeof Dialog> {
+export type SessionFreshnessDialogProps = ComponentProps<typeof Dialog> & {
   classNames?: SettingsCardClassNames;
   title?: string;
   description?: string;
-}
+};
 
 export function SessionFreshnessDialog({
   classNames,

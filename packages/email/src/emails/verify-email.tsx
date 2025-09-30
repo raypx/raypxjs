@@ -5,10 +5,10 @@ import type { EmailTemplateProps } from "../types";
 /**
  * Props for the verify email component
  */
-interface VerifyEmailProps extends Pick<EmailTemplateProps, "username"> {
+type VerifyEmailProps = Pick<EmailTemplateProps, "username"> & {
   /** Verification URL */
   url: string;
-}
+};
 
 /**
  * Email verification template
