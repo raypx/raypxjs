@@ -14,15 +14,12 @@
     "@next/bundle-analyzer": "^15.5.4"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
     "@raypx/tsconfig": "workspace:*",
-    "next-intl": "catalog:",
-    "type-fest": "catalog:",
+    "@types/node": "catalog:",
     "typescript": "catalog:dev"
   },
   "peerDependencies": {
-    "next": "catalog:",
-    "next-intl": "catalog:",
-    "@raypx/i18n": "workspace:*"
+    "@raypx/i18n": "workspace:*",
+    "next": "^15.5.4"
   }
 }

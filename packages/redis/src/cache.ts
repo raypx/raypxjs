@@ -589,7 +589,7 @@ export class Cache implements RedisCacheStore {
   }
 }
 
-export function cache(connection: string, opts: CacheOptions = {}): Cache {
+function cache(connection: string, opts: CacheOptions = {}): Cache {
   return new Cache(connection, opts);
 }
 

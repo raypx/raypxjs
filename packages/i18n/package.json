@@ -20,16 +20,11 @@
   "peerDependencies": {
     "next-intl": "catalog:"
   },
-  "peerDependenciesMeta": {
-    "next-intl": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
-    "next": "catalog:",
+    "next-intl": "catalog:",
+    "next": "^15.5.4",
     "tsx": "^4.20.5",
-    "type-fest": "catalog:",
     "typescript": "catalog:dev"
   }
 }

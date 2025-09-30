@@ -4,7 +4,7 @@ export const MAX_COMMANDS_QUEUE_LENGTH = 1000;
 // Redis response constants
 export const REDIS_SUCCESS = "OK";
 export const REDIS_EXISTS = 1;
-export const REDIS_NOT_EXISTS = 0;
+// export const REDIS_NOT_EXISTS = 0;
 
 // Time constants
 export const DEFAULT_TTL_SECONDS = 3600; // 1 hour

@@ -17,7 +17,7 @@
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
-    "next": "catalog:",
+    "next": "^15.5.4",
     "next-seo": "^6.8.0",
     "schema-dts": "^1.1.5",
     "typescript": "catalog:dev"

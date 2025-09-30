@@ -26,7 +26,3 @@ export const socialProviders: SocialProviders = {
     clientSecret: env.AUTH_GOOGLE_SECRET ?? "",
   },
 };
-
-export const supportedSocials = Object.entries(socialProviders)
-  .filter(([_, provider]) => provider.enabled)
-  .map(([key]) => key);

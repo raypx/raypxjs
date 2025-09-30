@@ -17,13 +17,9 @@
     "@raypx/auth": "workspace:*",
     "@raypx/db": "workspace:*",
     "@raypx/shared": "workspace:*",
-    "@scalar/hono-api-reference": "^0.9.19",
     "date-fns": "catalog:",
     "drizzle-orm": "catalog:",
-    "drizzle-zod": "catalog:",
-    "hono": "catalog:",
-    "zod": "catalog:",
-    "zod-openapi": "^5.4.2"
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",

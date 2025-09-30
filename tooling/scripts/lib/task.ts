@@ -3,8 +3,6 @@ import type { ListrTask } from "listr2";
 import type { Simplify } from "type-fest";
 import { logger, safeExec } from "../utils";
 
-export type TaskCtx = Record<string, any>;
-
 /**
  * Creates a ListrTask - supports both task functions and shell commands
  *

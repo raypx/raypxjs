@@ -42,15 +42,15 @@
     "react-qr-code": "^2.0.18"
   },
   "peerDependencies": {
-    "next": "catalog:"
+    "next": "^15.5.4"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
     "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "@types/react": "catalog:react19",
     "@types/react-google-recaptcha": "^2.1.9",
     "dotenv-cli": "^10.0.0",
-    "next": "catalog:",
+    "next": "^15.5.4",
     "type-fest": "catalog:",
     "typescript": "catalog:dev",
     "vitest": "catalog:"

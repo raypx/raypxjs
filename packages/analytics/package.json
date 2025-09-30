@@ -17,25 +17,18 @@
   "dependencies": {
     "@raypx/shared": "workspace:*",
     "@vercel/analytics": "^1.5.0",
+    "posthog-js": "^1.268.8",
     "posthog-node": "^5.9.2"
   },
   "peerDependencies": {
-    "next": "catalog:",
-    "posthog-js": "^1.257.2",
+    "next": "^15.5.4",
     "react": "catalog:react19"
-  },
-  "peerDependenciesMeta": {
-    "posthog-js": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "@types/react": "catalog:react19",
-    "next": "catalog:",
-    "posthog-js": "^1.268.8",
-    "type-fest": "catalog:",
+    "next": "^15.5.4",
     "typescript": "catalog:dev"
   }
 }

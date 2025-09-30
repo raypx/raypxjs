@@ -5,6 +5,7 @@ const withMDX = createMDX();
 
 const config = createConfig({
   withMDX,
+  i18n: "./i18n/request.ts",
 });
 
 export default config;

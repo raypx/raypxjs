@@ -17,7 +17,7 @@ export const createCache = () => {
 };
 
 // Export the main cache class and factory function
-export { Cache, cache } from "./cache";
+export { Cache, default as cache } from "./cache";
 // Export constants
 export { REDIS_SUCCESS } from "./consts";
 // Export environment configuration

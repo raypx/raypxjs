@@ -8,7 +8,7 @@ const AppSchema = z.object({
   githubUrl: z.string().min(1),
 });
 
-export const app = AppSchema.parse({
+const app = AppSchema.parse({
   name: "Raypx",
   description:
     "A modern web application platform built with Next.js and TypeScript for building AI-powered applications.",

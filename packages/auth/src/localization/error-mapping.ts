@@ -116,26 +116,6 @@ export const PERMISSION_ERROR_MAPPING: Record<string, ErrorContext> = {
 };
 
 /**
- * Get parameterized text for permission errors
- */
-export function getPermissionErrorText(
-  errorCode: string,
-  t: (key: string, params?: Record<string, unknown>) => string
-): string {
-  const context = PERMISSION_ERROR_MAPPING[errorCode];
-
-  if (context) {
-    return t("PERMISSION_DENIED_ACTION", {
-      action: context.action,
-      resource: context.resource,
-    });
-  }
-
-  // Fallback: if no mapping found, return original error text
-  return t(errorCode);
-}
-
-/**
  * Other optimizable error categories
  */
 export const VALIDATION_ERROR_MAPPING: Record<string, ErrorContext> = {
@@ -156,40 +136,3 @@ export const VALIDATION_ERROR_MAPPING: Record<string, ErrorContext> = {
     constraint: "too long",
   },
 };
-
-export function getValidationErrorText(
-  errorCode: string,
-  t: (key: string, params?: Record<string, unknown>) => string
-): string {
-  const context = VALIDATION_ERROR_MAPPING[errorCode];
-
-  if (context) {
-    return t("FIELD_CONSTRAINT_ERROR", {
-      field: context.field,
-      constraint: context.constraint,
-    });
-  }
-
-  return t(errorCode);
-}
-
-/**
- * Generic error handling function
- */
-export function getOptimizedErrorText(
-  errorCode: string,
-  t: (key: string, params?: Record<string, unknown>) => string
-): string {
-  // First try permission error mapping
-  if (errorCode.startsWith("YOU_ARE_NOT_ALLOWED_TO_")) {
-    return getPermissionErrorText(errorCode, t);
-  }
-
-  // Try validation error mapping
-  if (VALIDATION_ERROR_MAPPING[errorCode]) {
-    return getValidationErrorText(errorCode, t);
-  }
-
-  // Fallback to original error text
-  return t(errorCode);
-}

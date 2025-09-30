@@ -25,11 +25,9 @@
     "@raypx/shared": "workspace:*",
     "drizzle-orm": "catalog:",
     "drizzle-seed": "^0.3.1",
-    "drizzle-zod": "catalog:",
     "nanoid": "^5.1.6",
     "postgres": "^3.4.7",
-    "uuid": "^13.0.0",
-    "zod": "catalog:"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "catalog:",

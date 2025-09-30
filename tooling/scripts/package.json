@@ -14,9 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@changesets/cli": "^2.29.7",
     "consola": "^3.4.2",
-    "dayjs": "^1.11.18",
     "deepmerge": "^4.3.1",
     "fs-extra": "^11.3.2",
     "listr2": "^9.0.4",

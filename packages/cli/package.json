@@ -14,8 +14,7 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
-    "@raypx/shared": "workspace:*",
-    "commander": "^14.0.1"
+    "@raypx/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",
