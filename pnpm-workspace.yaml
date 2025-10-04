@@ -6,32 +6,32 @@ packages:
 catalog:
   '@hookform/resolvers': ^5.2.2
   '@tanstack/react-query': ^5.90.2
-  '@types/node': ^24.6.0
+  '@types/node': ^24.6.2
   date-fns: ^4.1.0
-  drizzle-orm: ^0.44.5
+  drizzle-orm: ^0.44.6
   drizzle-zod: ^0.8.3
   hono: ^4.9.9
   lucide-react: 0.544.0
   next: ^15.5.4
   next-intl: ^4.3.9
-  react-hook-form: ^7.63.0
+  react-hook-form: ^7.64.0
   type-fest: 5.0.1
-  vite: ^7.1.7
+  vite: ^7.1.9
   vitest: ^3.2.4
   zod: ^4.1.11
   zustand: ^5.0.2
 
 catalogs:
   dev:
-    '@biomejs/biome': ^2.2.4
-    lefthook: ^1.13.5
-    typescript: ^5.9.2
-    ultracite: ^5.4.6
+    '@biomejs/biome': ^2.2.5
+    lefthook: ^1.13.6
+    typescript: ^5.9.3
+    ultracite: ^5.5.0
   react19:
-    '@types/react': ^19.1.13
-    '@types/react-dom': ^19.1.9
-    react: ^19.1.1
-    react-dom: ^19.1.1
+    '@types/react': ^19.2.0
+    '@types/react-dom': ^19.2.0
+    react: ^19.2.0
+    react-dom: ^19.2.0
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'

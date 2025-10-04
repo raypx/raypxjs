@@ -40,7 +40,7 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
     "@changesets/cli": "^2.29.7",
-    "@commitlint/cli": "^20.0.0",
+    "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@commitlint/types": "^20.0.0",
     "@raypx/scripts": "workspace:*",
@@ -48,6 +48,7 @@
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "^3.2.4",
     "consola": "^3.4.2",
+    "dotenv-cli": "^10.0.0",
     "knip": "^5.64.1",
     "lefthook": "catalog:dev",
     "rimraf": "^6.0.1",
@@ -55,12 +56,11 @@
     "turbo": "^2.5.8",
     "typescript": "catalog:dev",
     "ultracite": "catalog:dev",
-    "dotenv-cli": "^10.0.0",
     "vite": "catalog:",
     "vitest": "catalog:",
     "zod": "catalog:"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": ">=20",
     "pnpm": ">=10.0.0"

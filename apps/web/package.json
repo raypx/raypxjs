@@ -37,7 +37,7 @@
   "devDependencies": {
     "@raypx/next-config": "workspace:*",
     "@raypx/tsconfig": "workspace:*",
-    "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/postcss": "^4.1.14",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
     "dotenv-cli": "^10.0.0",

@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "@raypx/shared": "workspace:*",
-    "redis": "^5.8.2"
+    "redis": "^5.8.3"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
     "@raypx/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "typescript": "catalog:dev"
   }
 }

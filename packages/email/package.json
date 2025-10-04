@@ -21,8 +21,8 @@
     "nodemailer": "^7.0.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "server-only": "^0.0.1",
-    "resend": "^6.1.1"
+    "resend": "^6.1.2",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@raypx/tsconfig": "workspace:*",
